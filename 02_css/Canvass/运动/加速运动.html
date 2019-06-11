@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>匀速运动</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var oGc = oCanva.getContext("2d");
+			var b = new Ball(10,10,10,0,2,500,500);
+			var av = 1;
+			(function go(){
+				b.fill(oGc);
+				b.x += av;
+				av += 0.2;
+				requestAnimationFrame(go);
+			})()
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="500" height="500"></canvas>
+</body>
+</html>

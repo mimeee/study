@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		canvas{
+			width: 700px;
+			height: 700px;
+			border: 1px solid #000;
+			background: #000;
+		}
+		div{
+			width: 700px;
+			height: 700px;
+			border: 1px solid #000;
+		}
+	</style>
+	
+
+</head>
+<body>
+<p>canvas默认大小 300*150</p>
+<p>canvas的宽高只能通过行间属性来设置，再通过js动态改变</p>
+	<canvas></canvas>
+	<div></div>
+	<script>
+		oCanvas = document.querySelector("canvas");
+		console.log(oCanvas.width);
+		console.log(window.getComputedStyle(oCanvas,null)["width"]);
+		console.log(oCanvas.style.height);
+		oDiv = document.getElementsByTagName("div")[0];
+		console.log(window.getComputedStyle(oDiv,null)["width"]);
+		console.log(oDiv.style.height);
+	</script>
+</body>
+</html>

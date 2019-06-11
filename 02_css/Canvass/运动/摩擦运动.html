@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>摩擦运动</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanvas = document.querySelector("#mycanvas");
+			var oGc = oCanvas.getContext("2d");
+			var width = oCanvas.width;
+			var height = oCanvas.height;
+			var cx = 10;
+			var cy = 450;
+			var r = 10;
+			var b = new Ball(cx,cy,r,0,2,width,height);
+			var fir = 0.98;
+			var v = 20;
+			(function go(){
+				b.fill(oGc);
+				b.x += v;
+				v *= fir;
+				var timer = requestAnimationFrame(go);
+			})()
+
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="1800" height="900"></canvas>
+</body>
+</html>

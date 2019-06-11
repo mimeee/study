@@ -1,0 +1,25 @@
+canvas提供两种输出文本的方式：
+    strokeText：描边文本
+    fillText：填充文本
+    fillStyle配合fillText使用，strokeStyle配合strokeText使用
+
+strokeText用法：
+cxt.strokeText( text， x,  y, [maxwidth] )
+text：需要输出的文本内容
+x：最左边的文本输出的横坐标位置
+y：最左边的文本的 左下角的纵坐标
+maxWidth：这个是可选参数，意思就是文本最多能占用maxWidth这么宽，如果文本的实际宽度比maxWidth宽，就会有一种压缩(被挤扁)的效果
+
+measureText：获取文本的宽度(长度)，它返回的是一个对象，对象有一个属性width，就是文本的长度了.
+cxt.measureText( text ).width
+
+    实例：利用measureText输出一段水平居中的文本
+
+font属性跟css是一样的用法
+cxt.font = "font-style font-weight font-size/line-height font-family"
+
+textAlign：文本水平对齐方式
+cxt.textAlign = 'start/end/left/right/center';
+start跟left差不多，end跟right差不多.
+
+

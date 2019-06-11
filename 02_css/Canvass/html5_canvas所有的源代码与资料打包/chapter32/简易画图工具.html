@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>windows简易画图工具 - by ghostwu</title>
+</head>
+
+<body>
+<div class="paint">
+    <div class="paint-header">
+        <ul>
+            <li class="active">形状</li>
+            <li>颜色</li>
+            <li>绘制类型</li>
+            <li>线条宽度</li>
+            <li>橡皮擦</li>
+        </ul>
+    </div>
+    <div class="paint-body">
+        <div class="siderbar">
+            <div class="item active" data-type="paint-shape">
+                <ul>
+                    <li class="active" data-role="line">线条</li>
+                    <li data-role="circle">圆形</li>
+                    <li data-role="rect">矩形</li>
+                    <li data-role="polygon">正多边形</li>
+                    <li data-role="arrow">箭头</li>
+                </ul>
+            </div>
+            <div class="item" data-type="paint-color">
+                <ul>
+                    <li data-role="strokeStyle">
+                        <input type="color" data-role="strokeStyle">
+                    </li>
+                    <li data-role="fillStyle">
+                        <input type="color" data-role="fillStyle">
+                    </li>
+                </ul>
+            </div>
+            <div class="item" data-type="paint-type">
+                <ul>
+                    <li data-role="stroke">描边</li>
+                    <li data-role="fill">填充</li>
+                </ul>
+            </div>
+            <div class="item" data-type="paint-line">
+                <ul>
+                    <li data-role="1">小号</li>
+                    <li data-role="4">中号</li>
+                    <li data-role="7">大号</li>
+                    <li>
+                        <input type="number" data-role="line-size" placeholder="请输入数字">
+                    </li>
+                </ul>
+            </div>
+            <div class="item" data-type="paint-erase">
+                <ul>
+                    <li>
+                        <input type="number" data-role="erase-size" placeholder="请输入数字">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var oPaintBody = document.querySelector( '.paint-body' );
+var oC = document.createElement( 'canvas' );
+oC.setAttribute( 'width', '830' );
+oC.setAttribute( 'height', '500' );
+oPaintBody.appendChild( oC );
+var aHeaderLi = document.querySelectorAll('.paint-header li'),
+        aItem = document.querySelectorAll('.paint-body .item'),
+        oCanvas = document.querySelector('.paint canvas'),
+        oGc = oCanvas.getContext('2d'),
+        cWidth = oCanvas.width, cHeight = oCanvas.height,
+        curItem = aItem[0],
+        aItemLi = curItem.querySelectorAll('li');
+
+for (let i = 0, len = aHeaderLi.length; i < len; i++) { //头部选项卡切换功能
+    aHeaderLi[i].onclick = function () {
+        for (let j = 0; j < len; j++) {
+            aHeaderLi[j].classList.remove('active');
+            aItem[j].style.display = 'none';
+        }
+        aItem[i].style.display = "block";
+        this.classList.add('active');
+        curItem = aItem[i];
+        aItemLi = curItem.querySelectorAll('li');
+        activeItem(aItemLi);
+    }
+}
+activeItem(aItemLi);
+var role = null;
+function activeItem(aItemLi) { //canvas左侧选项卡切换功能
+    for (let i = 0, len = aItemLi.length; i < len; i++) {
+        aItemLi[i].onclick = function () {
+            checkPaintType(this); //绘制类型
+            for (let j = 0; j < len; j++) {
+                aItemLi[j].classList.remove('active');
+            }
+            this.classList.add('active');
+        }
+    }
+}
+
+function Shape(canvasObj, cxtObj, w, h) {
+    this.oCanvas = canvasObj;
+    this.oGc = cxtObj;
+    this.oCanvas.width = w;
+    this.oCanvas.height = h;
+    this.fillStyle = '#000';
+    this.storkeStyle = '#000';
+    this.lineWidth = 1;
+    this.drawType = 'line';
+    this.paintType = 'stroke';
+    this.nums = 6; //正多边形的边数
+}
+
+Shape.prototype = {
+    init: function () {
+        this.oGc.fillStyle = this.fillStyle;
+        this.oGc.strokeStyle = this.strokeStyle;
+        this.oGc.lineWidth = this.lineWidth;
+    },
+    draw: function () {
+        var _this = this;
+        this.oCanvas.onmousedown = function (ev) {
+            _this.init();
+            var oEvent = ev || event,
+                    startX = oEvent.clientX - _this.oCanvas.offsetLeft,
+                    startY = oEvent.clientY - _this.oCanvas.offsetTop;
+            _this.oCanvas.onmousemove = function (ev) {
+                _this.oGc.clearRect(0, 0, _this.oCanvas.width, _this.oCanvas.height);
+                var oEvent = ev || event,
+                        endX = oEvent.clientX - _this.oCanvas.offsetLeft,
+                        endY = oEvent.clientY - _this.oCanvas.offsetTop;
+                _this[_this.drawType](startX, startY, endX, endY);
+            };
+            _this.oCanvas.onmouseup = function () {
+                _this.oCanvas.onmousemove = null;
+                _this.oCanvas.onmouseup = null;
+            }
+        }
+    },
+    line: function (x1, y1, x2, y2) {
+        this.oGc.beginPath();
+        this.oGc.moveTo(x1, y1);
+        this.oGc.lineTo(x2, y2);
+        this.oGc.closePath();
+        this.oGc.stroke();
+    },
+    circle: function (x1, y1, x2, y2) {
+        this.oGc.beginPath();
+        var r = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        this.oGc.arc(x1, y1, r, 0, 2 * Math.PI, false);
+        this.oGc.closePath();
+        this.oGc[this.paintType]();
+    },
+    rect: function (x1, y1, x2, y2) {
+        this.oGc.beginPath();
+        this.oGc.rect(x1, y1, x2 - x1, y2 - y1);
+        this.oGc[this.paintType]();
+    },
+    polygon: function (x1, y1, x2, y2) {
+        var angle = 360 / this.nums * Math.PI / 180;//边对应的角的弧度
+        var r = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        this.oGc.beginPath();
+        for (var i = 0; i < this.nums; i++) {
+            this.oGc.lineTo(x1 + r * Math.cos(angle * i), y1 + r * Math.sin(angle * i));
+        }
+        this.oGc.closePath();
+        this.oGc[this.paintType]();
+    }
+}
+
+var oShape = new Shape(oCanvas, oGc, cWidth, cHeight);
+function checkPaintType(liType) {
+    var dataType = liType.parentNode.parentNode.dataset.type;
+    var curType = liType.dataset.role;
+    switch (dataType) {
+        case 'paint-shape': //形状
+            oShape.drawType = curType;
+            if (curType == 'polygon') {
+                oShape.nums = prompt("请输入边数", 6);
+            }
+            oShape.draw();
+            break;
+        case 'paint-color': //绘制颜色
+            liType.children[0].onchange = function () {
+                oShape[this.dataset.role] = this.value;
+            }
+            oShape.draw();
+            break;
+        case 'paint-type': //绘制类型
+            oShape.paintType = curType;
+            oShape.draw();
+            break;
+    }
+}
+</script>
+<style>
+    .paint * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .paint ul,
+    .paint li {
+        list-style: none;
+    }
+
+    .paint li:hover {
+        cursor: pointer;
+    }
+
+    .paint {
+        width: 980px;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        overflow: hidden;
+    }
+
+    .paint .paint-header ul {
+        width: 980px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .paint .paint-header li {
+        float: left;
+        width: 120px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .paint li.active {
+        box-shadow: #666 0px 1px 8px inset;
+    }
+
+    .paint .paint-body .siderbar {
+        float: left;
+        width: 150px;
+        height: 500px;
+    }
+
+    .paint .paint-body .item {
+        width: 150px;
+        overflow: hidden;
+        display: none;
+        height: 500px;
+        border-right: 1px solid #ccc;
+    }
+
+    .paint .paint-body canvas {
+        float: right;
+    }
+
+    .paint .paint-body .item li {
+        height: 40px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        line-height: 40px;
+    }
+
+    .paint .paint-body .active {
+        display: block;
+    }
+</style>
+</body>
+</html>

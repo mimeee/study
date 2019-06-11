@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<style>
+    body {
+        background: #000;
+    }
+    #canvas {
+        background: white;
+    }
+</style>
+<script>
+    window.onload = function () {
+        var oCanvas = document.querySelector("#canvas"),
+                oGc = oCanvas.getContext('2d');
+
+        oGc.strokeStyle = 'red';
+        oGc.lineWidth = 10;
+        oGc.moveTo( 200, 100 );
+        oGc.lineTo( 500, 100 );
+        oGc.arcTo( 600, 100, 600, 200, 100 );
+        oGc.moveTo( 600, 200 );
+        oGc.lineTo( 600, 400 );
+        oGc.arcTo( 600, 500, 500, 500, 100 );
+        oGc.moveTo( 500, 500 );
+        oGc.lineTo( 200, 500 );
+        oGc.arcTo( 100, 500, 100, 400, 100 );
+        oGc.moveTo( 100, 400 );
+        oGc.lineTo( 100, 200 );
+        oGc.arcTo( 100, 100, 200, 100, 100 );
+        oGc.stroke();
+    }
+</script>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600"></canvas>
+</body>
+</html>

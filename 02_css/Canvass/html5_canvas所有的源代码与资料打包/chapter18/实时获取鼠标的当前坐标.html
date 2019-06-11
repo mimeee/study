@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas{
+            border:1px dashed #aaa;
+        }
+    </style>
+    <script src="../lib/chapter18.js"></script>
+    <script>
+        window.onload = function(){
+            var oCanvas = document.querySelector( "#canvas" ),
+                    oGc = oCanvas.getContext( '2d' ),
+                    width = oCanvas.width, height = oCanvas.height,
+                    oInfo = document.querySelector( "#info" ),
+                    oPos = G.getPos( oCanvas );
+            oCanvas.addEventListener( "mousemove", function(){
+
+                oGc.clearRect( 0, 0, width, height );
+
+                oGc.beginPath();
+                oGc.moveTo( oPos.x, 0 );
+                oGc.lineTo( oPos.x, height );
+
+                oGc.moveTo( 0, oPos.y );
+                oGc.lineTo( width, oPos.y );
+                oGc.closePath();
+
+                oGc.strokeStyle = '#09f';
+                oGc.stroke();
+
+                oInfo.innerHTML = '鼠标的当前坐标是:(' + oPos.x + ',' + oPos.y + ')';
+            }, false );
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="500" height="400"></canvas>
+<div id="info"></div>
+</body>
+</html>

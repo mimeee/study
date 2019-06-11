@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas{
+            border:1px dashed #aaa;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oCanvas = document.querySelector( "#canvas" ),
+                    oGc = oCanvas.getContext( '2d' ),
+                    width = oCanvas.width, height = oCanvas.height;
+
+            var oImg = new Image();
+            oImg.src = './img/mv.jpg';
+
+            oImg.onload = function(){
+//                oGc.shadowOffsetX = 5;
+//                oGc.shadowOffsetY = 5;
+                 oGc.shadowOffsetX = 0;
+                 oGc.shadowOffsetY = 0;
+                oGc.shadowColor = '#888';
+                oGc.shadowBlur = 20;
+                oGc.fillRect( 50, 20, 200, 200 );
+                oGc.drawImage( oImg, 50, 20 );
+            }
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="500" height="400"></canvas>
+</body>
+</html>

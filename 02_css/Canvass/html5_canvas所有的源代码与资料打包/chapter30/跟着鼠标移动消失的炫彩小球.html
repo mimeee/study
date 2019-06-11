@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>canvas炫彩小球 - By ghostwu</title>
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script>
+        function Ball(x, y, r, color) {
+            this.x = x || 0;
+            this.y = y || 0;
+            this.radius = r || 20;
+            this.color = color || '#09f';
+        }
+        Ball.prototype = {
+            constructor: Ball,
+            stroke: function (cxt) {
+                cxt.strokeStyle = this.color;
+                cxt.beginPath();
+                cxt.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                cxt.closePath();
+                cxt.stroke();
+            },
+            fill: function (cxt) {
+                cxt.fillStyle = this.color;
+                cxt.beginPath();
+                cxt.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                cxt.closePath();
+                cxt.fill();
+            },
+            update : function( balls ){
+                this.x += this.vx;
+                this.y += this.vy;
+                this.radius--;
+                if ( this.radius < 0 ) {
+                    for( var i = 0; i < balls.length; i++ ){
+                        if( balls[i] == this ) {
+                            balls.splice( i, 1 );
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            }
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d'),
+                    width = oCanvas.width, height = oCanvas.height,
+                    balls = [], n = 50;
+            function getRandColor() {
+                return '#' + (function (color) {
+                            return (color += '0123456789abcdef'[Math.floor(Math.random() * 16)]) && (color.length == 6) ? color : arguments.callee(color);
+                        })('');
+            }
+            oCanvas.addEventListener( 'mousemove', function( ev ){
+//                oGc.clearRect( 0, 0, width, height );
+                var oEvent = ev || event;
+                var ball = new Ball( oEvent.clientX, oEvent.clientY, 30, getRandColor());
+                ball.vx = (Math.random() * 2 - 1) * 5;
+                ball.vy = (Math.random() * 2 - 1) * 5;
+                balls.push( ball );
+//                for( var i = 0; i < balls.length; i++ ){
+//                    balls[i].fill( oGc );
+//                }
+            }, false );
+
+            ( function move(){
+                oGc.clearRect( 0, 0, width, height );
+                for( var i = 0; i < balls.length; i++ ){
+                    balls[i].update( balls ) && balls[i].fill( oGc );
+                }
+                requestAnimationFrame( move );
+            } )();
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="1200" height="600"></canvas>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width:0px;
+            height:40px;
+            border-radius:20px;
+            background:#09f;
+            text-align:center;
+            font:bold 30px/40px '微软雅黑';
+            color:white;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oBtn = document.querySelector( "input" ),
+                    oBox = document.querySelector( "div" ),
+                    timer = null, curWidth = 0,
+                    getStyle = function( obj, name, value ){
+                        if( obj.currentStyle ) {
+                            return obj.currentStyle[name];
+                        }else {
+                            return getComputedStyle( obj, false )[name];
+                        }
+                    };
+            oBtn.onclick = function(){
+                cancelAnimationFrame( timer );
+                oBox.style.width = '0';
+                timer = requestAnimationFrame( function go(){
+                    curWidth = parseInt( getStyle( oBox, 'width' ) );
+                    if ( curWidth < 1000 ) {
+                        oBox.style.width = oBox.offsetWidth + 10 + 'px';
+                        oBox.innerHTML = parseInt( getStyle( oBox, 'width' ) ) / 10 + '%';
+                        timer = requestAnimationFrame( go );
+                    }else {
+                        cancelAnimationFrame( timer );
+                    }
+                } );
+            }
+        }
+    </script>
+</head>
+<body>
+<div>0%</div>
+<p><input type="button" value="ready!Go"></p>
+</body>
+</html>

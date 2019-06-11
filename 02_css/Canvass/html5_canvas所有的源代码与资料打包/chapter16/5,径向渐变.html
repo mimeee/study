@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas{
+            border:1px dashed #aaa;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oCanvas = document.querySelector( "#canvas" ),
+                    oGc = oCanvas.getContext( '2d' ),
+                    width = oCanvas.width, height = oCanvas.height;
+
+            oGc.beginPath();
+            oGc.arc( 100, 100, 100, 0, 360 * Math.PI / 180, false );
+            oGc.closePath();
+
+            var radial = oGc.createRadialGradient( 150, 50, 10, 100, 100, 100 );
+            radial.addColorStop( 0.1, 'white' );
+            radial.addColorStop( 0.6, 'orange' );
+            radial.addColorStop( 1, 'red' );
+            oGc.fillStyle = radial;
+            oGc.fill();
+
+            oGc.beginPath();
+            oGc.arc( 320, 100, 100, 0, 360 * Math.PI / 180, false );
+            oGc.closePath();
+
+            var radial2 = oGc.createRadialGradient( 280, 50, 10, 320, 100, 100 );
+            radial2.addColorStop( 0.1, 'white' );
+            radial2.addColorStop( 0.6, 'orange' );
+            radial2.addColorStop( 1, 'rgba( 255, 0, 0, 0.5 )' );
+            oGc.fillStyle = radial2;
+            oGc.fill();
+
+            oGc.beginPath();
+            oGc.lineWidth = 1;
+            oGc.strokeStyle = '#eee';
+            for( var i = 0; i < width; i += 10 ){
+                oGc.moveTo( i, 0 );
+                oGc.lineTo( i, height );
+            }
+            for( var j = 0; j < height; j += 10 ){
+                oGc.moveTo( 0, j );
+                oGc.lineTo( width, j );
+            }
+            oGc.closePath();
+            oGc.stroke();
+
+
+            oGc.beginPath();
+            oGc.fillStyle = 'red';
+            oGc.strokeStyle = 'blue';
+            oGc.moveTo( 150, 0 );
+            oGc.lineTo( 150, height );
+
+            oGc.moveTo( 0, 50 );
+            oGc.lineTo( width, 50 );
+            oGc.fillText( '(150,50)', 170, 30 );
+            oGc.stroke();
+            oGc.closePath();
+
+            oGc.beginPath();
+            oGc.strokeStyle = 'yellow';
+            oGc.fillStyle = 'black';
+            oGc.moveTo( 100, 0 );
+            oGc.lineTo( 100, height );
+            oGc.moveTo( 0, 100 );
+            oGc.lineTo( width, 100 );
+            oGc.fillText( '(100,100)', 30, 120 );
+            oGc.stroke();
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="500" height="400"></canvas>
+</body>
+</html>

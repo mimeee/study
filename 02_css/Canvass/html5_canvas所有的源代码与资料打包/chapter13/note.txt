@@ -1,0 +1,32 @@
+切割图片clip
+用法：
+cxt.clip()
+步骤：
+1，绘制剪切区域
+2，调用裁剪方法clip
+3，加载被剪切的素材(图片或者图形等)
+
+备注: 裁剪的区域坐标还是相对canvas.
+
+实例一：圆形裁剪
+    oGc.arc( 200, 200, 100, 0, 360 * Math.PI / 180, false );
+    oGc.drawImage( oImg, 100, 100 );
+实例二：矩形裁剪
+    oGc.rect( 10, 10, 150, 150 )
+    oGc.drawImage( oImg, 0, 0 );
+    注意：如果用矩形作为裁剪区域，请使用rect，
+    不能使用strokeRect和fillRect
+
+实例三： 用canvas裁剪的图案，填充canvas
+    oImg.onload = function () { //这个一个异步加载，一定要把填充放在图片完成之后额
+        oNewGc.drawImage(oImg, 0, 0);
+        var pattern = oGc.createPattern( oNewCanvas, 'repeat' );
+        oGc.fillStyle = pattern;
+        oGc.fillRect( 0, 0, width, height );
+    }
+
+
+
+
+
+

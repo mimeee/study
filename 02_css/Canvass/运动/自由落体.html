@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自由落体</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var width = oCanva.width;
+			var height = oCanva.height;
+			var r = 10;
+			var oGc = oCanva.getContext("2d");
+			var b = new Ball(900,10,r,0,2,width,height);
+			var v = 0
+			var g = 0.5;
+			var bound = -0.7;
+			(function go(){
+				b.fill(oGc);
+				b.y += v;
+				v += g;
+				var timer = requestAnimationFrame(go);
+				if(b.y >= height){
+					b.y = height - r; 
+					b.fill(oGc);
+					v *= bound;		
+					if(v>-4.2999){
+						v = 0;
+						cancelAnimationFrame(timer);
+					}
+				}
+				
+			})()
+
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="1800" height="900"></canvas>
+</body>
+</html>

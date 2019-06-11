@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标移动特效</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var width = oCanva.width;
+			var height = oCanva.height;
+			var oGc = oCanva.getContext("2d");
+			var balls = [];
+			var n = 10;
+			(function go(){
+				oGc.clearRect(0,0,width,height);
+				for(let i = 0;i < balls.length;i++){
+					balls[i].fill(oGc);
+					balls[i].r --;
+					if(balls[i].r < 1){
+						balls.splice(i,1);
+					}
+				}
+				requestAnimationFrame(go);
+			})();
+			oCanva.onmousemove = function(e){
+				var oEvent = e || event;
+				var x = e.clientX - this.offsetLeft + random(50,10)*[-1,1][Math.floor(Math.random()*2)];
+				var y = e.clientY - this.offsetTop + random(50,10)*[-1,1][Math.floor(Math.random()*2)];
+				var r = random(20,10);
+				var col = color();
+				for(let i = 0;i < n;i++){
+					var b = new Ball(x,y,r,0,2,width,height,col);
+					balls.push(b)
+				}	
+			}
+		}
+			function color(){
+				var col = "#";
+				for(let i = 0;i < 6;i++){
+					col += "0123456789abcdef"[Math.floor(Math.random()*16)];
+				}
+				return col;
+			}
+
+			function random(mul,add){
+				return Math.random()*mul + add;
+			}
+	</script>
+</head>
+<body>
+<div id="box"></div>
+	<canvas id="mycanvas" width="1800" height="900"></canvas>
+</body>
+</html>

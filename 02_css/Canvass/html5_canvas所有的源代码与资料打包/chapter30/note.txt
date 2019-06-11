@@ -1,0 +1,14 @@
+1，小球产生的位置跟着鼠标
+new Ball( x, y, r, color );
+oEvent.clientX, oEvent.ClientY
+
+2，产生好多个小球
+    for循环生成的小球放到balls数组
+3，小球慢慢消失
+    半径从初始值---->变成0--->小球消失
+4，小球颜色不同
+getRandColor
+
+
+
+

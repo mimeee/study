@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下雪</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+		canvas{
+			background: #000;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var width = oCanva.width = window.screen.availWidth;
+			var height = oCanva.height = window.screen.availHeight;
+			var oGc = oCanva.getContext("2d");
+			var balls = [];
+			var n = 1000;
+			for(let i = 0;i < n;i++){
+				var x = width * Math.random();
+				var r = random(5,5);
+				var y = 400 * Math.random() * [-1,1][Math.floor(Math.random()*2)];
+				var col = "rgba(255,255,255,"+random(1,0)+")";				
+				var b = new Ball(x,y,r,0,2,width,height,col);
+				b.vy = random(5,5);
+				balls.push(b);
+			}
+			
+			(function go(){
+				oGc.clearRect(0,0,width,height);
+				for(let i = 0;i < balls.length; i++){
+					balls[i].y += balls[i].vy;
+					balls[i].fill(oGc);
+					if(balls[i].outterBoundary() == 'y-bottom'){
+						balls[i].update(width * Math.random(),10 * Math.random() * [-1,1][Math.floor(Math.random()*2)],random(5,5));
+					}
+				}
+				var timer = requestAnimationFrame(go);
+			})()
+
+		}
+			function random(mul,add){
+				return Math.random()*mul+add;
+			}
+
+			function color(){
+				var col = "#";
+				for(let i = 0;i < 6;i++){
+					col += "0123456789abcdef"[Math.floor(Math.random()*16)];
+				}
+				return col;
+			}
+
+	</script>
+</head>
+<body>
+<div id="box"></div>
+	<canvas id="mycanvas"></canvas>
+</body>
+</html>

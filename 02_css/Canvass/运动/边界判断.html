@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自由落体</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var width = oCanva.width;
+			var height = oCanva.height;
+			var r = 10;
+			var oGc = oCanva.getContext("2d");
+			var b = new Ball(900,10,r,0,2,width,height);
+			var v = 35;
+			b.fill(oGc);
+			document.onkeydown = function(e){
+				var oEvent = e || event;
+				var flag = false;
+				switch(oEvent.keyCode){
+					case 37:
+						b.x -= v;
+						flag = true;
+						break;
+					case 38:
+						b.y -= v;
+						flag = true;
+						break;
+					case 39:
+						b.x += v;
+						flag = true;
+						break;
+					case 40:
+						b.y += v;
+						flag = true;
+						break;
+				}
+				if(flag){
+					boundary(b,r);
+					b.fill(oGc);
+				}
+			}
+
+
+			function boundary(obj,r){
+				if(obj.x < r){
+					obj.x = r;
+					console.log(1);
+				}else if(obj.x > obj.width- r){
+					obj.x = obj.width- r
+					console.log(2);
+				}else if(obj.y < r){
+					obj.y = r;
+					console.log(3);
+				}else if(obj.y > obj.height - r){
+					obj.y = obj.height - r;	
+					console.log(4);
+				}
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="1800" height="900"></canvas>
+</body>
+</html>

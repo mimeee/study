@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!--作者:ghostwu(吴华)-->
+    <meta charset="UTF-8">
+    <title></title>
+<style>
+    #canvas{
+        border:1px dashed #666;
+    }
+</style>
+<script>
+    window.onload = function(){
+        var oCanvas = document.querySelector( "#canvas" ),
+                oGc = oCanvas.getContext( '2d' ),
+                width = oCanvas.width,
+                height = oCanvas.height,
+                text = '跟着ghostwu学习canvas';
+
+        oGc.font = 'bold 16px 微软雅黑';
+        oGc.fillStyle = '#09f';
+
+        var xPos = ( width ) / 2;
+        oGc.moveTo( xPos, 0 );
+        oGc.lineTo( xPos, height );
+        oGc.stroke();
+
+        oGc.textAlign = 'start';
+        oGc.fillText( text, 300, 30 );
+        oGc.textAlign = 'left';
+        oGc.fillText( text, 300, 60 );
+        oGc.textAlign = 'right';
+        oGc.fillText( text, 300, 90 );
+        oGc.textAlign = 'end';
+        oGc.fillText( text, 300, 120 );
+        oGc.textAlign = 'center';
+        oGc.fillText( text, 300, 150 );
+    }
+</script>
+</head>
+<body>
+<canvas id="canvas" width="600" height="300"></canvas>
+</body>
+</html>

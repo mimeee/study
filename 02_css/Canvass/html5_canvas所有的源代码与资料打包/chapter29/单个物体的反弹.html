@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script src="../lib/ball.js"></script>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d'),
+                    width = oCanvas.width, height = oCanvas.height,
+                    ball = new Ball(width / 2, height / 2),
+                    vx = Math.random() * 2 + 5,
+                    vy = Math.random() * 2 + 5;
+            ball.fill(oGc);
+            ( function move(){
+                oGc.clearRect( 0, 0, width, height );
+                ball.x += vx;
+                ball.y += vy;
+                ball.fill( oGc );
+
+                if ( ball.x < ball.radius ) { //碰到左边的边界
+                    ball.x = ball.radius;
+                    vx = -vx;
+                }else if ( ball.y < ball.radius ){
+                    ball.y = ball.radius;
+                    vy = -vy;
+                }else if ( ball.x > width - ball.radius ){
+                    ball.x = width - ball.radius;
+                    vx = -vx;
+                }else if ( ball.y > height - ball.radius ){
+                    ball.y = height - ball.radius;
+                    vy = -vy;
+                }
+                requestAnimationFrame( move );
+            } )();
+        }
+    </script>
+</head>
+
+<body>
+<canvas id="canvas" width="1200" height="600"></canvas>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>边界穿透</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var width = oCanva.width;
+			var height = oCanva.height;
+			var r = 30;
+			var oGc = oCanva.getContext("2d");
+			var b = new Ball(900,30,r,0,2,width,height);
+			
+			b.fill(oGc);
+			document.onkeydown = function(e){
+				var v = 30;
+				key(e,b,v)
+			};
+
+
+			function key(e,obj,v){
+				var oEvent = e || event;
+				var flag = false;
+				switch(oEvent.keyCode){
+					case 37:
+						obj.x -= v;
+						flag = true;
+						break;
+					case 38:
+						obj.y -= v;
+						flag = true;
+						break;
+					case 39:
+						obj.x += v;
+						flag = true;
+						break;
+					case 40:
+						obj.y += v;
+						flag = true;
+						break;
+				}
+				if(flag){
+					var result = b.outterBoundary();
+					switch(result){
+						case "x-left":
+							b.x = b.width + b.r;
+							break;
+						case "x-right":
+							b.x = -b.r;
+							break;
+						case "y-top":
+							b.y = b.r + b.height;
+							break;
+						case "y-bottom":
+							b.y = b.r + b.height;
+							break;
+					}
+					b.fill(oGc);
+				}
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="1800" height="900"></canvas>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<style>
+    body {
+        background: #000;
+    }
+
+    #canvas {
+        background: white;
+    }
+</style>
+<script>
+    window.onload = function () {
+        var oCanvas = document.querySelector("#canvas"),
+                oGc = oCanvas.getContext('2d');
+
+        var x1 = 50,
+            y1 = 100,
+            cx = 500,
+            cy = 100,
+            x2 = 450,
+            y2 = 200;
+        oGc.lineWidth = 10;
+        oGc.strokeStyle = 'red';
+        oGc.moveTo( x1, y1 );
+        oGc.arcTo( cx, cy, x2, y2, 50 );
+        oGc.stroke();
+    }
+</script>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600"></canvas>
+</body>
+</html>

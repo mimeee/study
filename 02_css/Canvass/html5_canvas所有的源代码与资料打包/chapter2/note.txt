@@ -1,0 +1,43 @@
+cxt.moveTo( x1, y1 )： 将画笔移动到x1, y1这个点
+
+cxt.lineTo( x2, y2 )：将画笔从起点开始画直线，一直画到终点坐标( x2, y2 )
+
+cxt.stroke();用画笔连线，moveTo,lineTo并不会产生实际的线条
+
+x1,y1,x2,y2是点的坐标，canvas的坐标原点在canvas的左上角.
+
+
+画矩形的API
+
+通过线条我们也能拼接出一个矩形，但是代码太多，每个点都要把握，显得比较麻烦，canvas为我们提供了画矩形的API，
+有两种，
+
+一种是描边矩形，
+
+cxt.strokeStyle = 属性值
+
+cxt.strokeRect( x, y, width, height )
+
+strokeStyle后面的属性是为了修饰线条的，主要包括( 颜色值，渐变色，图案 ），颜色支持英文单词，十六进制，RGB, RGBA格式的颜色设置.
+
+strokeRect: x, y为矩形的左上角坐标，width和height为矩形的宽度和高度
+
+
+一种是填充矩形.
+cxt.fillStyle = 属性值;
+
+cxt.fillRect( x, y, width, height );
+
+跟上面是一样的，只是把stoke换成了fill，fill就是填充的意思
+
+
+另一种绘制矩形的API：cxt.rect( x, y, width, height );
+
+他与strokeRect和fillRect有什么区别呢？
+
+1，共同点：参数的意思相同
+
+2，不同点，调用strokeRect和fillRect会立即绘制出矩形，而rect并不会，他需要调用stoke()或者fill()方法，才能把矩形绘制出来
+
+
+清空矩形API：cxt.clearRect( x, y, width, height ); 参数跟strokeRect,fillRect意思一样

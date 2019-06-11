@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d');
+
+            var oImg = new Image();
+            oImg.src = './img/mv.jpg';
+            oImg.onload = function () {
+                oGc.drawImage(oImg, 10, 10);
+                var imgData = oGc.getImageData(10, 10, 200, 200),
+                        data = imgData.data,
+                        imgData2 = oGc.createImageData( imgData ),
+                        data2 = imgData2.data;
+                for( var i = 0; i < imgData2.width * imgData2.height * 4; i += 4 ) {
+                    data2[i] = 255;
+                    data2[i+1] = 0;
+                    data2[i+2] = 0;
+                    data2[i+3] = 30;
+                }
+                //处理完之后，再次输出
+                oGc.putImageData( imgData2, 220, 10 );
+            }
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="500" height="400"></canvas>
+</body>
+</html>

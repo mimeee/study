@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>抛物线</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var oGc = oCanva.getContext("2d");
+			//var b = new Ball(10,300,10,0,2,500,500);
+			var m = new Ball(20,250)
+			var av = 1;
+			var ay = -8;
+			var aty = 0.2;
+			// (function go(){
+			// 	b.stroke(oGc);
+			// 	b.x += 1;
+			// 	b.y += ay;
+			// 	ay += aty;
+			// 	requestAnimationFrame(go);
+			// })()
+			(function go(){
+				m.line(oGc);
+				m.x += 1;
+				m.y += ay;
+				ay += aty;
+				if(ay>5){
+					aty = -0.2;
+				}else if(ay<-5){
+					aty = 0.2;
+				}
+				var timer = requestAnimationFrame(go);
+				if(m.x > 490){
+					cancelAnimationFrame(timer);
+				}
+			})()
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="500" height="500"></canvas>
+</body>
+</html>

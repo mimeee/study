@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!--作者:ghostwu(吴华)-->
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background:red;
+            left: 0px;
+            top:0px;
+        }
+    </style>
+    <script>
+        function getPos( ev ){
+           var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+            return {
+                x : ev.clientX + scrollLeft,
+                y : ev.clientY + scrollTop
+            }
+        }
+       document.onmousemove = function( ev ){
+           var oBox = document.querySelector( "#box" );
+            var oEvent = ev || event;
+//            oBox.style.left = oEvent.clientX + 'px';
+//           oBox.style.top = oEvent.clientY + 'px';
+           var oPos = getPos( oEvent );
+            oBox.style.left = oPos.x + 'px';
+           oBox.style.top = oPos.y + 'px';
+       }
+    </script>
+</head>
+<body style="height:2000px;">
+<div id="box"></div>
+</body>
+</html>

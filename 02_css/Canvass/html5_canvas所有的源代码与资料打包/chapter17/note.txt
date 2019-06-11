@@ -1,0 +1,31 @@
+requestAnimationFrame
+
+在requestAnimationFrame出现之前，我们一般都用setTimeout和setInterval，
+那么html5为什么新增一个requestAnimationFrame，他的出现是为了解决什么问题？
+
+优势与特点：
+1)requestAnimationFrame会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，
+并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率
+2)在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的CPU、GPU和内存使用量
+3)requestAnimationFrame是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，
+并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销
+
+一句话就是：这玩意性能高，不会卡屏，根据不同的浏览器自动调整帧率。如果看不懂或者不理解，
+也没有什么关系，这玩意跟浏览器渲染原理有关。我们先学会使用它！
+
+如何使用requestAnimationFrame？
+使用方式跟定时器setTimeout差不多，不同之处在于，他不需要设置时间间隔参数
+var timer = requestAnimationFrame( function(){
+     console.log( '定时器代码' );
+ } );
+
+setTimeout( function(){}, 时间间隔 );
+参数是一个回调函数，返回值是一个整数，用来表示定时器的编号.
+
+
+
+
+
+
+
+

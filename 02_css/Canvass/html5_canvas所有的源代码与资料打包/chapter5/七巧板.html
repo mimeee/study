@@ -1,0 +1,41 @@
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d'),
+                    width = oCanvas.width, height = oCanvas.height,
+                    tangram = [
+                        { p: [{ x: 0, y: 0 }, { x: 800, y: 0 }, { x: 400, y: 400 }], color: "#caff67" }, //正上方绿色三角形区域
+                        { p: [{ x: 0, y: 0 }, { x: 400, y: 400 }, { x: 0, y: 800 }], color: "#67becf" }, //左方蓝色三角形区域
+                        { p: [{ x: 800, y: 0 }, { x: 800, y: 400 }, { x: 600, y: 600 }, { x: 600, y: 200 }], color: "#ef3d61" },
+                        { p: [{ x: 600, y: 200 }, { x: 600, y: 600 }, { x: 400, y: 400 }], color: "#f9f51a" },
+                        { p: [{ x: 400, y: 400 }, { x: 600, y: 600 }, { x: 400, y: 800 }, { x: 200, y: 600 }], color: "#a54c09" },
+                        { p: [{ x: 200, y: 600 }, { x: 400, y: 800 }, { x: 0, y: 800 }], color: "#fa8ccc" },
+                        { p: [{ x: 800, y: 400 }, { x: 800, y: 800 }, { x: 400, y: 800 }], color: "#f6ca29" }
+                    ];
+            for (var i = 0; i < tangram.length; i++) {
+                draw( oGc, tangram[i]);
+            };
+            function draw( cxt, piece ) {
+                cxt.beginPath();
+                cxt.moveTo(piece.p[0].x, piece.p[0].y);
+                for (var i = 1; i < piece.p.length; i++) {
+                    cxt.lineTo(piece.p[i].x, piece.p[i].y);
+                }
+                cxt.closePath();
+
+                cxt.fillStyle = piece.color;
+                cxt.fill();
+            }
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="800" height="800"></canvas>
+</body>

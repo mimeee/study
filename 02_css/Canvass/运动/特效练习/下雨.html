@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下雪</title>
+	<script src="getScroll.js"></script>
+	<script src="rain.js"></script>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+		canvas{
+			background: #000;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanva = document.querySelector("#mycanvas");
+			var width = oCanva.width = window.screen.availWidth;
+			var height = oCanva.height = window.screen.availHeight;
+			var oGc = oCanva.getContext("2d");
+			var rains = [];
+			var n = 80;
+			for(let i = 0;i < n;i++){
+				var r = new Rain(width,height,Math.random()*4+2);
+				rains.push(r);
+			}
+
+			(function go(){
+				oGc.fillStyle = "rgba(0,0,0,0.1)";
+				oGc.rect(0,0,width,height);
+				oGc.fill();	
+				for(let i = 0; i<rains.length;i++){
+					rains[i].draw(oGc);
+				}		
+				requestAnimationFrame(go);
+			})()
+		}
+	</script>
+</head>
+<body>
+<div id="box"></div>
+	<canvas id="mycanvas"></canvas>
+</body>
+</html>

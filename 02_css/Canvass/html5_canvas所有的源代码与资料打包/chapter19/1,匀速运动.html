@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d'),
+                    width = oCanvas.width, height = oCanvas.height,
+                    x = 0;
+            function drawBall( x, y, cxt ){
+                cxt.fillStyle = '#09f';
+                cxt.beginPath();
+                cxt.arc( x, y, 20, 0, 2 * Math.PI );
+                cxt.closePath();
+                cxt.fill();
+            }
+            ( function linear(){
+                oGc.clearRect( 0, 0, width, height );
+                drawBall( x, height / 2, oGc );
+                x += 2;
+                requestAnimationFrame( linear );
+            } )();
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="1200" height="600"></canvas>
+</body>
+</html>

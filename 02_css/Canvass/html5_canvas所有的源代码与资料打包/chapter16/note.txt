@@ -1,0 +1,29 @@
+一、线形渐变
+线形渐变指的是一条直线上发生的渐变。
+用法：
+var linear = cxt.createLinearGradient( x1, y1, x2, y2 );
+linear.addColorStop( value1, color1 );
+linear.addColorStop( value2, color2 );
+.....
+oGc.fillStyle = linear
+oGc.fill();
+
+1) createLinearGradient创建一个线形渐变对象. x1, y1表示渐变的起点. x2, y2表示渐变的终点.
+2)addColorStop在某处添加渐变颜色值
+3)fillStyle：把渐变对象作为填充样式
+4)调用fill进行渐变填充
+
+
+二、径向渐变
+颜色渐变从一个起点向各个方向渐变，用法跟线形渐变差不多，只不过创建渐变的时候用的是另一个函数
+var radial = cxt.createRadialGradient( x1, y1, r1, x2, y2, r2 )
+....下面的步骤跟线形渐变一样，不再重复了
+x1, y1起始点的圆心坐标，r1: 起始点 圆的半径
+x2，y2结束点的圆心坐标，r2:结束点 圆所在的半径
+
+三、阴影设置
+跟css3的边框阴影用法差不多.
+cxt.shadowOffsetX: 水平阴影，可以设置正负数, 正数->向右偏移，负数->向左偏移
+cxt.shadowOffsetY:  垂直阴影，可以设置正负数，正数->向下偏移，负数->向上偏移
+cxt.shadowColor: 阴影的颜色
+cxt.shadowBlur: 阴影的模糊范围

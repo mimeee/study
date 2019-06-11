@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d');
+
+            var imgData = oGc.createImageData( 200, 200 ),
+                    data = imgData.data;
+            for( var i = 0; i < imgData.width * imgData.height * 4 ; i += 4 ){
+                data[i] = 0;
+                data[i+1] = 0;
+                data[i+2] = 255;
+                data[i+3] = 100;
+            }
+            oGc.putImageData( imgData, 10, 10 );
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="500" height="400"></canvas>
+</body>
+</html>

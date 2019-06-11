@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #canvas {
+            border: 1px dashed #aaa;
+        }
+    </style>
+    <script src="../lib/ball.js"></script>
+    <script>
+        window.onload = function () {
+            var oCanvas = document.querySelector("#canvas"),
+                    oGc = oCanvas.getContext('2d'),
+                    width = oCanvas.width, height = oCanvas.height,
+                    ball = new Ball(width / 2, height / 2);
+            ball.fill( oGc );
+            addEventListener("keydown", function (ev) {
+                oGc.clearRect(0, 0, width, height);
+                var oEvent = ev || event;
+                switch (oEvent.keyCode) {
+                    case 37:
+                        ball.x -= 20;
+                        checkBorder();
+                        ball.fill(oGc);
+                        break;
+                    case 39:
+                        ball.x += 20;
+                        checkBorder();
+                        ball.fill(oGc);
+                        break;
+                    case 38:
+                        ball.y -= 20;
+                        checkBorder();
+                        ball.fill(oGc);
+                        break;
+                    case 40:
+                        ball.y += 20;
+                        checkBorder();
+                        ball.fill(oGc);
+                        break;
+                }
+            }, false);
+            function checkBorder() {
+                if ( ball.x < ball.radius ) { //碰到左边界
+                    ball.x = ball.radius;
+                } else if ( ball.y < ball.radius ) { //碰到上边界
+                    ball.y = ball.radius;
+                } else if ( ball.x > width - ball.radius ) { //碰到右边界
+                    ball.x = width - ball.radius;
+                }else if ( ball.y > height - ball.radius ){
+                    ball.y = height - ball.radius;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+<canvas id="canvas" width="1200" height="600"></canvas>
+</body>
+</html>

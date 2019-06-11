@@ -1,0 +1,29 @@
+一、canvas怎么加载图片？
+canvas提供3种图片加载的API调用方式.
+drawImage( image, dx, dy )
+drawImage( image, dx, dy, dw, dh )
+drawImage( image, sx, sy, sw, sh, dx, dy, dw, dh )
+
+image:就是图片对象， 这个图片对象可以是动态创建出来的，也可以是页面上已经存在的图片元素
+dx, dy: 就是图片需要加载到canvas上的坐标位置
+dw,dh：如果加载之后的图片尺寸不对，可以通过这两个参数，调整宽度与高度
+sx,sy,sw,sh: s就是source的意思，这四个参数是第三种调用方式特有的，
+第三种调用方式就是允许裁剪图片的某部分，然后再加载到canvas画布上.
+对于动态创建的图片对象，一定要用onload把这张图片加载完成之后，才能渲染在canvas上，否则是不会渲染的.
+
+二、图片的平铺
+css的background有平铺样式background-repeat，
+他有4个值( no-repeat【不平铺】, repeat-x【水平平铺】，repeat-y【垂直平铺】，repeat【水平和垂直两个方向都平铺】）.
+canvas跟这个是类似的，用法：
+var pattern = cxt.createPattern( image, type )
+cxt.fillStyle = pattern
+cxt.fillRect()
+image就是图片对象，type就是平铺样式( no-repeat, repeat-x, repeat-y, repeat ).
+fillStyle可以给它赋3种值：颜色、图案、渐变色。颜色在之前已经使用过很多次了.
+
+三、用canvas填充canvas：
+创建一个新的canvas，width:200,height:200,
+然后再创建一个原心100, 100，半径100的圆，
+用这个圆作为填充样式填充到canvas.
+
+

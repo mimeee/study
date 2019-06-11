@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function(){
+            var aInput = document.querySelectorAll( "input" ),
+                    timer = null;
+            aInput[0].onclick = function(){
+                timer = requestAnimationFrame( function say(){
+                    console.log( 1 );
+                    timer = requestAnimationFrame( say );
+                } );
+            };
+            aInput[1].onclick = function(){
+                cancelAnimationFrame( timer );
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="开启">
+<input type="button" value="关闭">
+</body>
+</html>

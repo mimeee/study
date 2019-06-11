@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" height="300" width="1500"></canvas>
+	<script>
+		var oCanva = document.querySelector("#myCanvas");
+		
+		
+		var balls = [];
+		for(let i = 0;i < 40;i++){
+			var obj = generateRan();
+			var ball = new Ball({
+				x:obj.x,
+				y:obj.y,
+				r:obj.r,
+				ax:obj.ax,
+				ay:obj.ay,
+				ar:obj.ar,
+				color:setColor()
+			},oCanva);
+			balls.push(ball);
+		}
+
+
+
+		function generateRan(){
+			var randoms = {};
+			randoms.x = Math.floor(Math.random()*1500)+20;
+			randoms.y = Math.floor(Math.random()*300)+20;
+			randoms.r = Math.floor(Math.random()*50)+20;
+			randoms.ax = Math.floor(Math.random()*20)+1;
+			randoms.ay = Math.floor(Math.random()*10)+2;
+			randoms.ar = Math.floor(Math.random()*2)+1;
+			return randoms;
+		}
+		
+		
+
+		(function go(){
+			var timer = requestAnimationFrame(go);
+			balls[1].clearPic();
+			for(let i = 0;i<balls.length;i++){
+				balls[i].drawCircle();
+				
+				balls[i].x += balls[i].ax;
+				balls[i].y += balls[i].ay;
+				balls[i].r += balls[i].ar;
+
+				var border = balls[i].innerBorder();
+				if(border === "left"){
+					balls[i].ax = -Math.abs(balls[i].ax);
+				};
+				if(border === "right"){
+					balls[i].ax = Math.abs(balls[i].ax);
+				};
+				if(border === "top"){
+					balls[i].ay = Math.abs(balls[i].ay);
+				};	
+				if(border === "bottom"){
+					balls[i].ay = -Math.abs(balls[i].ay);
+				};	
+				if(balls[i].r >= balls[i].initR){
+					balls[i].ar = -Math.abs(balls[i].ar);
+				}
+				if(balls[i].r <= 0){
+					balls[i].r = Math.abs(balls[i].ar);
+					balls[i].ar = Math.abs(balls[i].ar);
+				}
+				// if(ball.r <= 0){
+				// 	cancelAnimationFrame(timer);
+				// }
+			}			
+		})()
+
+		function setColor(){
+			var color = "#";
+			for(let i = 0;i<6;i++){
+				color += "0f123bc456789ae0f123bc456789ae"[Math.floor(Math.random()*30)]
+			}
+			return color;
+		}
+
+	</script>
+</body>
+</html>

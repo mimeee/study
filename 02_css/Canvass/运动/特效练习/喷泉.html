@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>边界穿透</title>
+	<script src="getScroll.js"></script>
+	<script src="ball.js"></script>
+	<style>
+		canvas{
+			border: 1px solid #000;	
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oCanvas = document.querySelector("#mycanvas");
+			var oGc = oCanvas.getContext("2d");
+			var width = oCanvas.width;
+			var height = oCanvas.height;
+			var oBox = document.querySelector("#box");
+			function Color(){
+				var col = "#";
+				for(let i = 0;i < 6; i++){
+					col += "0123456789abcdef"[Math.floor(Math.random()*16)];
+				}
+				return col;
+			}
+			var n = 150;
+			var balls = [];
+			for(let i = 0;i<n;i++){			
+				var color = Color();
+				var r = 30;
+				var b = new Ball(width/2,height/2,r,0,2,width,height,color);
+				b.xv = (Math.random()*2-1)*10;
+				b.yv = (Math.random()*2-1)*25;
+				b.ay = 1;	
+				balls.push(b);
+			}
+
+
+
+
+			(function go(){
+				oGc.clearRect(0,0,width,height);
+				for(let i = 0;i<balls.length;i++){
+					balls[i].fill(oGc);
+					balls[i].x += balls[i].xv;
+					balls[i].y += balls[i].yv;
+					balls[i].yv += balls[i].ay;
+					if(balls[i].outterBoundary() != undefined){
+						balls[i].xv = (Math.random()*2-1)*10;
+						balls[i].yv = (Math.random()*2-1)*25;	
+						balls[i].x = balls[i].width/2;
+						balls[i].y = balls[i].height/2;
+					}			
+				}		
+				requestAnimationFrame(go);
+			})()
+			
+		}
+	</script>
+</head>
+<body>
+<div id="box"></div>
+	<canvas id="mycanvas" width="1800" height="900"></canvas>
+</body>
+</html>
