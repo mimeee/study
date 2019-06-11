@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>防抖动</title>
+	<style>
+	</style>
+</head>
+<body>
+	控制空闲事件为50秒，如果是50秒内动作则开始下一步操作，否则重置50s等待
+
+	<div class="no">
+		不防抖动
+		<input type="text">
+		<span></span>
+	</div>
+	<div class="yes">
+		防抖动
+		<input type="text">
+		<span></span>
+	</div>
+
+	<script>
+		let noInput = document.querySelector(".no input");
+		let yesInput = document.querySelector(".yes input");
+		let noSpan = document.querySelector(".no span");
+		let yesSpan = document.querySelector(".yes span");
+
+		noInput.addEventListener("keyup",function(){
+			console.log(this);
+			noSpan.innerHTML = this.value;
+		},false)
+
+		yesInput.addEventListener("keyup",(function(){
+			let timer;
+			console.log(this);
+			return function(){
+				clearTimeout(timer);
+				let that = this;
+				timer = setTimeout(function(){
+					yesSpan.innerHTML = that.value;
+				},500)
+			}
+		})(),false)
+
+	</script>
+</body>
+</html>

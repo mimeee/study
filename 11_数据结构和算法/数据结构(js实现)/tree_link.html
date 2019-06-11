@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>link_tree</title>
+</head>
+	<p>
+		链表表示二叉树
+		<ul>
+			<li></li>
+			<li></li>
+		</ul>
+	</p>
+<body>
+	<canvas></canvas>
+	<script>
+
+		function Node(){
+			this.index = 0;
+			this.data = 0;
+			this.pParent = null;
+			this.pLChild = null;
+			this.pRChild = null;
+		}
+
+		Node.prototype.searchNode = function(index){
+			if( this.index === index) return this;
+			var temp = null;
+			if( this.pLChild !== null ){
+				if(this.pLChild['index'] === index){
+					return this.pLChild;
+				}else{
+					temp = this.pLChild.searchNode( index );
+					if(temp !== null) return temp;
+				}
+			}
+			if( this.pRChild !== null ){
+				if(this.pRChild['index'] === index){
+					return this.pRChild;
+				}else{
+					temp = this.pRChild.searchNode( index );
+					if(temp !== null) return temp;
+				}
+			}
+			return null;
+		}
+		Node.prototype.deleteNode = function(){
+			if(this.pLChild !== null){
+				this.pLChild.deleteNode();
+			}
+			if(this.pRChild !== null){
+				this.pRChild.deleteNode();
+			}
+
+			if(this.pParent !== null){
+				if(this.pParent.pLChild == this)
+				{
+					this.pParent.pLChild = null;
+				}
+				if(this.pParent.pRChild == this)
+				{
+					this.pParent.pRChild = null;
+				}
+			}
+			delete this;
+		}	
+		//前序遍历
+		Node.prototype.preTraversal= function() 
+		{
+			console.log(this['index'] + "--" + this['data']);
+			if(this.pLChild !== null){
+				this.pLChild.preTraversal();
+			}
+			if(this.pRChild !== null){
+				this.pRChild.preTraversal();
+			}
+		}
+		//中序遍历
+		Node.prototype.inTraversal= function()
+		{		
+			if(this.pLChild !== null){
+				this.pLChild.inTraversal();
+			}
+			console.log(this['index'] + "--" + this['data']);
+			if(this.pRChild !== null){
+				this.pRChild.inTraversal();
+			}
+		}
+		//后序遍历
+		Node.prototype.prosTraversal= function()
+		{
+			if(this.pLChild !== null){
+				this.pLChild.prosTraversal();
+			}
+			if(this.pRChild !== null){
+				this.pRChild.prosTraversal();
+			}
+			console.log(this['index'] + "--" + this['data']);
+		}	
+
+
+		class tree
+		{
+			//创建树
+			constructor()
+			{
+				this.pRoot = new Node();
+			}
+			//搜索节点
+			searchNode(index)
+			{
+				return this.pRoot.searchNode(index);
+			}
+			//添加节点
+			addNode(index,direct,node)
+			{
+				var temp = this.searchNode(index);
+				if(temp === null) return false;
+
+				var newNode = new Node();
+				newNode['index'] = node['index'];
+				newNode['data'] = node['data'];
+				newNode['pParent'] = temp;
+
+				if( direct === "l" ) temp['pLChild'] = newNode;
+				if( direct === "r" ) temp['pRChild'] = newNode;
+				return true;
+
+			}
+			//删除节点
+			deleteNode(index)
+			{
+				var temp = this.searchNode(index);
+				if(temp === null) return false;
+				temp.deleteNode();
+			}
+			//前序遍历
+			preTraversal() 
+			{
+				this.pRoot.preTraversal();
+			}
+			//中序遍历
+			inTraversal()
+			{
+				this.pRoot.inTraversal();
+			}
+			//后序遍历
+			prosTraversal()
+			{
+				this.pRoot.prosTraversal();
+			}
+		}
+
+		var tr = new tree();
+		tr.addNode(0,"l",{index:1,data:1})
+		tr.addNode(0,"r",{index:2,data:3})
+		tr.addNode(1,"l",{index:3,data:4})
+		tr.addNode(1,"r",{index:4,data:2})
+		tr.addNode(2,"l",{index:5,data:5})
+		tr.addNode(2,"r",{index:6,data:6})
+		tr.deleteNode(2)
+		console.log(tr);
+		tr.preTraversal();
+		console.log("------");
+		tr.inTraversal();
+		console.log("------");
+		tr.prosTraversal();
+	</script>
+</body>
+</html>

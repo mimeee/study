@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<span></span>
+	
+	<p>getDay()是返回一个星期中的第几天，也就是</p>
+	<p>getDate()才是返回一个月中的第几天，范围是1~31</p>
+	<p>getMonth()返回的是第几个月，但是范围是0~7</p>
+	
+	<script>
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth();
+		var day = date.getDay();
+		var dates = date.getDate();
+
+		var span = document.getElementsByTagName('span')[0];
+		span.innerHTML = year + "-" + month + "-" + day;
+		span.innerHTML += "<br>";
+		span.innerHTML += year + "-" + month + "-" + dates;
+	</script>
+</body>
+</html>

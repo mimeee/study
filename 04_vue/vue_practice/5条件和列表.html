@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button @click="isShow = !isShow">toggle</button>
+		<p v-if="isShow">you see me</p>
+		<p v-else>..or me</p>
+
+		<p v-show="isShow">see me too</p>
+		<p v-show="!isShow">..or me too</p>
+
+		<ul class="list-group">
+			<li class="list-group-item" v-for="(value,key) in arr">{{ key }}--{{ value }}</li>	
+		</ul>
+
+		<ul class="list-group">
+			<li class="list-group-item" v-for="(value,key,index) in obj">{{ index }}--{{ key }}--{{ value }}</li>	
+		</ul>
+
+		<ul class="list-group">
+			<template v-for="(value,key,index) in obj">
+				<li class="list-group-item" v-if="value instanceof Array" 
+				v-for="v in value " :p="v">
+					{{ v }}
+				</li>
+
+			</template>
+				
+		</ul>
+
+		<span v-for="i in 3" ref="hehe">{{ i }}</span>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				isShow:true,
+				arr:[5,4,3,2,1],
+				obj:{
+					'name':"mimee",
+					"age":13,
+					"option":"miss you",
+					'arr':[11,22,33,44,55]
+				}
+			},
+
+		})
+		Vue.co
+	</script>
+</body>
+</html>

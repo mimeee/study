@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.container{
+			display: flex
+		}
+		.left{
+			/*float: left;*/
+			width: 100px;
+			background: orange;
+			flex-basis: 100px;
+
+		}
+		.right{
+			/*float: right;*/
+			width: 100px;
+			background: blue;
+			flex-basis: 100px;
+		}
+		.c{
+			background: red;
+			/*margin: 0 100px;*/
+			flex-grow: 1;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	<div class="left"> left </div>
+	<div class="c"> c </div>
+	<div class="right"> right </div>
+	
+	</div>
+</body>
+</html>

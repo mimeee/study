@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>sequence_list/顺序表</title>
+</head>
+<body>
+	<p>
+		数组: 3 5 7 2 9 1 8
+	</p>
+	<p>
+		前驱: 5的前驱就是3，2的前驱就是7
+	</p>
+	<p>
+		后继: 5的后继就是7，2的后继就是9
+	</p>
+    <div class="box"></div>
+	<script>
+	
+
+		
+	class List
+	{
+		//创建线性表 -- 构造函数
+		constructor(sSize){
+			this.size = sSize;
+			this.length = 3;
+			this.arr = new Array(3,33,333);
+		}
+		//清空线性表
+		clear(){
+			this.length = 0;
+			return true;
+		}
+        //判断线性表是否为空
+        isEmpty(){
+        	return this.length === 0 ? true : false; 
+        }
+        //获取线性表的长度
+        getLength(){
+        	return this.length;
+        }
+        //获取指定元素
+        getIndexElement(index){
+        	if(index < 0 || index > this.length){
+        		return null;
+        	}
+        	return this.arr[index];
+        }
+        //寻找第一个满足e的数据元素的位序
+        getElement(ele){
+        	for(var i = 0; i < this.length; i++){
+        		if( ele === this.arr[i] ){
+        			return i;
+        		}
+        	}
+        	return -1;
+        }
+        //获取指定元素的前驱
+        getCurElePier($currentEle){
+            var index = this.getElement($currentEle);
+            if( index === -1 || index === 0 ) return false;
+            return this.arr[index - 1];
+        }
+        //获取指定元素的后继
+        getCurEleNext($currentEle){
+            var index = this.getElement($currentEle);
+            if( index === -1 || index === (this.length - 1) ) return false;
+            return this.arr[index + 1];
+        }
+        //遍历线性表
+        printArr(oBox){
+            for(var i = 0;i < this.length; i++){
+                oBox.innerHTML += this.arr[i] + "<br/>";
+            }
+        }
+        //在第i各个位置插入元素
+        insertEle(i,ele){
+            if( i < 0 || i > this.length ) return false;
+            for(var k = this.length - 1; k >= i; k-- ){
+                this.arr[ k + 1 ] = this.arr[ k ];
+            }
+            this.arr[ i ] = ele;
+            this.length ++;
+            return true;
+        }
+        //删除第i个位置的元素
+        deleteEle(i){
+            if( i < 0 || i > this.length - 1 ) return false;
+            for(var k = i; k < this.length - 1; k++ ){
+                this.arr[ k  ] = this.arr[ k + 1 ];
+            }
+            this.length --;
+            return true;
+        }
+		//销毁线性表 -- 析构函数
+	}
+
+    var oList = new List(5);
+	// console.log(oList); 
+
+ //    console.log(oList.getIndexElement(1)); 
+ //    console.log(oList.getElement(5)); 
+
+	// oList.clear();
+ //    console.log(oList);    
+    console.log(oList.getCurEleNext(33));
+    console.log(oList.getCurElePier(33));
+    oBox = document.querySelector(".box")
+    
+    oList.insertEle(1,133);
+    oList.deleteEle(1);
+oList.printArr( oBox );
+        
+       
+        
+
+
+        
+        
+	</script>
+</body>
+</html>

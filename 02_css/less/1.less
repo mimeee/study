@@ -1,0 +1,94 @@
+@charset "utf-8";
+
+//变量,声明变量 @ 开头。然后加上变量名。
+@div_width:200px;
+.box{
+	width:@div_width;
+	height: @div_width;
+	background: #000;
+	//赋予样式box border样式
+	.border;
+}
+
+//混合
+//重用：
+.border{
+	border: 10px solid orange;
+}
+
+//可带参数的混合
+.border_01(@border-width){
+	border: @border-width solid yellow;
+}
+
+.box_argu{
+	.border_01(10px;);
+	height:200px;
+}
+
+.border1{
+	.border_02();
+}
+
+/*不能直接吧带参数的.border_02赋给一个div*/
+.border_02(@border_width:5px){
+	border: @border_width solid #000;
+	height: 200px;
+}
+
+//匹配模式
+.sanjiao{
+	width: 0px;
+	height: 0;
+	overflow: hidden;
+	border-width:10px;
+	border-color: red transparent transparent transparent;
+	border-style: solid
+
+}
+
+.triangle(top,@w:5px,@c:#000){
+	border-width:@w;
+	border-color:@c transparent transparent transparent;
+	border-style:solid dashed dashed dashed;
+}
+.triangle(left,@w:105px,@c:blue){
+	border-width:@w;
+	border-color:transparent transparent transparent @c;
+	border-style:dashed dashed dashed solid;
+}
+.triangle(bottom,@w:5px,@c:red){
+	border-width:@w;
+	border-color:transparent transparent @c transparent;
+	border-style:dashed dashed solid dashed;
+}
+.triangle(right,@w:5px,@c:grey){
+	border-width:@w;
+	border-color:transparent @c transparent transparent;
+	border-style:dashed solid dashed dashed;
+}
+//@_，这个表示引用这个类就自然会带的东西。改变后面的@w对该类不
+//起作用，可能是被其他的顶替了。
+.triangle(@_,@w:105px,@c:#ccc){
+	height: 0;
+	width: 0;
+	overflow:hidden;
+
+}
+
+.userDefined{
+	.triangle(left);
+}
+
+//可以进行变量运算，即 + - * / ；
+
+//嵌套
+//两种用法
+//& 代表他的上一层选择器
+//	&:hover 或 &:focus
+//对连接使用
+//	-&-item
+
+//@argument 代表所有的所穿的参数
+// ~避免编译符号
+// important 优先级最高

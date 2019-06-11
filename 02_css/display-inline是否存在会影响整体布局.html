@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.all-wapper{
+			height: 300px;
+		}
+		.content{
+			height: 100%;
+			width: 100%;
+			background: rgba(55,33,99,0.7);
+		}
+		.content-wapper{
+			height: 100%;
+			background: yellow;
+		}
+		.content-main{
+			margin-top: 30px;
+			padding-bottom: 30px;
+		}
+		.bottom-bar{
+			margin: -30px auto 0 auto;
+			background: orange;
+		}
+
+
+		.another{
+			margin-top:10px;
+		}
+	</style>
+</head>
+<body>
+	问题 <a href="http://www.cnblogs.com/wangrongxiang/p/5711003.html">问题</a>
+	<hr>
+	可以设置 overflow或者display为inline-block
+	<br>
+	<a href="https://www.cnblogs.com/chaozhang/p/4711282.html">详解</a>
+	<hr>
+	<div class="all-wapper">
+		<div class="content">
+			<div class="content-wapper">
+				<div class="content-main">main</div>
+			</div>
+			<div class="bottom-bar">
+				<i>aa</i>
+			</div>
+		</div>
+	</div>	
+
+
+	<div style="background: #ccc; overflow:auto;">
+		<div class="another" style="background: #eee">
+			aa
+		</div>
+	</div>
+</body>
+</html>

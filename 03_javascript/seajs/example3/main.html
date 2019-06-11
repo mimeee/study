@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box"></div>
+	<script src="./sea-module/seajs.js"></script>		
+	<script src="./sea_config.js"></script>		
+	<script>
+		seajs.use(['./go.js','./go2.js'],function(m1,m2){
+			console.log(m2.module.a);
+		});
+		var box = document.getElementById("box");
+	</script>
+</body>
+</html>

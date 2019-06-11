@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>重建二叉树</title>
+</head>
+<body>
+	输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
+
+	<div>
+		也是使用递归，将序列一点一点拆分成小树
+	</div>
+	<script>
+		var pre = [1,2,3,4,5,6,7];
+		var vin = [3,2,4,1,6,5,7];
+		//{1,2,5,3,4,6,7}
+		//得到链式的二叉树
+		var tree = reConstructBinaryTree(pre, vin);
+		var data = [];
+		//广度遍历二叉树
+		breadthFirstTraverse(tree);
+		console.log(tree);
+		console.log(data);
+
+		
+		function reConstructBinaryTree(pre, vin)
+		{
+			if(pre.length === 0 || vin.length === 0) return null;
+			var roots = 0;
+			var tree = new node(pre[0]);
+			var index = vin.indexOf(pre[0]);
+			tree.left = reConstructBinaryTree(pre.slice(1,index + 1), vin.slice(0,index));
+			tree.right = reConstructBinaryTree(pre.slice(index + 1), vin.slice(index + 1));
+			return tree;
+		}
+
+
+		function node(x){
+			this.val = x;
+			this.left = null;
+			this.right = null;
+		}
+
+		function breadthFirstTraverse(tree){
+			data.push(tree.val);
+			var curNode = [tree];
+			breadthFirstTraverseImpl(curNode);
+		}
+
+		function breadthFirstTraverseImpl(preNode){
+			var curNode = [];
+			for(var i = 0; i < preNode.length; i++){
+				if(preNode[i]['left'] !== null){
+					curNode.push(preNode[i]['left']);
+					data.push(preNode[i]['left']['val']);
+				}
+				if(preNode[i]['right'] !== null){
+					curNode.push(preNode[i]['right']);
+					data.push(preNode[i]['right']['val']);
+				}
+			}
+			if(curNode.length > 0){
+				breadthFirstTraverseImpl(curNode);
+			}			
+		}
+
+
+	</script>
+</body>
+</html>

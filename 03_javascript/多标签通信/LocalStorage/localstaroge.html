@@ -1,0 +1,20 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>利用storage事件实时监视Web Storage中的数据</title>
+    </head>
+    <body>
+    	要在网络环境下才有效。
+        <script type="text/javascript">
+
+            window.addEventListener('storage',function(e){
+		        console.log(2);
+		    })
+           setInterval(function(){
+            	localStorage.setItem('test',Math.random());
+            },30)
+        </script>
+        <output id="output"></output>
+    </body>
+</html>

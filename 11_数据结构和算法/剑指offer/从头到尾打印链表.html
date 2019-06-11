@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>从头到尾打印链表</title>
+</head>
+<body>
+	<script>
+		/*function ListNode(x){
+		    this.val = x;
+		    this.next = null;
+		}*/
+		var obj = {
+			"val" : 'head',
+			'next' : {
+				"val" : '1',
+				'next' : {
+					"val" : '2',
+					'next' : {
+						"val" : '3',
+						'next' : null
+					}
+				}
+			}
+		}
+		console.log(printListFromTailToHead(obj));
+		function printListFromTailToHead(head)
+		{
+		    var tempObj = head;
+		    var arr = [];
+		    while( tempObj !== null ){
+		    	arr.unshift(tempObj['val']);
+		    	tempObj = tempObj['next'];
+		    }
+		    return arr;
+		}
+	</script>	
+</body>
+</html>

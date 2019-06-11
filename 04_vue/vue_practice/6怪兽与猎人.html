@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        h3{
+            text-align: center;
+        }
+/*        li:nth-child(2n){
+            background: #dc3545 !important;
+        }*/
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="blood jumbotron">
+            	<div class="row align-items-center">
+	            	<div class="col">
+                        <header>
+                            <h3>
+                                your blood
+                            </h3>
+                        </header>
+	            		<div class="progress" :style="commonStyle">
+						  <div class="progress-bar" 
+						  	   :style="myStyle"
+						  >
+                          {{ mine.blood }}%
+						  </div>
+						</div>
+	            	</div>
+	            	<div class="col">
+                        <header>
+                            <h3>
+                                monster blood
+                            </h3>
+                        </header>
+	            		<div class="progress" :style="commonStyle">
+						  <div class="progress-bar" 
+						  	   :style="monsterStyle"
+						  >
+                           {{ monster.blood }}%
+						  </div>
+						</div>
+	            	</div>		
+            	</div>
+            </div>
+            <div class="options">
+            	<div class="jumbotron">
+                    <div class="row justify-content-center" 
+                         v-if="!isPlay" 
+                    >
+                        <button class="btn btn-dark col" @click="start">click to start</button>
+                        <div class="w-100"></div>
+                        <h4 class="col text-center" v-if="end">{{ message }}</h4>
+                    </div>
+                    <div class="row justify-content-between" v-else>
+                        <button class="btn btn-warning col"
+                                @click="attack"
+                        >attack</button>
+                        <button class="btn btn-danger col"
+                                @click="specialAttack"
+                        >special attack</button>  
+                        <button class="btn btn-success col"
+                                @click="heal"
+                        >heal</button>  
+                        <button class="btn btn-primary col"
+                                @click = "isPlay = false;init();"
+                        >give up</button>   
+                    </div>        		
+            	</div>
+            </div>
+            <div class="log">
+            	<div class="jumbotron">
+            		<ul class="list-group">
+                        <template  v-for="(v,i) in log">
+                            <li :class="logStyle">
+                                {{ i }}: {{ v }}
+                            </li>
+                        </template>                        
+                    </ul>
+            	</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                isPlay:false,
+                myBlood:100,
+                monsterBlood:100,
+                end:false,
+                message:"",
+                commonStyle:{
+                    textAlign:"center",
+                    backgroundColor: "#e7a404",
+                    height:"25px",
+                    fontWeight:"bold"
+                },
+                log:[],
+                bg:true
+            },
+            computed:{
+                myStyle(){
+                    return {
+                        width:this.mine.blood + "%"
+                    }
+                },
+                monsterStyle(){
+                    return {
+                        width:this.monster.blood + "%"
+                    }
+                },
+                mine(){
+                    return {blood:this.myBlood}
+                },
+                monster(){
+                    return {blood:this.monsterBlood}
+                },
+                logStyle(){
+                    return ["list-group-item",{
+                        "list-group-item-info":this.bg,
+                        "list-group-item-dark":!this.bg
+                    }]
+                }
+            },
+            watch:{
+                myBlood(value){
+                    this.myBlood = value > 100 ? 100 :
+                                            value < 0 ? 0 : value;
+                    if(value === 0 ){
+                        this.isPlay = false;
+                        this.end = true;
+                        this.message = "you lost";
+                    }
+                },
+                monsterBlood(value){
+                    this.monsterBlood = value > 100 ? 100 :
+                                            value < 0 ? 0 : value;
+                    if(value === 0 ){
+                        this.isPlay = false;
+                        this.end = true;
+                        this.message = "you win";
+                    }
+                },
+            },
+            methods:{
+                init(){
+                    this.isPlay = false;
+                    this.myBlood = 100;
+                    this.monsterBlood = 100;
+                    this.end = false;
+                    this.message = "";
+                    this.log = []
+                },
+                randomAttack(str){
+                    var attack = Math.floor(Math.random() * 20);
+                    this.log.unshift(str+attack);
+                    return attack;
+                },
+                randomSAttack(str){
+                    var attack =  Math.floor(Math.floor(Math.random() * 20 + Math.random() * 3));
+                    this.log.unshift(str+attack);
+                    return attack;
+                },
+                randomHeal(str){
+                    var attack =  Math.floor(Math.floor(Math.random() * 20- Math.random() * 3));
+                    this.log.unshift(str+attack);
+                    return attack;
+                },
+                attack(){
+                    this.myBlood -= this.randomAttack('你受到伤害：');
+                    this.monsterBlood -= this.randomAttack('怪物受到伤害：');                   
+                },
+                specialAttack(){
+                    this.myBlood -= this.randomAttack('你受到伤害：');
+                    this.monsterBlood -= this.randomSAttack('怪物受到伤害：');
+                },
+                start(){
+                    this.init();
+                    this.isPlay = true;                   
+                },
+                heal(){
+                    this.myBlood += this.randomHeal('你被治疗了：');
+                    this.myBlood += this.randomAttack('怪物受到伤害：');
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Object.defineProperty</title>
+</head>
+<body>
+	<script>
+		var per = {
+			names: 'mimee2',
+			age: 13,
+			sayName: function(){
+				alert(this.names);
+			}
+		}
+		//数据属性-----------------------------------------------
+		console.log("数据属性-----------------------------------------------");
+		Object.defineProperty(per,'names',{
+			writable:false, //导致不可被改写
+			enumerable:false, //导致不可枚举
+			configurable:false, //导致不可被delete删除该属性
+			value:'mimee'
+		})
+
+		for(var i in per){
+			document.write(i + "<br/>");
+		}
+
+		//per['names'] = 132；//SyntaxError: illegal character
+		delete per['names'];
+		console.log(per.names);
+
+		//访问器属性--------------------------------------------------
+		console.log("访问器属性-----------------------------------------------");
+		var book = {
+			_year:2014,
+			cost:300,
+			editor:"mimee"
+		}
+		//看这里_year和year是两个不同属性，只是使用set和get把他们两关联起来
+		//着js中变量前面带有下划线 _ 表示这个变量只能通过对象方法访问
+		Object.defineProperty(book,"year",{
+			set:function(v){
+				this._year = v + "yuan";
+			},
+			get:function(){
+				console.log("year-get");
+				return this._year;
+			}
+		})
+
+		//以下是错误的，因为只指定了set而没有指定get，所以访问不了该值，严格模式下回报错
+		// Object.defineProperty(book,"year",{
+		// 	set:function(v){
+		// 		this._year = v + "yuan";
+		// 	}
+		// })
+		
+		book.year = 2000;
+		console.log(book.year)
+
+
+		//上面的属性特征值可以通过 Object.getOwnPropertyDescriptor()获取
+	</script>	
+</body>
+</html>

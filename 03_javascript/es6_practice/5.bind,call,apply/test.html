@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.dark{
+			background: #000;
+		}
+	</style>
+</head>
+<body>
+	<div class="dark">dsfa</div>	
+	<script>
+		// 配合setTimeOut使用
+        function User(){
+        	this.user = 'user';
+        }
+
+        User.prototype.showUser = function(){
+        	console.log(this);
+        	console.log(this.user);
+        }
+
+        User.prototype.showDelay = function(){
+        	setTimeout(this.showUser.bind(this),1000);
+        }
+
+        var a = new User();
+        a.showDelay();
+
+	</script>
+</body>
+</html>

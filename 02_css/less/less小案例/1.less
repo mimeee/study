@@ -1,0 +1,65 @@
+@charset "UTF-8";
+//清浮动
+.reset(){
+	*{padding: 0;margin: 0;}
+	ul,ol{list-style:none};
+	a{text-decoration: none;}
+	img{border:none;}
+}
+
+.reset();
+//
+.clearfix{
+	display: block;
+	clear:both;
+	&:after{
+		content:"clear float";
+	}
+	//zoom
+}
+.clearfix{
+		zoom:2;
+}
+
+.font14(){
+	font-size:14px;
+}
+
+.title{
+	@h:62px;
+	@border_color:#D0D0D0;
+	height: @h;
+	line-height: @h;
+	border-top:1px solid @border_color;
+
+	h3{
+		// font-size: 22px;
+		color:#575757;
+		// font-family: "微软雅黑";
+		// font-weight:normal;
+		//第二个是 @h 代表的是行高；
+		font: 22px @h "微软雅黑";
+		width: 206px;
+		border-top:2px solid #F97374;
+		margin-top:-1px;
+		position: relative;
+		float: left;
+	}
+	@color:#575757;
+	&_nav{
+		float:right;
+		list-style: none;
+		.font14();
+		color:@color;
+		li{
+			float:left;
+		}
+		a{
+			letter-spacing: 2px;
+			color:@color;
+			&:hover{
+				color:orange;
+			}
+		}
+	}
+}

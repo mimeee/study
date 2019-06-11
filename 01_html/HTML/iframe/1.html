@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hehe</title>
+</head>
+<body>
+	<iframe sandbox src="2.html" frameborder="0" name="c" width="1000" height="500"></iframe>
+	<div></div>
+	<script>
+
+		//方法1
+		// var oIWindow = window.frames['c'].window;
+		// console.log(oIWindow);
+		// console.log(oIWindow.document.childNodes[0]);
+		
+
+		//方法2
+		// var oIWindow = document.querySelector("iframe").contentWindow;
+		// var oIDocument = oIWindow.document;
+		// console.log(oIWindow);
+		// console.log(oIDocument);
+		
+
+		//ajax
+		// var xhr = new XMLHttpRequest();
+		// xhr.open('get',"re.php",false);
+		// xhr.onreadystatechange = function(){
+		// 	console.log(xhr.readyState);
+		// }
+		// xhr.send();
+		
+		//使用iframe代替进行长轮询
+		// var oDiv = document.querySelector("div"),
+		// 	oIframe = document.createElement("iframe");
+		// oIframe.src = "2.html";
+		// oIframe.name = "ajaxxx";
+		// oIframe.style = "display:none";
+		// oDiv.append(oIframe);
+		// oIframe.onload = function(){
+		// 	var hr = this.contentWindow.location,
+		// 		iDoc = this.contentDocument;
+		// 		console.log(iDoc.children[0].children[1]);
+		// 	setTimeout(function(){
+		// 		text = iDoc.children[0].children[1].innerText;
+		// 		console.log(text);
+		// 		hr.reload();
+		// 	},1000)
+		// }
+	</script>
+</body>
+</html>

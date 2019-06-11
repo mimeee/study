@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>5</div>
+	<div>5</div>
+	<div>5</div>
+	<script>
+	var oDiv = document.querySelectorAll("div");
+	var aArr = [1,2,3];
+	var res = aArr.splice(0);
+	console.log(aArr) //[];
+	console.log(res)  //[ 1,2,3 ];
+
+	var aArr = [1,2,3];
+	var res = aArr.splice(1,2);
+	console.log(aArr) //[ 1 ];
+	console.log(res)  //[ 2,3 ];
+
+	var aArr = [1,2,3];
+	var res = aArr.splice(1,2,1 );
+	console.log(aArr) //[ 1,1 ];
+	console.log(res)  //[ 2,3 ];
+
+	var aArr = [ 1,5,2,3,44,0];
+	console.log(aArr.sort((a,b)=>a-b));
+	console.log(aArr.sort((a,b)=>b-a));
+	</script>	
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		
+		.wrapper{
+			width: 400px;
+			height: 400px;
+			overflow: hidden;
+			background:red;
+		}
+		label{
+			display: inline-block;
+			border: 1px solid #000;
+			width: 50px;
+			height: 20px;
+			margin: 10px;
+			border-radius: 3px;
+			text-align: center;
+		}
+		label:hover{
+			background: #ccc;
+		}
+		label:active{
+			background: #aaa;
+		}
+		input{
+			visibility: hidden;
+		}
+		
+		#one:checked~.wrapper {
+			background-image: url('pic1.png');
+		}
+		#two:checked~.wrapper {
+			background-image: url('pic2.png');
+		}
+		#three:checked~.wrapper {
+			background-image: url('pic3.png');
+		}
+		#four:checked~.wrapper {
+			background-image: url('pic4.png');
+		}
+			
+	</style>
+</head>
+<body>
+	
+	<label for="one">one</label>
+	<input type="radio" name="one" id="one">
+	<label for="two">two</label>
+	<input type="radio" name="one" id="two">
+	<label for="three">three</label>
+	<input type="radio" name="one" id="three">
+	<label for="four">four</label>
+	<input type="radio" name="one" id="four">
+	<div class="wrapper"></div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../jquery.min.js"></script>
+	<style>
+		select{
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+	<select name="one" id="one">
+		<option value="f1" selected="true">f1</option>
+		<option value="f2">f2</option>
+		<option value="f3">f3</option>
+	</select>
+	<select name="two" id="two">
+		<option value="1" selected="true">1</option>
+		<option value="11">11</option>
+		<option value="111">111</option>
+	</select>
+	<div id="three">
+		
+	</div>
+	<script>
+		$("#one").change(function(){
+			$.get('data.php?query='+this.value,function(res){
+				var data = JSON.parse(res);
+				console.log("---------"+data);
+				//应该先把之前的绑定解除，在绑定新的，否则，每一次绑定的data都会驻留在内存中
+				//更改后 --> $('#two').empty().append(createOption(data)).off().change(function(){
+				$('#two').empty().append(createOption(data)).change(function(){
+					console.log(data);
+					$("#three").html(data[this.value.length - 1]['name']);
+				});
+
+			})
+		})
+
+		function createOption(obj){
+			var options = [];
+			for(var i = 0;i<obj.length;i++){
+				options.push("<option value='"+obj[i]['id']+"'>"+obj[i]['name']+"</option>");
+			}
+			return options;
+		}
+	</script>	
+</body>
+</html>

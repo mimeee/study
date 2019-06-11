@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+	<script>
+ 
+            // var oUser = {
+	           //  name: "mimee",
+	           //  age: 18
+            // } 
+            // function fn(){
+            //     console.log(1);
+            // }
+
+            // let {name,age = fn() ,sex = "f"} = oUser;
+            // console.log(name); //mimee
+            // console.log(age);  //18
+            // console.log(sex);  //f
+
+            // //{name:name2 , age:age2} --> { key:nickname }
+            // let {name:name2 , age:age2} = oUser; 
+            // console.log(name2); //mimee
+            // console.log(age2);  //18
+            
+//-----------------------------------------------------------------------------
+
+            // let oUser = {
+            //     'name' : "g",
+            //     'age' : 20
+            // }
+
+            // var name = "mimee";
+            // var age = 10;
+            // //如果是先声明了变量再进行对象解构赋值则需要加上括号，否则js回你认为{}是一个代码块，而不是解构赋值
+            // ({ name,age } = oUser);
+            // console.log(name);
+            // console.log(age);
+
+//-----------------------------------------------------------------------------
+			// let oUser = {
+	  //           'name' : "mimee",
+	  //           'age' : "18"
+	  //       }
+	  //       function show( obj ){
+	  //           console.log( obj === oUser );
+	  //           console.log( obj.name , obj.age);
+	  //           console.log( name2, age2);
+	  //                       console.log(arguments);
+   //          console.log(arguments.length);
+	  //       }
+
+	  //       show( { name: name2, age:age2 }  = oUser );
+//-----------------------------------------------------------------------------
+
+   var arr1 = [10, 20, 30, 40, 50];
+                var arr2 = [];
+            // // 1.通过循环遍历
+            //     for(var i = 0; i < arr1.length; i++){
+            //         arr2.push( arr1[i] );
+            //     }
+            //     console.log(arr2);
+
+            // // 2.通过concat
+            //     arr2 = [].concat( arr1 );
+            //     console.log(arr2);
+
+            // 3.通过解构
+                ([...arr2] = arr1);
+                console.log(arr2);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../jquery.min.js"></script>
+</head>
+<body>
+	<div id="box"></div>
+	<div id="question"></div>
+	<script>
+		$.get("data.json",function(res){
+			var a = [];
+			for(var i = 0;i < res.length; i++){
+				a.push("<a onclick='alert(213)' href='"+res[i]['url']+"'>"+ res[i]['title'] +"</a>");
+			}
+			$('#box').append(a.join(""));
+			$("a").click(c);
+		})
+		console.log($("a"));
+		$("#question").html("这里因为异步所以获取不到节点 a");		
+
+		//解决方法1：直接在标签上绑定事件，如果使用onclick绑定一个函数，除非是自动执行的函数，否者不生效。所以不推荐。
+		//a.push("<a onclick='alert(213)' href='"+res[i]['url']+"'>"+ res[i]['title'] +"</a>");
+
+
+		//解决方法2：使用事件代理，将事件委托给其不是动态生成的父亲
+		// $("#box").click(function(e){
+		// 	e.preventDefault();
+		// 	$.get('data.json',function(res){
+		// 		console.log(res);
+		// 	})			
+		// })
+
+		//解决方法3：在get的回调函数中绑定事件
+		// function c(e){
+		// 	e.preventDefault();
+		// 	$.get('data.json',function(res){
+		// 		console.log(res);
+		// 	})			
+		// }
+
+		//解决方法4：使用jquery中的delegate()(该方法jQuery 3.0中已弃用此方法，请用 on()代替。)
+		//			该方法是为指定的元素（属于被选元素的子元素）添加一个或多个事件处理程序，并规定当这些事件发生时运行的函数。适用于处理程序适用于当前或未来的元素（比如由脚本创建的新元素）。
+		// $("box").on('click',function(){
+		// 	console.log(this);
+		// })
+
+		
+	</script>	
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>co函数</title>
+</head>
+<body>
+	<script>
+		function* fn(a) {
+		  a = yield a;
+		  let b = yield 2;
+		  let c = yield 3;
+		  return a + b + c;
+		}
+		console.log(fn(2))
+
+	</script>
+</body>
+</html>

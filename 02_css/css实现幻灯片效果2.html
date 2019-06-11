@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrapper{
+			width: 400px;
+			height: 400px;
+			overflow: hidden;
+		}
+		.wrapper:hover{
+			animation-play-state: paused;
+		}
+		ul{
+			font-size: 0;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			animation: move 4s linear infinite;
+		}
+		li{
+			padding: 0;
+			margin: 0;
+		}
+		ul:hover{
+			animation-play-state: paused;
+		}
+		@keyframes move{
+			0% { margin-top: 0px; }	
+			25% { margin-top: -400px; }
+			50% { margin-top: -800px; }
+			75% { margin-top: -1200px; }
+			100% { margin-top: -1600px; }
+		}	
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<ul>
+			<li><img src="pic1.png" alt=""></li>
+			<li><img src="pic2.png" alt=""></li>
+			<li><img src="pic3.png" alt=""></li>
+			<li><img src="pic4.png" alt=""></li>
+			<li><img src="pic1.png" alt=""></li>
+		</ul>
+	</div>
+	
+</body>
+</html>

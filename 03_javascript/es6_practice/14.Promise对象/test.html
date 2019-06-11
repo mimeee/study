@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		 // for( var i = 0; i < 5; i++ ){
+   //          setTimeout(function(){
+   //              console.log(i); // 5个i
+   //          },2000)
+   //      }
+   //      console.log("last " + i ) // 5 比定时器的5先打印出
+
+   //      var oPromise = new Promise((resolve,reject)=>{
+   //      	let rand = Math.random() * 100;
+
+   //      	if(rand > Math.random() * 100){
+   //      		resolve("rand: "+ rand +" is bigger");
+   //      	}else{
+   //      		reject({a:3});
+
+   //      	}
+   //      })
+
+        // oPromise.then((res)=>{
+        // 	console.log(res);
+        // }).catch(err=>{
+        // 	console.log(err);
+        // })
+
+        // oPromise.then(res=>{
+        // 	console.log(res);
+        // },err=>{
+        // 	console.log(err);
+        // })
+        
+
+        // let oPromise = new Promise(function(resolve,reject){
+        //     resolve("hehe");
+        // })
+
+        // oPromise.then(value=>{
+        //    return new Promise((resolve,reject)=>resolve( value + "haha" ))
+        // }).then(value => {
+        //     console.log(value); //hehehaha
+        // }).then(value => {
+        //     console.log(value); //undefined 上一步没有返回值
+        // })
+
+        // function task(n){
+        //     return new Promise((resolve,reject)=>{
+        //         resolve(n);
+        //     })
+        // }
+
+        // Promise.all([
+        //     task(1),
+        //     task(2),
+        //     task(3),
+        //     task(4),
+        //     task(5)
+        // ]).then(value=>{
+        //     console.log(value);
+        // })
+        // 
+        function task(n){
+            return new Promise((resolve,reject)=>{
+                setTimeout(function(){
+                    resolve(n);
+                },n*1000)
+            })
+        }
+
+        Promise.race([
+            task(2),
+            task(6),
+            task(1),
+            task(4),
+            task(5)
+        ]).then(value=>{
+            console.log(value); //Array(5) [ 1, 2, 3, 4, 5 ]
+        })
+	</script>	
+</body>
+</html>

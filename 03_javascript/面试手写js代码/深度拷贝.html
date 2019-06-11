@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>深度拷贝</title>
+</head>
+<body>
+	<script>
+		var obj = {
+			aa: 1,
+			bb: {
+				cc: 2,
+				dd: {
+					ee: 3
+				}
+			},
+			ff: 4
+		}
+		let arr = [[1],[2],[1,2,[33]],4]
+
+		function DeepCopy (obj) {
+			if (typeof obj !== 'object') return obj;
+			if (typeof window !== undefined) return window.JSON.parse(window.JSON.stringify(obj));
+			let newObj = obj.constructor.name === "obj" ? {} : [];
+			for (var i in obj) {
+				newObj[i] = DeepCopy(obj[i]);
+			}
+			return newObj;
+		}
+
+
+		let newObj = DeepCopy(obj);
+		console.log( obj === newObj);
+		console.log(newObj);
+		console.log(DeepCopy(obj));
+
+
+		let newArr = DeepCopy(arr);
+		console.log( arr === newArr);
+		console.log(newArr);
+		console.log(DeepCopy(arr));
+	</script>	
+</body>
+</html>

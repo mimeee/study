@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+	<meta charset="UTF-8">
+	<title>Blob</title>
+</head>
+<body>
+	<input type="button" value="submit">
+	<script>
+		// var obj = {'a':123};
+		// var a = JSON.stringify(obj)
+		// var blob = new Blob([a]).slice(1,-1);
+		
+		// var reader = new FileReader();
+		// reader.addEventListener('load',function(e){
+		// 	console.log(this.result);
+		// },false)
+		// reader.readAsText(blob);
+		document.querySelector("input").onclick = function(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if( xhr.readyState == 4 ){
+					if(xhr.status == 200){
+						console.log(xhr.responseText)
+					}
+				}
+			}
+			xhr.open('get','http://localhost:8081/Testtt/pic_servies/a.php');
+			xhr.send();
+		}
+		
+
+	</script>	
+</body>
+</html>

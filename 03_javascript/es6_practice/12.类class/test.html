@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	// class myClass{
+ //        constructor(){
+ //            console.log(this);
+ //            this.aa = 123;
+ //            console.log("i have birthed");
+ //        }
+ //        show(){
+ //            console.log(1);
+ //        }
+ //    }
+    // console.log(myClass);
+    // console.log(myClass.prototype);
+   
+    //加载 myClass 上面的静态方法
+    // Object.assign(myClass,{
+    //     aa(){
+    //         console.log('aa');
+    //     }
+    // })
+
+    // myClass.aa();
+    // var cc = new myClass();
+    // console.log(cc.aa);
+
+//原型链继承
+
+    // function Father(){
+    //     this.p = 2;
+    //     this.a = 3;
+    // }
+    // Father.f = 123;
+
+    // Father.prototype.pp = 22;
+    // Father.prototype.aa = 33;
+
+    // var instant = new Father();
+    // console.log(instant.pp);
+
+
+            class myClass{
+                constructor(){
+                    this.privated = function(){
+                        //私有
+                        console.log("constructor method private myClass");
+                    }
+                }
+                //公有
+                publicd(){
+                    console.log("prototype method public myClass");
+                }
+            }
+            //静态
+            myClass.staticd = function(){
+                console.log("static method static myClass")
+            }
+
+            console.log(Object.keys(myClass.prototype));
+            // function Fn(){
+            //     //私有
+            //     this.privated = function(){
+            //          console.log("constructor method private Fn");
+            //     }
+            // }
+            // //公有
+            // Fn.prototype.publicd = function(){
+            //         console.log("prototype method public Fn");
+            // }
+            // //静态
+            // Fn.staticd = function(){
+            //      console.log("static method staticd Fn");
+            // }
+
+
+            // console.log(new myClass());
+            // console.log(new Fn());
+            // console.log(myClass);
+            // console.log(Fn);
+
+	</script>	
+</body>
+</html>

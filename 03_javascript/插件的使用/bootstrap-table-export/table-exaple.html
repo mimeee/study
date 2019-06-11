@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-table.css">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="bootstrap-table.js"></script>	
+
+	<script src="bootstrap-table-export.js"></script>
+    <script src="tableExport.js"></script>
+    <style>
+    	body{
+    		padding: 15px;
+    	}
+    </style>
+</head>
+<body>
+	<select name="" id="sel_exportoption">
+		<option value="basic">basic</option>
+		<option value="all">all</option>
+		<option value="selected">selected</option>
+	</select>
+	<table></table>
+
+
+	<p>
+		该插件在导出的时候，会自动将存数据的数据转化成数值型，由此，有些纯数字形式的字符串并且前面是0的，会把0省略。这时候需要修正导出时该数据的格式。由于用的插件版本的问题，不支持传值修改单元的格式。于是修改 tableExport.js 的源代码。
+		在 495 行处将
+		<pre>
+	trData += '&lt;td';		
+		</pre>
+		修改为
+		<pre>
+	trData += '&lt;td style=\'mso-number-format:\"@\"\';';
+		</pre>
+		<a href="https://github.com/hhurz/tableExport.jquery.plugin">相关tableExport</a>
+		<a href="https://blog.csdn.net/u011443599/article/details/74295749">修改源代码参考</a>
+	</p>
+	<script src="table-exaple-js.js"></script>
+</body>
+</html>

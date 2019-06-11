@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BFC test</title>
+	<style>
+		.container{
+			background: #000;
+			width: 500px;
+			overflow: auto;
+
+		}
+		.float{
+			width: 300px;
+			height: 400px;
+			background: blue;
+			float: left;
+		}
+		.bfc{
+			background: orange;
+			overflow: auto;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="float">float</div>
+		<div class="bfc">
+			bfc
+			因此，虽然存在浮动的元素float，但bfc的左边依然会与包含块的左边相接触。
+			<hr>
+			我们可以通过通过触发main生成BFC， 来实现自适应两栏布局
+			<pre>
+.bfc {overflow: hidden};
+			</pre>
+		</div>				
+	</div>
+</body>
+</html>

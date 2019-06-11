@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<a href="https://juejin.im/post/59e85eebf265da430d571f89">这一次，彻底弄懂 JavaScript 执行机制</a>
+	<a href="https://zhuanlan.zhihu.com/p/26238030">深入浅出JavaScript事件循环机制(下)</a>
+	<pre>
+		console.log('1');
+
+		setTimeout(function() {
+		    console.log('2');
+
+		    new Promise(function(resolve) {
+		        resolve();
+		    }).then(function() {
+		        console.log('3')
+		    })
+		    new Promise(function(resolve) {
+		        console.log('4');
+		        resolve();
+		    }).then(function() {
+		        console.log('5')
+		    })
+		})
+		    new Promise(function(resolve) {
+		        resolve();
+		    }).then(function() {
+		        console.log('6')
+		    })
+		new Promise(function(resolve) {
+		    console.log('7');
+		    resolve();
+		}).then(function() {
+		    console.log('8')
+		})
+
+		setTimeout(function() {
+		    console.log('9');
+		        new Promise(function(resolve) {
+		        resolve();
+		    }).then(function() {
+		        console.log('10')
+		    })
+		    new Promise(function(resolve) {
+		        console.log('11');
+		        resolve();
+		    }).then(function() {
+		        console.log('12')
+		    })
+		})
+	</pre>
+	<script>
+		console.log('1');
+
+		setTimeout(function() {
+		    console.log('2');
+
+		    new Promise(function(resolve) {
+		        resolve();
+		    }).then(function() {
+		        console.log('3')
+		    })
+		    
+		    new Promise(function(resolve) {
+		        console.log('4');
+		        resolve();
+		    }).then(function() {
+		        console.log('5')
+		    })
+		})
+
+	    new Promise(function(resolve) {
+	        resolve();
+	    }).then(function() {
+	        console.log('6')
+	    })
+
+		new Promise(function(resolve) {
+		    console.log('7');
+		    resolve();
+		}).then(function() {
+		    console.log('8')
+		})
+
+		setTimeout(function() {
+		    console.log('9');
+
+	        new Promise(function(resolve) {
+	        	resolve();
+		    }).then(function() {
+		        console.log('10')
+		    })
+
+		    new Promise(function(resolve) {
+		        console.log('11');
+		        resolve();
+		    }).then(function() {
+		        console.log('12')
+		    })
+		})
+	</script>	
+</body>
+</html>

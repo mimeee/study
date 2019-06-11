@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+    #box{ margin: 40px auto;}
+    #box,#box>div{
+        width: 300px;
+        height: 300px;
+        box-sizing: border-box;
+        position: relative;
+        cursor: pointer;
+        background: #eeeeee;
+        line-height: 300px;
+        text-align: center;
+        font-size: 50px;
+    }
+    #box::before,
+    #box::after,
+    #box>div::before,
+    #box>div::after{
+        content: "";
+        background: crimson;
+        transition: all 1s ease;
+        width: 0;
+        height: 0;
+        position: absolute;
+        z-index: 1;
+    }
+    #box::before{
+        left: 50%;
+        height: 2px;
+        top: 0;
+    }
+    #box::after{
+        bottom: 0;
+        left: 50%;
+        height: 2px;
+    }
+    #box>div::before{
+        left: 0;
+        top: 50%;
+        width: 2px;
+    }
+    #box>div::after{
+        right: 0;
+        top: 50%;
+        width: 2px;
+    }
+    #box:hover::before,
+    #box:hover::after{
+        left: 0;
+        width: 100%;
+    }
+    #box>div:hover::before,
+    #box>div:hover::after{
+        top: 0;
+        height: 100%;
+    }
+
+    .top-nav{
+        position: relative;
+        text-align: center;
+        font-size: 50px;
+    }
+    .top-nav a:after {
+    content: ' ';
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 50%;
+    display: block;
+    width: 165px;
+    height: 1px;
+    background: #000;
+    transform: translate(-50%);
+} .top-nav a:hover:after {
+    height: 2px;
+    animation: ad_width .5s linear forwards;
+    background: #ff8a00;
+} @keyframes ad_width { from {
+        width: 0
+    } to {
+        width: 165px
+    } }
+</style>
+</head>
+<body>
+	<div id="box">
+        <div>摸我</div>    
+    </div>
+    
+    <div class="top-nav">
+      <a href="">aaa</a>      
+    </div>
+
+</body>
+</html>

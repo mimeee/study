@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.content{
+			width: 100000px;
+		}
+		.son{
+			width: 98px;
+			height: 98px;
+			border: 1px solid #000;
+			display: inline-block;
+			line-height: 98px;
+			font-size: 30px;
+			text-align: center;
+		}
+		.son:hover{
+			background: pink;
+		}
+		.son-one{
+			transform:rotate(90deg)
+		}
+		.son-two{
+			transform:rotate(180deg)
+		}
+		.son-three{
+			transform:rotate(270deg)
+		}
+	</style>
+</head>
+<body>
+	<div class="content"></div>
+	<script>
+		let oDiv = document.querySelector('div');
+		let text = '';
+		for(let i = 0; i < 100000; i++){
+			text += "<div class='son'>a</div>";
+		}
+		oDiv.innerHTML = text;
+		oDiv.addEventListener("click",function(e){
+			let sClass = e.target.className;
+			if (sClass.indexOf(" ") !== -1) {
+				sClass = sClass.split(" ");
+				switch (sClass[1]) {
+					case 'son-one':
+						e.target.className = "son son-two";
+					break;
+					case 'son-two':
+						e.target.className = "son son-three";
+					break;
+					case 'son-three':
+						e.target.className = "son";
+					break;
+				}
+			}else{
+				e.target.className += " son-one";
+			}
+		},false)
+
+
+	</script>
+</body>
+</html>

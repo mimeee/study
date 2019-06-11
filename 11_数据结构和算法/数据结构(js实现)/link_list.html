@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>linked_list/单链表</title>
+</head>
+<body>
+	<p>
+		单链表:只有一个前驱，只有一个后驱，每个节点都有指向后驱的指针
+		<br>
+		循环链表:表中最后一个结点的指针指向头结点
+		<br>
+		双链表:表中每个节点都有两个指针，分别指向前驱和后驱
+		<br>
+		<ul>
+			<li>与顺序表的区别</li>
+			<li>对于链表，不需要再new的时候传入链表的大小，因为链表在每次插入元素后都可以临时向堆中申请一段内存，并且把临时申请的内存挂载到当前的链表中</li>
+		</ul>
+		
+	</p>
+	<div id="box"></div>
+	<script>
+		class List
+		{
+			//构造函数
+			constructor()
+			{
+				//由于不需要设置链表的长度，就初始化第一个节点，第一个节点的数据域无效，在刚开始的时候，指针域也是null。同时初始化的第一个节点也不算在该链表长度之中
+				this.el = {
+					'tail':{
+						data:undefined,
+						node:null
+					}
+				}
+				this.length = 0;
+				
+			}
+			//打印
+			print(){
+				console.log(this.el);
+			}
+			//判断链表是否为空
+			isEmpty(){
+				return this.length === 0 ? true : false;
+			}
+			//返回链表长度
+			getLength(){
+				return this.length;
+			}
+			//清空链表
+			empty()
+			{
+				if(this.length === 0) return true;
+				var crrentNode = this.el['tail']['node'];
+				var tempNode;
+				while( crrentNode !== null ){
+					tempNode = crrentNode;
+					crrentNode = this.el[tempNode]['node'];
+					delete this.el[tempNode];
+				}
+				this.el['tail']['node'] = null;
+				this.length = 0;
+				return true;
+			}
+			//根据index，得到链表中的某个元素
+			getElement(index)
+			{
+				if(index < 0 || index >= this.length) return false;
+				var currentNode = 'tail';
+				for(var k = 0; k <= index; k++){
+					currentNode = this.el[currentNode]['node'];
+				}
+				return this.el[currentNode]['data'];
+			}
+			//查询链表是否存在某个元素
+			locateElement(data)
+			{
+				var currentNode = 'tail';
+				var k = 0;
+				while( this.el[currentNode]['node'] !== null ){
+					currentNode = this.el[currentNode]['node'];
+					if(this.el[currentNode]['data'] === data) return k;
+					k++;
+				}
+				return -1;
+			}
+			//找到某个指定元素的前驱
+			fPier(data)
+			{
+				var currentNode = 'tail',
+				 	beforeNode;
+				while( this.el[currentNode]['node'] !== null ){
+					beforeNode = currentNode;
+					currentNode = this.el[currentNode]['node'];
+					if(this.el[currentNode]['data'] === data){
+						if(beforeNode === 'tail') return false;
+						return this.el[beforeNode]['data']
+					}
+				}
+				return false;
+			}
+			//找到某个指定元素的后继
+			fNext(data)
+			{
+				var currentNode = 'tail';
+				while( this.el[currentNode]['node'] !== null ){
+					currentNode = this.el[currentNode]['node'];
+					if(this.el[currentNode]['data'] === data){
+						if(this.el[currentNode]['node'] === null) return false;
+						return this.el[this.el[currentNode]['node']]['data']
+					}
+				}
+				return false;
+			}
+			//遍历链表
+			trav()
+			{
+				var str = "";
+				var currentNode = 'tail';
+				while( this.el[currentNode]['node'] !== null ){
+					currentNode = this.el[currentNode]['node'];
+					str += this.el[currentNode]['data'] + "<br>";	
+				}
+				return str;
+			}
+			
+			//在指定的index中插入某个元素
+			insertEl(index,data,name){
+				if(index < 0 || index > this.length) return false;
+				var currentNode = 'tail'; 
+				for(var k = 0; k < index; k++){
+					currentNode = this.el[currentNode]['node'];
+				}
+				this.el[name] = {
+					"data":data,
+					'node':this.el[currentNode]['node']
+				}
+				this.el[currentNode]['node'] = name;
+				this.length++;
+				return true;
+			}
+			//在指定的index中删除某个元素
+			deleteEl(index){
+				if(index < 0 || index >= this.length) return false;
+				var currentNode = 'tail';
+				var beforeCurrentNode;
+				for(var k = 0; k < index; k++){
+					currentNode = this.el[currentNode]['node'];
+				}
+				beforeCurrentNode = currentNode;
+				currentNode = this.el[currentNode]['node'];
+				this.el[beforeCurrentNode]['node'] = this.el[currentNode]['node'];
+				delete this.el[currentNode];
+				this.length--;
+				return true;
+			}
+			//插入至头结点
+			listInsertHead(data,name)
+			{
+				this.el[name] = {
+					"data":data,
+					"node":this.el['tail']['node']
+				}
+				this.el['tail']['node'] = name;
+				this.length ++;
+				return true; 
+			}
+			//插入至尾节点
+			listInsetTail(data,name)
+			{
+				var currentNode = 'tail';
+				while( this.el[currentNode]['node'] !== null){
+					currentNode = this.el[currentNode]['node'];
+				}
+				this.el[name] = {
+					"data":data,
+					"node":null
+				}
+				this.el[currentNode]['node'] = name;
+				this.length ++;
+				return true;
+			}
+			//析构函数
+		}
+
+		var oBox = document.querySelector("#box");
+		var oList = new List();
+
+		oList.insertEl(0,"one","one");
+		oList.listInsertHead("head","head");
+		oList.listInsetTail('end','end');
+		oList.listInsertHead('hh','hh');
+		oList.insertEl(1,'p','p');
+		console.log(oList.fNext('head'));
+		console.log(oList.fPier('head'));
+		console.log(oList.locateElement('head'));
+		console.log(oList.getElement(2))
+		// oList.deleteEl(3);
+		//oList.empty();
+		oList.print();
+		oBox.innerHTML = oList.trav();
+		// console.log(oList.isEmpty());
+		// console.log(oList.getLength());
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

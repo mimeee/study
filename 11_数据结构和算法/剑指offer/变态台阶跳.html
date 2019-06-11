@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>变态台阶跳</title>
+</head>
+<body>
+	<script>
+		
+		function superJumpFlood(number){
+			if(number <= 0 ) return -1;
+			if(number === 1) return 1;
+			return 2 * superJumpFlood(number - 1);
+		}
+
+		console.log(superJumpFlood(10));
+	</script>	
+</body>
+</html>

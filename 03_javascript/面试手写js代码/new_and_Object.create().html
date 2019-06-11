@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function init(name,age){
+			this.names = name;
+			this.age = age;
+		}
+		init.prototype.showNothing = function(){
+			console.log(1223);
+			return 123;
+		}
+
+
+		var o = new init({'hehe':'xixi'},12);
+
+
+		var k = Object.create(o);
+		console.log(o)
+		console.log(k);
+
+		o['names']['hehe'] = 123;
+
+		console.log(o)
+		console.log(k);
+
+	</script>	
+</body>
+</html>

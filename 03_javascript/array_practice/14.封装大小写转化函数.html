@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>封装大小写转化函数</title>
+</head>
+<body>
+	<script>
+		var str = 'ajsdfhjakenn2njciui';
+
+		console.log([].map.call(str,function(i){
+			return i.toUpperCase();
+		}).join(""));
+
+		// console.log(transform(str));
+		// function transform(str){
+		// 	var newStr = "";
+		// 	str.split("").forEach(function(i){
+		// 		newStr += i.toUpperCase();
+		// 	})
+		// 	return newStr;
+		// }
+	</script>
+</body>
+</html>

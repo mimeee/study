@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <button @click="value++">add 1</button>
+            <button @click="value += 5">add 5</button>
+            <button @click="v++">v++</button>
+            <p>
+            	v:{{ v }}
+            	value:{{ value }}
+            	result:{{ result }}
+            	result2:{{ results() }}
+                <hr>
+                <button @click="calcA">radom calc a</button>
+                {{ a.b }}
+                
+            </p>
+        </p>
+    </div>
+    <script>
+    new Vue({
+        el: "#app",
+        data:{
+        	v:1,
+        	value : 0,
+            b:100
+        },
+        computed:{
+        	result(){
+        		return this.value > 35 ? 'a' : 'b';
+        	},
+            a(){
+               return { b:this.b }
+            }   
+        },
+        methods:{
+        	results(){
+        		return this.value;
+        	},
+            calcA(){
+                this.b += (Math.random()*2 - 1) * Math.floor(Math.random()*10)
+            }
+        },
+        watch:{
+        	result(v){
+        			var that = this;
+        			setTimeout(()=>that.value = 0,1500)
+        	},
+            b(v){
+                console.log(1)
+                this.b = v > 100 ? 100 
+                : v < 95 ? 95 
+                : v;
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

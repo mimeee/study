@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>进制转换——栈应用</title>
+</head>
+<body>
+	<div>
+		描述: 输入任意的十进制正整数N,分别输出该整数N的二进制、八进制、十六进制的数公式: 
+		<p>N = (N div d) * d + N mod d (div表示整除,mod表示求余)</p>
+		如 1348(decimal) = 2504(octal) = 544(hex) = 10101000100(binary)
+	</div>
+	<input type="text"><input type="text">
+	<button>change</button>
+	<script>
+		var oInputs = document.querySelectorAll("input");
+		var oInput = oInputs[0];
+		var oInput_t = oInputs[1];
+		var oBtn = document.querySelector("button");
+
+		oBtn.onclick = function(e){
+			var iNumber = parseFloat(oInput.value);
+			var conversion = parseInt(oInput_t.value)
+			console.log(change_number(iNumber,conversion));
+		}
+
+
+		function change_number(iNumber,conversion){
+			if( conversion === undefined ) conversion = 2;
+			var res = [];
+			while(iNumber !== 0){
+				res.push(iNumber % conversion);
+				iNumber = Math.floor(iNumber / conversion);
+			}
+
+			return res.reverse().join("");
+		}
+
+	</script>
+</body>
+</html>

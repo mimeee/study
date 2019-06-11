@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			border: 1px solid #ccc;
+			width: 150px;
+			height: 150px;
+			background: olive;
+			display: inline-block;
+			margin-right: 80px;
+		}
+		.matrix{
+			transform:matrix(0.1,0.1,0.1,0,0,0);
+		}
+		.translate{
+			transform:translate(10px,-10px);
+		}
+		.scale{
+			transform:scale( 1.5,0.5 );
+		}
+		.rotate{
+			transform:rotate( 10deg );
+		}
+		.skew{
+			transform:skew( -10deg );
+		}
+
+
+		div.transition{
+			transition: width 2s ease;
+		}
+		div.transition:hover{
+			width: 500px;
+		}
+
+		div.animation{
+			animation: long 2s ease-in-out;
+			animation-fill-mode: forwards;
+			animation-iteration-count:2;
+		}
+
+		@keyframes long{
+			from{
+				width: 200px;
+			}
+			to{
+				width:500px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="matrix">
+		transition - matrix
+	</div>	
+	<div class="translate">
+		transition - translate:transform: translate(10px,-10px);
+	</div>	
+	<div class="scale">
+		transition - scale:transform:scale( 1.5,0.5 );
+	</div>	
+	<div class="rotate">
+		transition - rotate:transform:rotate( 10deg );
+	</div>	
+	<div class="skew">
+		transition - skew:transform:skew( -10deg );
+	</div>	
+
+
+	<hr>
+	<div class="transition">
+		transition
+	</div>
+
+	<hr>
+	<div class="animation">
+		animation
+	</div>
+
+	<script>
+		var transition = document.querySelector(".transition");
+		transition.addEventListener('transitionend',function(e){
+			console.log(e);
+			alert('end transition');
+		})
+
+		var animation = document.querySelector(".animation");
+		animation.addEventListener('animationend',function(e){
+			console.log(e);
+			alert('end animation');
+		})
+	</script>
+</body>
+</html>

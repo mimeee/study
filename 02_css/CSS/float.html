@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>float与clear float</title>
+	<style>
+		#no_clear_float{
+			background: orange;
+		}
+		#clear_float{
+			background: blue;
+		}
+		/*2*/
+		#clear_float{
+			overflow: hidden;
+		}
+		/*3*/
+	/*	#clear_float{
+			float: left;
+		}*/
+		/*4*/
+/*		#clear_float:after{
+			content:"";
+                    width: 0;
+                    height: 0;
+                    font-size: 0;
+                    display: block;
+                    clear: both;
+		}*/
+		#no_clear_float>.float-l,#clear_float>.float-l{
+			float: left;
+		}
+		#no_clear_float>.float-r,#clear_float>.float-r{
+			float: right;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<div>想要达到的效果</div>
+		<img src="image/float_target.png" alt="">
+	</div>
+	<div>结果却是，如果不清除浮动的话</div>
+	<hr>
+	<div id="clear_float">
+		<div>
+			你你你你你你你你你你你你你你你你你您你你你你你你你你你你你你你你你你你您你你你
+		</div>	
+		<div class="float-l">
+			它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它
+		</div>	
+		<div class="float-r">
+			我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我
+		</div>	
+	</div>
+		<hr>
+	<div id="no_clear_float">
+		<div>
+			你你你你你你你你你你你你你你你你你您你你你你你你你你你你你你你你你你你您你你你
+		</div>	
+		<div class="float-l">
+			它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它它
+		</div>	
+		<div class="float-r">
+			我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我
+		</div>	
+	</div>	
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>斐波那契数列</title>
+</head>
+<body>
+	<script>
+		//递归
+		// function Fibonacci(n)
+		// {
+		// 	if( n < 0 ) return false;
+		//     if( n === 0 ) return 0;
+		//     if( n === 1 ) return 1;
+		//     if( n === 2 ) return 1;
+		//     return Fibonacci(n-1) + Fibonacci(n-2);
+		// }
+
+
+		//循环
+		function Fibonacci(n)
+		{
+		    if( n <= 0 ) return 0;
+		    if( n === 1 ) return 1;
+		    if( n === 2 ) return 1;
+		    if ( n > 2) {
+		    	var start = 1;
+		    	var second = 1;
+		    	var end;
+		    	for(var i = 3; i <= n; i++){
+		    		end = start + second;
+		    		start = second;
+		    		second = end;
+		    	}
+		    }
+		    return end;
+		}
+		// console.log(Fibonacci(0));
+		// console.log(Fibonacci(3));
+		// console.log(Fibonacci(4));
+		// console.log(Fibonacci(5));
+		// console.log(Fibonacci(6));
+		// console.log(Fibonacci(7));
+		// console.log(Fibonacci(8));
+		// console.log(Fibonacci(9));
+		// console.log(Fibonacci(10));
+		// console.log(Fibonacci(11));
+		// console.log(Fibonacci(12));
+		// console.log(Fibonacci(13));
+		// console.log(Fibonacci(14));
+		// console.log(Fibonacci(15));
+	</script>	
+</body>
+</html>

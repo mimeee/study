@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数节流</title>
+	<style>
+		div{
+			width: 70px;
+			height: 500px;
+			overflow: auto;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	函数节流表示在一定的时间里只会触发一次fun
+
+	比如在scroll事件中控制fun的频率
+
+<br>
+	<div class="no">不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流不节流</div>
+	<div class="no-son"></div>
+	<div class="yes">节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 节流 </div>
+	<div class="yes-son"></div>
+	<script>
+		let noSave = document.querySelector(".no");
+		let save = document.querySelector(".yes");
+		let noSaveContent = document.querySelector(".no-son");
+		let yesSaveContent = document.querySelector(".yes-son");
+
+
+		noSave.addEventListener("scroll",()=>{
+			noSaveContent.innerHTML += "哈"
+		},false)
+
+		var go = (fn,delay = 500)=> {
+			let startTime = 0;
+			return function(){
+				let curTime = new Date();
+				if(curTime - startTime > delay){
+					fn.apply(this);
+					startTime = curTime ;
+				}
+			}
+		}
+
+		function write(){
+			yesSaveContent.innerHTML += "哦";
+		}
+		save.addEventListener("scroll", go(write) ,false)
+
+
+	</script>
+</body>
+</html>

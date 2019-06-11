@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>haha</title>
+	<style>
+		body{
+			background: orange;
+		}
+	</style>
+</head>
+<body>
+	<strong>this is 2.html</strong>	
+	<script>
+		// var oTop = window.top;
+		// console.log(oTop.document.head.children[1].innerHTML);
+		
+
+		//var oParent = window.parent;
+		//console.log(oParent.document.head.children[1].innerHTML);
+
+
+		//防止嵌套
+		if(window.top !== window){
+			window.top.location.href = "http://www.baidu.com";
+		}
+	</script>
+</body>
+</html>

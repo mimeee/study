@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>const</title>
+</head>
+<body>
+	<script>
+        function aa(x = function(){
+        	alert('x'); 
+        	console.log(this);//window
+        	return 3;
+        },y= (function(){
+        	alert('y'); 
+        	return 4;
+        })()){
+        	x();
+            alert("inner")
+            console.log(x);
+        }
+        aa();
+	</script>	
+</body>
+</html>

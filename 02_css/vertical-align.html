@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		/*div{
+			border: 1px solid #000;
+		}*/
+		#father{
+			height: 300px;
+			line-height: 300px;
+		}
+		#father div{
+			width: 90%;
+			height: 50px;
+			vertical-align: middle;
+			line-height: 50px;
+			display: inline-block;
+		}
+		#father span{
+			border: 1px solid #000;
+			line-height: 10px;
+			height: 10px;
+			vertical-align: top;
+			display: inline-block;
+		}
+		.one,.two,.three{
+			display: inline-block;
+			margin: 20px;
+			padding: 20px;
+			background: #ccc;
+			height: 10px;
+		}
+		.two{
+			overflow: hidden;
+		}
+		
+		.four,.five,.add{
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			width: 20px;
+			background: #000;
+		}
+		.four{
+			height: 100px;
+		}
+		.five{
+			height: 5px;
+			vertical-align:top;
+		}
+		.add{
+			height: 100px;
+			vertical-align:bottom;
+		}
+
+		.verti{
+			display: table;
+			background: orange;
+			width: 150px;
+			height: 300px;
+			vertical-align:middle;
+		}
+		.verti>span{
+			display: table-cell;
+			vertical-align:middle;
+		}
+		.verti2{
+			background: orange;
+			width: 150px;
+			height: 300px;
+			display: flex;
+		}
+		.verti2>span{
+			 align-self: center;
+		}
+		.verti3{
+			background: orange;
+			width: 150px;
+			height: 300px;
+		}
+		.verti3>span{
+			display: inline-block;
+			 transform: translateY(50%);
+		}
+		
+	</style>
+</head>
+<body>
+	<h3>使用只需要注意 line-box 的上下边界在哪里 basline又在哪里</h3>
+	<div id="father">
+		<div><a href="https://segmentfault.com/a/1190000002668492">关于Vertical-Align你需要知道的事情</a></div>	<span>4545</span>
+	</div>
+
+	aaa
+	<span class="one">a</span>
+	<span class="two">b</span>
+	<span class="three"></span>
+
+	<div style="background:pink">
+		aaa
+		<span class="four"></span>
+		<span class="five"></span>
+	</div>
+<hr>
+
+	<div style="background:red">
+		aaa
+		<span class="four"></span>
+		<span class="add"></span>
+	</div>
+	
+	<div class="verti"><span>啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动
+	</span></div>
+	<hr>
+	<div class="verti2"><span>啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动
+	</span></div>
+	<hr>
+	<div class="verti3"><span>啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动
+	</span></div>
+		<hr>
+	<div class="verti4"><span>啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动啊手动阀手动
+	</span></div>
+</body>
+</html>

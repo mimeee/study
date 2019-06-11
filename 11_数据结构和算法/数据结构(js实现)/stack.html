@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>stack/栈</title>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+	class stack{
+		//创建栈( 分配空间，设定栈容量，栈顶)
+		constructor(iSize){
+			this.ele = new Array( iSize );
+			this.iTop = 0;
+			this.size = iSize;
+		}
+		//判断栈是否为空
+		isEmpty(){
+			if(this.iTop === 0) return true;
+			return false;
+		}
+		//判断栈是否已满
+		isFull(){
+			if( this.iTop === this.size ) return true;
+			return false;
+		}
+		//清空栈
+		empty(){
+			this.iTop = 0;
+			return true;
+		}
+		//栈中已有元素的个数
+		getLength(){
+			return this.iTop;
+		}
+		//入栈，栈顶上升
+		insert(ele){
+			if( this.isFull() ) return false;
+			this.ele[this.iTop] = ele;
+			this.iTop ++;
+			return true;
+		}
+		//出栈，栈顶下降
+		pop(){
+			if( this.isEmpty() ) return false;
+			this.ele[this.iTop--];
+			return true;
+		}
+		//遍历栈中所有元素
+		trav(flag){
+			if (flag === undefined) flag = 0;
+			var oBox = document.querySelector("#box");
+
+			if(flag){
+				for(var i = 0; i < this.iTop;i++){
+					oBox.innerHTML += this.ele[i];
+				}
+			}else{
+				for(var i = this.iTop - 1; i >= 0;i--){
+					oBox.innerHTML += this.ele[i];
+				}
+			}
+		}
+	}
+
+	var s = new stack(5);
+	s.insert(1);
+	s.insert(2);
+	s.insert(3);
+	s.insert(4);
+	s.insert(5);
+	s.pop();
+	s.pop();
+	s.pop();
+	s.pop();
+	s.insert(6);
+	s.trav(1);
+	</script>
+</body>
+</html>

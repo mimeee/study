@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.a{
+			border: 1px solid #000;
+			width: 200px;
+			margin:8px;
+			height: 200px;
+			display: none;
+		}
+		.a:first-child{
+			display: block;
+		}
+		.nav>ul{
+			width: 200px;
+			list-style: none;
+			padding: 0;
+			margin: 8px;
+		}
+		.nav>ul>li{
+			background: #ccc;
+			width: 40px;
+			float: left;
+			margin:0 5px;
+			cursor: pointer;
+			text-align: center;
+		}
+		.nav>ul>li:hover{
+			background: yellow;
+		}
+		.nav>ul>li:active{
+			background: orange;
+		}
+		.selected{
+			background: green !important;
+		}
+		.nav>ul:after{
+			content: "";
+			clear:both;
+			display: block;
+			margin:0;
+			height: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<div class="show">
+		<div class="a">A1</div>
+		<div class="a">A2</div>
+		<div class="a">A3</div>
+		<div class="a">A4</div>		
+	</div>
+	
+	<script>
+		var oOption = document.querySelectorAll("li");
+		var oDiv = document.querySelectorAll(".a");
+
+		oOption.forEach((el,ind,arr)=>{
+			el.onclick = ()=>{
+				arr.forEach((el)=>{
+					el.className = "";
+				})
+				el.className = "selected";
+				oDiv.forEach((e)=>{
+					e.style.display = 'none';					
+				})
+				oDiv[ind].style.display = "block";
+			}
+		})
+	</script>
+</body>
+</html>

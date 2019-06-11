@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>array_tree</title>
+</head>
+	<p>
+		数组表示二叉树
+		<ul>
+			<li>左节点的下标 = 父节点下标 * 2 + 1 </li>
+			<li>右节点的下标 = 父节点下标 * 2 + 2 </li>
+		</ul>
+	</p>
+<body>
+	<canvas></canvas>
+	<script>
+		
+		class tree
+		{
+			//创建树
+			constructor(iSize,root)
+			{
+				this.el = new Array(iSize);
+				this.size = iSize;
+				for(var i = 0;i < iSize;i++){
+					this.el[i] = 0;
+				}
+				this.el[0] = root;
+			}
+			//根据索引寻找节点
+			searchNode(index)
+			{
+				if(index < 0 || index >= this.size) return false;
+				if(this.el[index] === 0) return false;
+				return this.el[index];
+			}
+			//添加节点
+			addNode(index,direct,node)
+			{
+				if(index < 0 || index >= this.size) return false;
+				if(this.el[index] === 0) return false;
+
+				if( direct === "l"){
+					if(2 * index + 1 >= this.size) return false;
+					if(this.el[2 * index + 1] !== 0) return false;
+					this.el[2 * index + 1] = node;
+				}else if(direct === "r"){
+					if(2 * index + 2 >= this.size) return false;
+					if(this.el[2 * index + 2] !== 0) return false;
+					this.el[2 * index + 2] = node;
+				}
+				return true;
+			}
+			//删除节点
+			deleteNode(index)
+			{
+				if(index < 0 || index >= this.size) return false;
+				if(this.el[index] === 0) return false;
+				this.el[index] = 0;
+				return true;
+			}
+			//遍历
+			trans()
+			{
+				return this.el;
+			}
+		}
+
+
+		var tr = new tree(5,"root");
+		tr.addNode(0,"r","right")
+		tr.addNode(0,"l","left")
+		tr.addNode(1,"r","2right")
+		tr.deleteNode(1)
+		console.log(tr.trans());
+
+
+		function draw(){
+			
+		}
+	</script>
+</body>
+</html>

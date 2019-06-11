@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟new</title>
+</head>
+<body>
+	<ul>
+		在new一个function的时候会做以下步骤
+		<li>创建一个空对象</li>
+		<li>将该函数的this指针指向自身</li>
+		<li>执行该函数的构造函数</li>
+		<li>返回该对象</li>
+	</ul>
+	<p>
+		而Object.create相当于做了一个继承
+		<pre>
+			Object._create = function(obj){
+				let f = function(){};
+				f.prototype = obj;
+				return new f;
+			}
+		}
+		</pre>
+	</p>
+	<script>
+		function a(){ this.a = 1};
+		let b = Object.create(new a());
+		console.log(b.a)
+
+
+
+	</script>
+</body>
+</html>

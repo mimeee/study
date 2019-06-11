@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图的最小生成树之克鲁斯卡尔算法</title>
+</head>
+<body>
+	<p>
+		思路
+		<ul>
+			<li>找出所有边的集合</li>
+			<li>找出最小边</li>
+			<li>找出最小边的两个点</li>
+			<li>将两个点与记录的点集合对比，由此有4中情况
+				<ul>
+					<li>两个点都不在点集合的某个数组中:将两个点存入一个新的数组中，并且将该数组放入点集合中</li>
+					<li>一个点在点集合中的某个数组中，另一点不在点集合中:将不在点集合的点放入另一点的数组中</li>
+					<li>两个点都在点集合中，并且在同一数组中:跳过该次循环，进入下一个循坏</li>
+					<li>两个点都在点集合中，但在不同数组中:合并这两个数组</li>
+				</ul>
+			</li>
+			<li>
+				将最小边存入最终的边集合中
+			</li>
+			<li>
+				设置该边已经被访问过了
+			</li>
+			<li>边计数器加1</li>
+		</ul>
+		循环终止条件: 边的数量 = 点的数量 - 1
+	</p>
+	<div id="show"></div>
+	<script>
+		//顶点 A B C D F E
+		//边 
+		//A-B 6   A-E 5   A-F 1
+		//B-C 3   B-F 2
+		//C-F 8   C-D 7
+		//D-F 4   D-E 2
+		//E-F 9
+
+		//实现 边 的数据结构
+		class Edge
+		{
+			constructor(nodeA,nodeB,value)
+			{
+				this.nodeA = nodeA;
+				this.nodeB = nodeB;
+				this.value = value;
+				this.isSelected = false;
+			}
+		}
+
+		//实现 点 的数据结构
+		class node
+		{
+			constructor(data)
+			{
+				this.data = data;
+				this.isVisited = false;
+			}
+		}
+
+		class cMap
+		{
+			constructor(capacity){
+				this.capacity = capacity;
+				this.nodeCount = 0;
+				this.nodeArray = new Array(capacity);
+				this.Matrix = new Array(capacity * capacity);
+				for(var i = 0;i <capacity * capacity;i++){
+					this.Matrix[i] = 0;
+				}
+
+				//生成最小树需要的变量
+				this.edgeArray = new Array(capacity - 1);
+			}
+			addNode(node){
+				if(node === null) return false;
+				this.nodeArray[this.nodeCount] = {};
+				this.nodeArray[this.nodeCount]['data'] = node['data']; 
+				this.nodeArray[this.nodeCount]['isVisited'] = false;
+				this.nodeCount++;
+				return true;
+			}
+			//重置节点，就是把图中所有的节点的isVisit重置为0
+			resetNode(){
+				for(var i = 0;i < this.nodeCount;i++){
+					this.nodeArray[this.nodeCount]['isVisited'] = false;
+				}
+				return true;
+			}
+			//如果图为有向图，则对有向图设置值
+			setValueToMatrixForDirectedGraph(row,col,val){
+				//判断 row, col是否合法
+				if(row < 0 || row >= this.capacity ) return false;
+				if(col < 0 || col >= this.capacity ) return false;
+				//只有找到该点所对应的索引，将其设置值即可，该点的索引值就是行数*每行的个数 + 第几列
+				this.Matrix[ row * this.capacity + col ] = val;
+				return true;
+			}
+
+			//如果图为无向图，则对有向图设置值
+			setValueToMatrixForUndirectedGraph(row,col,val){
+				//判断 row, col是否合法
+				if(row < 0 || row >= this.capacity ) return false;
+				if(col < 0 || col >= this.capacity ) return false;
+				//只有找到该点所对应的索引，将其设置值即可，该点的索引值就是行数*每行的个数 + 第几列
+				this.Matrix[ row * this.capacity + col ] = val;
+				this.Matrix[ col * this.capacity + row ] = val;
+				return true;
+			}
+
+			//根据邻接矩阵获取值
+			getValueFromMatrix(row,col){
+				//判断 row, col是否合法
+				if(row < 0 || row > this.capacity ) return false;
+				if(col < 0 || col > this.capacity ) return false;
+				return this.Matrix[ row * this.capacity + col ];
+			}
+
+			//打印邻接矩阵
+			printMatrix(dom){
+				for(var i = 0; i < this.Matrix.length;i++){
+					if(i % this.capacity === 0){
+						dom.innerHTML += "<br/>";
+					}
+					dom.innerHTML += this.Matrix[i] + ", ";
+				}
+			}
+			//图的最小生成树之普里姆算法
+			prime(index){
+				if(index < 0 || index >= this.capacity) return false;
+
+				//将顶点放入点集
+				var nodeArray = [index];
+				//声明一个变量，用来保存每次与点相连接的边
+				var edgeArray = [];
+				//声明一个边计数器
+				var edgeCount = 0;
+
+				while( edgeCount < this.capacity - 1){
+					//设置一个临时变量，保存当前要处理的那一个点
+					var temp = nodeArray[nodeArray.length - 1];
+					//将放入的顶点设置为已经被访问
+					this.nodeArray[temp]['isVisited'] = true;
+					//求出与该点相连接的边，以及边的那头的点
+					for(var i = 0;i < this.nodeArray.length;i++){
+						if(this.nodeArray[i]['isVisited']) continue;
+						//得到与该点相连接的边的权值
+						var val = this.getValueFromMatrix(temp,i);
+						//如果权值不为0，则存在边
+						if(val){
+							var edge = new Edge(temp,i,val);
+							edgeArray.push(edge);
+						}
+					}
+
+					//找出权值最小的边的索引
+					var ind = this.getMinEdge(edgeArray);					
+
+					//如果ind等于-1，表示不存在与该点相连的边没有访问过，跳出循环
+					if( ind === -1 ) break;
+					//反之将该边存入最小数集合
+					this.edgeArray[edgeCount] = edgeArray[ind];
+					//设置该边为已选择
+					edgeArray[ind]['isSelected'] = true;
+					//边计数器加1
+					edgeCount++;
+
+					//存储该点
+					nodeArray.push(edgeArray[ind]['nodeB']);
+				}
+				console.log(this.edgeArray);
+			}
+
+			getMinEdge(edgeArray){
+				var min = Number.POSITIVE_INFINITY,
+					lastEdgeIndex;
+				for(var i = 0;i < edgeArray.length; i++){
+					if(edgeArray[i]['isSelected']) continue;
+					if(edgeArray[i]['value'] < min){
+						min = edgeArray[i]['value'];
+						lastEdgeIndex = i;
+					}
+				}
+				if(min === Number.POSITIVE_INFINITY) return -1;
+				return lastEdgeIndex;
+			}
+
+			kruskalTree(){
+				//声明一个变量用来保存所有的边
+				var edgeArray = [];
+				//声明一个边计数器
+				var edgeCount = 0;
+				//声明一个变量来保存点的集合
+				var nodeSets = [];
+				//声明一个变量来保存边的权值
+				var edgeValue;
+				
+
+				//找出所有边
+				for(var i = 0;i < this.nodeArray.length; i++){
+					for(var j = i + 1; j < this.nodeArray.length; j++){
+						edgeValue = this.getValueFromMatrix(i,j);
+						if(edgeValue !== 0){
+							var temp = new Edge(i,j,edgeValue);
+							edgeArray.push(temp);
+						}
+					}
+				}
+
+				while(edgeCount < this.capacity - 1){
+					//找出最小边
+					var minEdgeIndex = this.getMinEdge(edgeArray);
+					if( minEdgeIndex === -1 ) break;
+					//找出边的两个端点
+					var nodeA = edgeArray[minEdgeIndex]['nodeA'];
+					var nodeB = edgeArray[minEdgeIndex]['nodeB'];
+					var aIsInNodeSets = -1,
+						bIsInNodeSets = -1;
+					//判断两个端点是否在点集合nodeSets内
+					for(var i = 0; i < nodeSets.length;i++){
+						if(aIsInNodeSets === -1){
+							if(this.in_array(nodeA,nodeSets[i])) aIsInNodeSets = i;
+						}
+						if(bIsInNodeSets === -1){
+							if(this.in_array(nodeB,nodeSets[i])) bIsInNodeSets = i;
+						}
+					}
+
+					//根据点的情况判断
+					if(aIsInNodeSets === -1 && bIsInNodeSets === -1){
+						//如果两个点都不在点集合内
+						nodeSets.push([nodeA,nodeB]);
+					}else if(aIsInNodeSets !== -1 && bIsInNodeSets === -1){
+						//一个点在点集合中的某个数组中，另一点不在点集合中:
+						nodeSets[aIsInNodeSets].push(nodeB);					
+					}else if(aIsInNodeSets === -1 && bIsInNodeSets !== -1){
+						//一个点在点集合中的某个数组中，另一点不在点集合中:
+						nodeSets[bIsInNodeSets].push(nodeA);
+					}else if(aIsInNodeSets !== -1 && bIsInNodeSets !== -1 && aIsInNodeSets !== bIsInNodeSets){
+						//两个点都在点集合内，并且不再一个集合，合并两个数组
+						if(aIsInNodeSets > bIsInNodeSets){
+							aIsInNodeSets = aIsInNodeSets + bIsInNodeSets;
+							bIsInNodeSets = aIsInNodeSets - bIsInNodeSets;
+							aIsInNodeSets = aIsInNodeSets - bIsInNodeSets;
+						}
+						var a = nodeSets.splice(aIsInNodeSets,1).pop();
+						var b = nodeSets.splice(bIsInNodeSets - 1,1).pop();				
+						nodeSets.push(a.concat(b));
+
+					}else if(aIsInNodeSets !== -1 && bIsInNodeSets !== -1 && aIsInNodeSets === bIsInNodeSets){
+						continue;
+					}
+					this.edgeArray[edgeCount] = edgeArray[minEdgeIndex];
+					edgeArray[minEdgeIndex]['isSelected'] = true;
+					edgeCount++;
+				}
+				console.log(this.edgeArray);
+			}
+
+			in_array(nodeA,nodeArray){
+				for(var i = 0;i < nodeArray.length;i++){
+					if(nodeA === nodeArray[i]) return true;
+				}
+				return false;
+			}
+
+		}
+			var oShow = document.getElementById("show");
+			var maps = new cMap(6);
+			maps.addNode({'data':'第A点'});
+			maps.addNode({'data':'第B点'});
+			maps.addNode({'data':'第C点'});
+			maps.addNode({'data':'第D点'});
+			maps.addNode({'data':'第E点'});
+			maps.addNode({'data':'第F点'});
+			//A-B 6   A-E 5   A-F 1
+			//B-C 3   B-F 2
+			//C-F 8   C-D 7
+			//D-F 4   D-E 2
+			//E-F 9
+			maps.setValueToMatrixForUndirectedGraph(0,1,6);
+			maps.setValueToMatrixForUndirectedGraph(0,4,5);
+			maps.setValueToMatrixForUndirectedGraph(0,5,1);
+			maps.setValueToMatrixForUndirectedGraph(1,2,3);
+			maps.setValueToMatrixForUndirectedGraph(1,5,2);
+			maps.setValueToMatrixForUndirectedGraph(2,5,8);
+			maps.setValueToMatrixForUndirectedGraph(2,3,7);
+			maps.setValueToMatrixForUndirectedGraph(3,5,4);
+			maps.setValueToMatrixForUndirectedGraph(3,4,2);
+			maps.setValueToMatrixForUndirectedGraph(4,5,9);
+			maps.printMatrix(oShow);
+			maps.kruskalTree();
+
+						
+			
+	</script>	
+</body>
+</html>

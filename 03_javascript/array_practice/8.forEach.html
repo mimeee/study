@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var obj = { aa: 2,bb:3,length:13};
+		var arr = [ "aa", 1, "vv", 2, 3];
+		var res = arr.forEach(function( v, i, arr ){
+			console.log(v);//aa,1,vv,2,3
+			console.log(this);//Object { aa: 2 },Object { aa: 2 },Object { aa: 2 }...
+		},obj)
+		console.log(res);//undefined
+
+		Array.prototype.forEach.call(obj,function(v,i,obj){
+			alert(1)
+			console.log(v);
+		})//为什么没反应
+
+	</script>
+</body>
+</html>

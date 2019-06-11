@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// var arr = [2,5,8,44,2,0];
+		// var res = arr.reduce(function(sums,curentV,currentI,currentArr){
+		// 	sums += curentV ;
+		// 	return sums;
+		// })
+		// console.log(res);//61
+
+
+		var arr = [2,5,8,44,2,0];
+		var res = arr.reduceRight(function(sums,curentV,currentI,currentArr){
+			console.log(sums);
+			sums += curentV ;
+			return sums;
+		},100)
+		console.log(res);//161
+	</script>	
+</body>
+</html>

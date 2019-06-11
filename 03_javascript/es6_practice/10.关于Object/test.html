@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+ 			// //1
+    //         console.log( +0 === -0 ); //true
+    //         console.log( Object.is( +0 , -0 )); //false
+    //         //2
+    //         console.log( NaN === NaN ); //false
+    //         console.log( Object.is( NaN , NaN )); //true
+    //         //3
+    //         console.log( "123" === 123 );  //false
+    //         console.log( Object.is( "123", 123 )); //false
+    //         //4
+    //         console.log( 1 === true ); //false
+    //         console.log( Object.is( 1 , true )); //false
+    //         //5
+    //         console.log( 0 === 0 ); //true
+    //         console.log( Object.is( 0 ,  0)); //true
+    //         //6
+    //         console.log( "string" === "string" ); //true
+    //         console.log( Object.is( "string" , "string" )); //true
+    //         //7
+    //         var arr = [1,2,3];
+    //         var arr2 = [1,2,3];
+    //         console.log( arr === arr2 ); //false
+    //         console.log( Object.is( arr , arr2 )); //false
+    //         //8
+    //         var obj = {'a':"a","b":"b"};
+    //         var obj2 = {'a':"a","b":"b"};
+    //         console.log( obj === obj2 ); //false
+    //         console.log( Object.is( obj , obj2 )); //false
+    //         -------------------------------------------------
+
+    			// var target = { 'a' : 'a' };
+       //          var source_1 = { 'b' : 'b' };
+       //          var source_2 = { 'c' : 'c' };
+       //          target = Object.assign(target,source_1,source_2);
+       //          console.log(target) //{'a' : 'a', 'b' : 'b', 'c' : 'c' }
+
+
+				// var target = 123;
+    //             Object.assign( target, { 'a': 'a' } )['a'] ;
+    //             console.log(target);
+
+ 				// var target = null;
+     //            Object.assign(target,{ 'a' : 'a' });
+    
+     			// var target = { 'a' : 'a' };
+        //         target = Object.assign(target,undefined);
+        //         console.log(target);  
+                 
+                // var target = { 10 : 'a' };
+                // target = Object.assign(target,8520,"hehe",true,8520); 
+                // console.log(target); //Object { a: "a" }
+
+                // var target = { "a": "a" };
+                // var source_1 = {
+                // 	'b' : {
+                // 		'b' : 'c'
+                // 	}
+                // }
+                // target = Object.assign(target,source_1);
+                // console.log(target);
+
+
+			// function createObj( name, age ){
+   //                      Object.assign( this, { name, age } );
+   //                      Object.assign( this, { names: name, ages: age } );
+   //                  }
+   //                  var obj = new createObj( 'mimee', 10 );
+   //                  console.log( obj );
+
+ // function createObj( name, age ){
+ //                        //ES6 写法，键值相同可简写
+ //                        Object.assign( this, { name, age } );
+ //                        Object.assign( this, { names: name, ages: age } );
+ //                    }
+
+ //                    Object.assign( createObj.prototype, {
+ //                        showInfo(){
+ //                            alert(123);
+ //                        }
+ //                    })
+ //                    var obj = new createObj( 'mimee', 10 );
+ //                    console.log( obj ); 
+
+ 					// let merge = (target, ...source) => Object.assign(target, ...source);               
+      //               console.log(merge({},{a:2},{b:4}))
+
+
+
+
+//----------------------------------------------------------------------------------
+            
+            // var fn = function(){
+            //     this.a = "a";
+            //     this.b = "b";
+            // }
+
+            // fn['kkk'] = 123;
+
+            // fn.prototype.one = function(){
+            //     console.log('one');
+            // }
+
+            // console.log(typeof fn);
+            // console.log(fn instanceof Object);
+
+
+            // console.log(Object.getOwnPropertyDescriptor( fn , 'kkk' ));
+            // console.log(Object.getOwnPropertyDescriptor( fn.prototype , 'one' ));
+
+            // Object.defineProperty(fn.prototype,'two',{
+            //     configuration: true,
+            //     enumberable:false,
+            //     writable:false,
+            //     value:function(){
+            //         console.log('this is two function');
+            //     }
+            // })
+            // console.log(fn.prototype);
+            // for(var i in fn.prototype){
+            //     document.write(i + '--->' + fn.prototype[i]);
+            // }
+            // var obj = {a:999};
+            // Object.defineProperties(obj,{
+            //     one:{
+            //         configuration: true,
+            //         enumberable:false,
+            //         writable:false,
+            //         value:'one'
+            //     },
+            //     three:{
+            //         configuration: true,
+            //         enumberable:false,
+            //         writable:false,
+            //         value:function(){
+            //             console.log('this is three function');
+            //         }
+            //     }
+            // })
+            // console.log(obj);
+
+            // console.log(Object.getOwnPropertyDescriptor( obj , 'a' ));
+            // Object.defineProperty(obj,'a',{
+            //     configuration: true,
+            //     enumberable:false,
+            //     writable:false
+            // })
+            // console.log(Object.getOwnPropertyDescriptor( obj , 'a' ));
+            // console.log(Object.getOwnPropertyDescriptor( obj , 'one' ));
+
+            // console.log(Object.getPrototypeOf(obj))
+            // var f = new fn();
+            // f.two();
+
+            // fn.prototype.two = function(){
+            //     console.log("modify two");
+            // }
+
+            // var f = new fn();
+            // f.one();
+            // f.two();
+            // f.three();
+
+
+//----------------------------------------------------------------------
+            
+ 
+
+            // function Person(name) {
+            //     this.name = name;
+            // }
+
+            // //等同于将构造函数的原型对象赋给实例对象p的属性__proto__
+            // var p = {};
+            // console.log(p.constructor);
+            // p = Object.setPrototypeOf(p,Person.prototype);
+            // console.log(p.constructor);
+            
+
+function CreateFunction(){};
+            var obj = new CreateFunction();
+            console.log(obj.__proto__ === CreateFunction.prototype);
+	</script>	
+
+</body>
+</html>

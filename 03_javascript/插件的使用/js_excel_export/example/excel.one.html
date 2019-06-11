@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>excel_one_test</title>
+	<style media="screen">
+    .tableA {
+      border-collapse: collapse;
+    }
+    .tableA .title th{
+      height: 50px;
+      font-size: 24px;
+      font-family: '微软雅黑';
+      font-weight: 700;
+    }
+    .tableA tr th {
+      border: 1px #000 solid;
+      height: 40px;
+      background: #efefef;
+    }
+    .tableA tr td {
+      padding: 0 40px;
+      border: 1px #000 solid;
+      height: 40px;
+      text-align: center;
+    }
+    .tableA .footer td {
+      font-size: 20px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <table bordercolor="black" class="tableA">
+    <tr class="title">
+      <th colspan="4">学生信息</th>
+    </tr>
+    <tr>
+      <th>名字</th>
+      <th>性别</th>
+      <th>年龄</th>
+      <th>班级</th>
+    </tr>
+    <tr>
+      <td>小明</td>
+      <td>男</td>
+      <td>19</td>
+      <td>1班</td>
+    </tr>
+    <tr>
+      <td>小黄</td>
+      <td>男</td>
+      <td>20</td>
+      <td>2班</td>
+    </tr>
+    <tr>
+      <td>老王</td>
+      <td>男</td>
+      <td>29</td>
+      <td>3班</td>
+    </tr>
+    <tr class="footer">
+      <td colspan="4">总人数：3人</td>
+    </tr>
+  </table>
+	<script>
+	var oHtml = document.getElementsByClassName('tableA')[0].outerHTML;
+	var excelHtml = `
+		    <html>
+		      <head>
+		        <meta charset='utf-8' />
+		        <style>
+		          .tableA {
+		            border-collapse: collapse;
+		          }
+		          .tableA .title th{
+		          	width:300px;
+		            height: 50px;
+		            font-size: 24px;
+		            font-family: '微软雅黑';
+		            font-weight: 700;
+		          }
+		          .tableA tr th {
+		            border: 1px #000 solid;
+		            height: 40px;
+		            background: #efefef;
+		          }
+		          .tableA tr td {
+		            padding: 0 40px;
+		            border: 1px #000 solid;
+		            height: 40px;
+		            text-align: center;
+		          }
+		          .tableA .footer td {
+		            font-size: 20px;
+		            font-weight: 700;
+		          }
+		        </style>
+		      </head>
+		      <body>
+		        ${oHtml}
+		      </body>
+		    </html>
+		  `;
+	var excelBlob = new Blob([excelHtml], {type: 'application/vnd.ms-excel'})
+	// console.log(excelBlob);
+
+	// 创建一个a标签
+	var oA = document.createElement('a');
+	// 利用URL.createObjectURL()方法为a元素生成blob URL
+	oA.href = URL.createObjectURL(excelBlob);
+	// 给文件命名
+	oA.download = '学生名单.xls';
+	// 模拟点击
+	oA.click();
+	oA.innerHTML= "aaa"
+	console.log(oA);
+	document.querySelector('body').append(oA)
+	</script>	
+</body>
+</html>

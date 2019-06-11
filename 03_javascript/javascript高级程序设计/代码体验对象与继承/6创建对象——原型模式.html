@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>创建对象——原型模式</title>
+</head>
+<body>
+	<h1>原型模式</h1>
+	<div>
+		每当一个函数被创建出来的时候，都会根据一组<strong>特定的规则</strong>给该函数赋予一个属性<em>prototype</em>，它是一个指针，指向一个对象(<span style="color:red"><b>原型对象</b></span>)，同时该对象也会默认有一个属性<em>constructor</em>来指向函数(<span style="color:red"><b>构造函数</b></span>)，原型对象里的属性和方法是该构造函数所有的实例所共享的。
+
+		<br>
+		当使用该构造函数创建了一个实例，实例内会有一个属性<em>__proto__</em>指向原型对象
+
+	</div>
+	<script>
+		function Person(){}
+		Person.prototype.names = "mime";
+		Person.prototype.age = 31;
+		Person.prototype.sayName = function(){
+			console.log(this.names);
+		}
+
+		var person1 = new Person();
+		console.log(Person.prototype.isPrototypeOf(person1));
+		console.log(Object.getPrototypeOf(person1));
+		var pro = Object.getPrototypeOf(person1);
+		pro.age = 12;
+		console.log(person1.age);
+		//使用 Person.prototype.isPrototypeOf(person1) 可以确定person与原型对象是否有关系
+		//使用 Object.getPrototypeOf(person1) 来获取实例person1所指向的原型对象
+		
+
+		//使用 hasOwnProperty()可以检测一个方法或者属性是否来自实例
+		console.log(person1.hasOwnProperty('age'));
+
+		//in 操作符可以判断属性是否属于一个实例，不关事实例本身还是在原型对象上
+		console.log('names' in person1);
+
+		//想要获取所有实例的属性(包括不可枚举的)可以使用 Object.getOwnPropertyNames()
+		
+
+		//当重写一个原型对象后比如: Person.prototype = {age:12},这时，prototype中的constructor已经不指向Person，而指向Object。但是使用 person1 instanceof Person依然返回true，可以 person1.constructor 不等于 Person了
+	</script>
+</body>
+</html>

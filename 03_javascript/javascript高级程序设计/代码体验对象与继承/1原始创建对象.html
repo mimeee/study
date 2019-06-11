@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>直接创建对象</title>
+</head>
+<body>
+	<script>
+		//创建一个object实例，在赋予其属性和方法
+		var person = new Object();
+		person['age'] = 29;
+		person['names'] = 'mimee';
+		person.sayName = function(){
+			alert(this.names);
+		}
+		person.sayName();
+
+
+		//然后逐渐变成使用字面量方式来声明对象
+		var per = {
+			names: 'mimee2',
+			age: 13,
+			sayName: function(){
+				alert(this.names);
+			}
+		}
+		per.sayName();
+
+
+		//在创建实例的属性的过程中，每个属性都有一些特征值来定义其自己的行为，这些特征值分为：数据属性和访问器属性。要修改属性的特征值必须通过 Object.defineProperty。
+	</script>
+</body>
+</html>

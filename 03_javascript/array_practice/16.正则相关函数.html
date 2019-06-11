@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则相关函数.html</title>
+</head>
+<body>
+	<script>
+		var pattern = /(\d)(.){2}/g;
+
+		var str = '2dsaf23333accc';
+
+		console.log( pattern.test(str) );
+		console.log( pattern.exec(str) );
+		console.log( str.search(pattern) );
+		console.log( str.match(pattern) );
+
+		str.replace(pattern,function(v,i,a,e,ee,eee){
+			console.log(v);
+			console.log(i);
+			console.log(a);
+			console.log(e);
+			console.log(ee);
+		})
+
+		console.log(str.replace(pattern,'$`'));
+		console.log(str.replace(pattern,'$2'));
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>垂直居中</title>
+	<style>
+		.father{
+			width: 500px;
+			background: #000;
+			height: 500px;
+		}
+		.item{
+			width: 50%;
+			background: red;
+			height: 50px;
+		}
+
+/*		.father{
+			display: flex;
+			justify-content:center;
+		}
+		.item{
+			align-self: center;
+		}*/
+
+
+		.father{
+			position: relative;
+		}
+		.item{
+	        position: absolute;
+	        top: 0;
+	        right: 0;
+	        bottom: 0;
+	        left: 0;
+	        margin: auto;
+
+		}
+
+		/*.item{
+			position: relative;
+	        top: 50%;
+	        left: 50%;
+	        transform: translate(-50%, -50%);	        
+		}*/
+
+	</style>
+</head>
+<body>
+	<div class="father">
+		<div class="item"></div>
+	</div>
+</body>
+</html>

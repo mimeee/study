@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let arr = [ 1,2,3,3,2,1,1,2,3,3,2,1 ];
+
+		//利用 set
+		let arr1 = [...new Set(arr)];
+		console.log(arr1);
+
+		//利用 indexOf
+		let arr2 = [];
+		for(let i = 0; i < arr.length; i++){
+			if( arr2.indexOf( arr[i] ) === -1){
+				arr2.push( arr[i] );
+			}
+		}
+		console.log(arr2);
+
+		//利用 forEach
+		let arr3 = [];
+		arr1.forEach((x) => {
+			if( arr3.indexOf( x ) === -1){
+				arr3.push( x );
+			}
+		})
+		console.log(arr3);
+
+		//利用 对象
+		let arr4 = [];
+		let obj = {};
+		for(let i = 0; i < arr.length; i++){
+			if( !obj[arr[i]]){
+				arr4.push( arr[i] );
+				obj[arr[i]] = 1;
+			}
+		}
+		console.log(arr4);
+
+		//利用 排序
+		let arr55 = arr.sort();
+		let arr5 = [ arr55[0] ];
+		for(let i = 1; i < arr55.length; i++){
+			if( arr55[ i ] !== arr55[i - 1] ){
+				arr5.push( arr55[i] );
+			}
+		}
+		console.log(arr5);
+	</script>
+</body>
+</html>

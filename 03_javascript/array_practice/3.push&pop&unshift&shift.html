@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let arr = [ 2, 2, 2];
+		console.log( arr );
+		//Array(3) [ 2, 2, 2 ]
+		
+		console.log(arr.push( 15 ));
+		//4
+		console.log( arr );
+		//Array(4) [ 2, 2, 2, 5 ]
+
+		console.log(arr.pop());
+		//15
+		console.log( arr );
+		//Array(3) [ 2, 2, 2 ]
+
+		console.log(arr.unshift( 14 ));
+		//4
+		console.log( arr );
+		//Array(4) [ 4, 2, 2, 2 ]
+
+		console.log(arr.shift());
+		//14
+		console.log( arr );
+		//Array(3) [ 2, 2, 2 ]
+		
+		//妙用
+		
+		//清空数组
+		while( item = arr.shift() ){
+			console.log( item );
+		}
+		console.log( arr );
+		//Array []
+
+		let arr1 = [ 1, 2 ];
+		let arr2 = [ 3, 4 ];
+		//合并数组
+		Array.prototype.unshift.apply( arr1, arr2 );
+		console.log( arr1 );
+		//Array(4) [ 3, 4, 1, 2 ]
+		console.log( arr2 );
+		//Array [ 3, 4 ]
+
+	</script>	
+</body>
+</html>

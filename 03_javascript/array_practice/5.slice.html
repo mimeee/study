@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>5</div>
+	<div>5</div>
+	<div>5</div>
+	<script>
+	var oDiv = document.querySelectorAll("div");
+	console.log( oDiv );//NodeList(3) [ div, div, div ]
+	console.log([].slice.call( oDiv, 1 ));//Array [ div, div ]
+
+	function haha(){
+		console.log( arguments );//Arguments { 0: 1, 1: 2, 2: 3, 3: 5, 4: 4, 5: 5, 6: 6, 7: 20, … }
+		var aa = [].slice.call( arguments, 1 );//Array(7) [ 2, 3, 5, 4, 5, 6, 20 ]
+		console.log(aa);
+	}
+	haha(1,2,3,5,4,5,6,20);
+
+	let oObj = { a:1, b:2, length:8};
+	console.log(oObj);//Object { a: 1, b: 2, length: 8 }
+	console.log([].slice.call( oObj, 1 ));//Array(7) [ <7 empty slots> ]
+	</script>	
+</body>
+</html>, div, div ]

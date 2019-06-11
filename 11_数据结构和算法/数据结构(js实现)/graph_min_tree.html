@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图的最小生成树之普里姆算法</title>
+</head>
+<body>
+	<img src="image/graph_min_tree_question.png" alt="">
+	<p>
+		思路：生成最小树，通过选择边来链接点，边的数量 = 顶点的数量 - 1
+		<br>
+		思考：
+		<ul>
+			<li>什么时候算法终结：边的数量 = 顶点的数量 - 1</li>
+			<li>起始条件：算法需要传入一个初始点</li>
+			<li>依次找出与该点相连的边</li>
+			<li>选取最小的边，重复上述步骤</li>
+		</ul>
+		<br>
+		注意
+		<ul>
+			<li>判断边是否重复</li>
+			<li>判断点是否已经被访问</li>
+			<li>判断点与点之间是否存在边</li>
+		</ul>
+
+	</p>
+		<div id="show"></div>
+	<script>
+		//顶点 A B C D F E
+		//边 
+		//A-B 6   A-E 5   A-F 1
+		//B-C 3   B-F 2
+		//C-F 8   C-D 7
+		//D-F 4   D-E 2
+		//E-F 9
+
+		//实现 边 的数据结构
+		class Edge
+		{
+			constructor(nodeA,nodeB,value)
+			{
+				this.nodeA = nodeA;
+				this.nodeB = nodeB;
+				this.value = value;
+				this.isSelected = false;
+			}
+		}
+
+		//实现 点 的数据结构
+		class node
+		{
+			constructor(data)
+			{
+				this.data = data;
+				this.isVisited = false;
+			}
+		}
+
+		class cMap
+		{
+			constructor(capacity){
+				this.capacity = capacity;
+				this.nodeCount = 0;
+				this.nodeArray = new Array(capacity);
+				this.Matrix = new Array(capacity * capacity);
+				for(var i = 0;i <capacity * capacity;i++){
+					this.Matrix[i] = 0;
+				}
+
+				//生成最小树需要的变量
+				this.edgeArray = new Array(capacity - 1);
+			}
+			addNode(node){
+				if(node === null) return false;
+				this.nodeArray[this.nodeCount] = {};
+				this.nodeArray[this.nodeCount]['data'] = node['data']; 
+				this.nodeArray[this.nodeCount]['isVisited'] = false;
+				this.nodeCount++;
+				return true;
+			}
+			//重置节点，就是把图中所有的节点的isVisit重置为0
+			resetNode(){
+				for(var i = 0;i < this.nodeCount;i++){
+					this.nodeArray[this.nodeCount]['isVisited'] = false;
+				}
+				return true;
+			}
+			//如果图为有向图，则对有向图设置值
+			setValueToMatrixForDirectedGraph(row,col,val){
+				//判断 row, col是否合法
+				if(row < 0 || row >= this.capacity ) return false;
+				if(col < 0 || col >= this.capacity ) return false;
+				//只有找到该点所对应的索引，将其设置值即可，该点的索引值就是行数*每行的个数 + 第几列
+				this.Matrix[ row * this.capacity + col ] = val;
+				return true;
+			}
+
+			//如果图为无向图，则对有向图设置值
+			setValueToMatrixForUndirectedGraph(row,col,val){
+				//判断 row, col是否合法
+				if(row < 0 || row >= this.capacity ) return false;
+				if(col < 0 || col >= this.capacity ) return false;
+				//只有找到该点所对应的索引，将其设置值即可，该点的索引值就是行数*每行的个数 + 第几列
+				this.Matrix[ row * this.capacity + col ] = val;
+				this.Matrix[ col * this.capacity + row ] = val;
+				return true;
+			}
+
+			//根据邻接矩阵获取值
+			getValueFromMatrix(row,col){
+				//判断 row, col是否合法
+				if(row < 0 || row > this.capacity ) return false;
+				if(col < 0 || col > this.capacity ) return false;
+				return this.Matrix[ row * this.capacity + col ];
+			}
+
+			//打印邻接矩阵
+			printMatrix(dom){
+				for(var i = 0; i < this.Matrix.length;i++){
+					if(i % this.capacity === 0){
+						dom.innerHTML += "<br/>";
+					}
+					dom.innerHTML += this.Matrix[i] + ", ";
+				}
+			}
+			//图的最小生成树之普里姆算法
+			prime(index){
+				if(index < 0 || index >= this.capacity) return false;
+
+				//将顶点放入点集
+				var nodeArray = [index];
+				//声明一个变量，用来保存每次与点相连接的边
+				var edgeArray = [];
+				//声明一个边计数器
+				var edgeCount = 0;
+
+				while( edgeCount < this.capacity - 1){
+					//设置一个临时变量，保存当前要处理的那一个点
+					var temp = nodeArray[nodeArray.length - 1];
+					//将放入的顶点设置为已经被访问
+					this.nodeArray[temp]['isVisited'] = true;
+					//求出与该点相连接的边，以及边的那头的点
+					for(var i = 0;i < this.nodeArray.length;i++){
+						if(this.nodeArray[i]['isVisited']) continue;
+						//得到与该点相连接的边的权值
+						var val = this.getValueFromMatrix(temp,i);
+						//如果权值不为0，则存在边
+						if(val){
+							var edge = new Edge(temp,i,val);
+							edgeArray.push(edge);
+						}
+					}
+
+					//找出权值最小的边的索引
+					var ind = this.getMinEdge(edgeArray);					
+
+					//如果ind等于-1，表示不存在与该点相连的边没有访问过，跳出循环
+					if( ind === -1 ) break;
+					//反之将该边存入最小数集合
+					this.edgeArray[edgeCount] = edgeArray[ind];
+					//设置该边为已选择
+					edgeArray[ind]['isSelected'] = true;
+					//边计数器加1
+					edgeCount++;
+
+					//存储该点
+					nodeArray.push(edgeArray[ind]['nodeB']);
+				}
+				console.log(this.edgeArray);
+			}
+
+			getMinEdge(edgeArray){
+				var min = Number.POSITIVE_INFINITY,
+					lastEdgeIndex;
+				for(var i = 0;i < edgeArray.length; i++){
+					if(edgeArray[i]['isSelected']) continue;
+					if(edgeArray[i]['value'] < min){
+						min = edgeArray[i]['value'];
+						lastEdgeIndex = i;
+					}
+				}
+				if(min === Number.POSITIVE_INFINITY) return -1;
+				return lastEdgeIndex;
+			}
+		}
+			var oShow = document.getElementById("show");
+			var maps = new cMap(6);
+			maps.addNode({'data':'第A点'});
+			maps.addNode({'data':'第B点'});
+			maps.addNode({'data':'第C点'});
+			maps.addNode({'data':'第D点'});
+			maps.addNode({'data':'第E点'});
+			maps.addNode({'data':'第F点'});
+			//A-B 6   A-E 5   A-F 1
+			//B-C 3   B-F 2
+			//C-F 8   C-D 7
+			//D-F 4   D-E 2
+			//E-F 9
+			maps.setValueToMatrixForUndirectedGraph(0,1,6);
+			maps.setValueToMatrixForUndirectedGraph(0,4,5);
+			maps.setValueToMatrixForUndirectedGraph(0,5,1);
+			maps.setValueToMatrixForUndirectedGraph(1,2,3);
+			maps.setValueToMatrixForUndirectedGraph(1,5,2);
+			maps.setValueToMatrixForUndirectedGraph(2,5,8);
+			maps.setValueToMatrixForUndirectedGraph(2,3,7);
+			maps.setValueToMatrixForUndirectedGraph(3,5,4);
+			maps.setValueToMatrixForUndirectedGraph(3,4,2);
+			maps.setValueToMatrixForUndirectedGraph(4,5,9);
+			maps.printMatrix(oShow);
+			maps.prime(2);
+
+	</script>
+</body>
+</html>

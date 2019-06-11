@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>创建对象——工厂模式</title>
+</head>
+<body>
+	<h1>工厂模式</h1>
+	减少创建对象的重复代码，虽然减少了代码，但是不可以确定new出来的实例是哪一个构造函数的。也就是说 <em>person1 instanceof createPerson</em> 输出 <b>false</b>
+	<p>
+		<em>由此出现了<span style="color:red">构造函数模式</span></em>
+	</p>
+	<script>
+		function createPerson(names,sex,age){
+			var o = new Object();
+			o.names = names;
+			o.sex = sex;
+			o.age = age;
+			o.sayName = function(){
+				console.log(this.names);
+			}
+			return o;
+		}
+
+		var person1 = new createPerson("mimee",'f',22);
+		var person2 = new createPerson("mimi",'f',24);
+
+		console.log(person1 instanceof Object);//true
+		console.log(person1.constructor === Object);//true
+		console.log(person1.constructor);//function Object()
+		console.log(person1 instanceof createPerson);//false
+
+
+	</script>
+</body>
+</html>

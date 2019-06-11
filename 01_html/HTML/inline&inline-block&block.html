@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <style>
+        #isWidth{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+	<div style="width: 400px;height: 200px">
+        <span style="float: left;width:auto;height:100%">
+            <i style="position: absolute;float: left;width:100px;height: 5px">
+                hello
+            </i>
+        </span>
+    </div>
+    <div id="show"></div>
+
+    <span id="isWidth">123</span>
+    <script>
+    	var div = document.querySelector( 'div' );
+    	var span = document.querySelector( 'span' );
+    	var i = document.querySelector( 'i' );
+
+    	var oShow = document.querySelector( '#show' );
+    	oShow.innerHTML += "div: width = " + css(div,'width') + ", height = " + css(div,'height');
+    	oShow.innerHTML += "<br/>";
+    	oShow.innerHTML += "span: width = " + css(span,'width') + ", height = " + css(span,'height');
+    	oShow.innerHTML += "<br/>";
+    	oShow.innerHTML += "i: width = " + css(i,'width') + ", height = " + css(i,'height');
+    	function css(obj,style){
+    		if( window.getComputedStyle ){
+    			return window.getComputedStyle(obj,null)[style];
+    		}else{
+    			return obj.currentStyle[style];
+    		}
+    	}
+    </script>
+</body>
+</html>

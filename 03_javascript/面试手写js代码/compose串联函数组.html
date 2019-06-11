@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>compose</title>
+</head>
+<body>
+	<script>
+		let fn1 = a => a + 1;
+		let fn2 = a => a + 2;
+		let fn3 = a => a + 3;
+
+		let funs = [fn1, fn2, fn3];
+		let compose = (func) => {
+			return arg => func.reduceRight( (compose,fn) => fn(compose), arg );
+		}
+
+		console.log(compose(funs)(100))
+	</script>	
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>circle queue/环形队列</title>
+</head>
+<body>
+	<script>
+	class queue{
+		//创建队列 
+		constructor(iSize){
+			this.elements = new Array(iSize);
+			this.size = iSize;
+			this.length = 0;
+			this.iHead = 0;
+			this.iTail = 0;
+		}
+		
+		//清空队列
+		empty(){
+			this.length = 0;
+			this.iHead = 0;
+			this.iTail = 0;
+			return true;
+		}
+		//判断队列是否为空
+		isEmpty(){
+			return this.length === 0 ? true : false;
+		}
+		//判断队列是否已满
+		isFull(){
+			return this.length === this.size ? true : false;
+		}
+		//队列长度
+		getLenght(){
+			return this.length;
+		}
+		//新元素入队(队列元素入队只能在队尾)
+		add( el ){
+			if(this.isFull()){ 
+				console.log('out');
+				return false
+			};
+			this.elements[this.iTail] = el;
+			this.iTail = ++this.iTail % this.size;
+			this.length ++;
+		}
+		//首元素出队(队列元素出队只能从队头出队)
+		remove( el ){
+			if(this.isEmpty()) return false;
+			this.iHead = ++this.iHead % this.size;
+			this.length --;
+		}
+		//遍历队列
+		tra(){
+			var s = "";
+			for(var i = this.iHead; i < this.length + this.iHead; i ++){
+				s += this.elements[i % this.size] + ",";
+			}
+			document.write(s);
+		}
+		//销毁队列
+	}
+
+	var a = new queue(4);
+	a.add(1);
+	a.add(2);
+	a.add(3);
+	a.add(4);
+	a.remove();
+	a.remove();
+	a.remove();
+	a.add(5);
+	a.add(4);
+	// a.remove();
+	a.tra();
+	console.log(a);
+	</script>
+</body>
+</html>

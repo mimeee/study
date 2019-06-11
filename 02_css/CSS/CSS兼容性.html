@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS兼容性</title>
+	<style>
+		strong{
+			color:red;
+		}
+		input{
+			height: 50px;
+			line-height: 50px;
+		}
+		li{
+			border-bottom: 1px solid #999;
+			padding: 10px 0;
+		}
+
+	</style>
+</head>
+<body>
+	<ol>
+		<li>
+			input设置高度后，输入的内容不是垂直居中(<strong>IE8以下，包括IE8</strong>),设置 line-height 属性
+			<input type="text">
+			<pre>
+				input{
+					height: 50px;
+					line-height: 50px;
+				}				
+			</pre>
+		</li>
+		<li>
+			在添加了<strong>border</strong>的条件下，IE与FF打印 <strong>offsetWidth</strong> 会不同。 IE会加上border的宽度。如下 <strong>IE(全部)</strong> 打印 201，<strong>FF</strong> 打印 200
+			<div style="width:200px;height:200px;background:#000;border-left: 1px solid orange" onclick="alert(this.offsetWidth)" >点我，看看有什么不同！</div>
+		</li>
+		<li>
+			
+		</li>
+	</ol>
+
+	
+	
+
+
+
+
+
+
+
+
+
+	<p>
+		FF对盒模型的解释也不一样，代码说明：#test { width: 650px !important;width: 648px;padding-left:2px;background:#fff; }
+		test 显示的宽带是 650px
+		IE Box的总宽度是： width+padding+border+margin宽度总和
+		FF Box的总宽度就是 width的宽度，padding+border+margin的宽度在含在width内。
+		如果有BOX{WIDTH:"300"; PADDING:"5PX";}
+		则BOX在IE的宽度应该为:310
+		而在FF的宽度则是300
+		所以在BOX有填充的情况下应该这样使用
+		BOX{WIDTH:"290"!IMPORTANT; WIDTH: "300";}
+		这样子才能确保BOX的宽度始终在300px,而不会出现被撑开的现象
+		而在FF里面则不会造成浮动层填不满的情况
+		五：ul 标签在 Mozilla 中有 padding 值的，而在 IE 中只有 margin 有值。
+		设置ul{margin:0;padding:0}
+		针对firefox ie6 ie7的css样式
+		现在大部分都是用!important来hack，对于ie6和firefox测试可以正常显示，
+		但是ie7对!important可以正确解释，会导致页面没按要求显示。找到一个针
+		对IE7不错的hack方式就是使用“*+html”，现在用IE7浏览一下，应该没有问题了。
+		现在写一个CSS可以这样：
+		#1 { color: #333; } /* Moz */
+		* html #1 { color: #666; } /* IE6 */
+		*+html #1 { color: #999; } /* IE7 */
+		那么在firefox下字体颜色显示为#333，IE6下字体颜色显示为#666，IE7下字体颜色显示为#999
+		可以用”+”来实现只有IE识别的CSS Hack
+		可能有朋友想到用”_” Hack，但它们是由区别的，因为IE7中是不识别“_”的。所以用+
+		测试结果：
+		IE5.5，IE6 ，IE7浏览器都能识别；
+		FF2.0，Opera 9，Safari 2浏览器不识别 
+	</p>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跳台阶</title>
+</head>
+<body>
+	<p>
+		排列组合问题
+		<br>
+		解题思路
+		<ul>
+			<li>求出一共可以跳两层阶梯的个数:maxJumpTwo</li>
+			<li>依次递增求出从1到maxJumpTwo与跳一层阶梯的排列组合</li>
+			<li>也就是求C<sub>all</sub><sup>JumpTwoNumber</sup></li>
+			<li>一共有5个楼梯，比如只跳一次两层阶梯的排列组合为C<sub>4</sub><sup>1</sup></li>
+		</ul>
+	</p>
+	<script>
+		function jumpFloor(number)
+		{
+		    var maxJumpTwo = parseInt( number / 2 );
+		    var jumpNumber = 1;
+		    var remain;
+		    for(var i = 1; i <= maxJumpTwo; i++ ){
+		    	remain = number - i * 2;
+		    	jumpNumber += c( remain + i, i);
+		    }
+		    
+		    return jumpNumber;
+		}
+
+
+		function c( down,up ){
+			var res = down / up;
+			up--;
+			down--;
+			for(var i = up ; i > 0;i--){
+				res = res * down / up;
+				up--;
+				down--; 
+			}
+			return res;
+		}
+
+
+		//递归跳台阶
+		function jumpFloorRecursion(number)
+		{
+		
+			if(number === 1 ) return 1;
+		    if(number === 2 ) return 2;
+		    return jumpFloorRecursion(number - 1) + jumpFloorRecursion(number - 2);
+			    
+		}
+		console.time('jump');
+		console.log(jumpFloor(10));
+		console.timeEnd('jump');
+		console.time('jump1');
+		console.log(jumpFloorRecursion(10))
+		console.timeEnd('jump1');
+
+	</script>	
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>创建对象——构造函数模式</title>
+</head>
+<body>
+	<h1>构造函数模式</h1>
+	就像 <em>Object</em>, <em>Array</em>这样原生的构造函数一样，我们可以自定义构造函数,使用<strong>this</strong>关键字。
+
+	<ul>
+		她与工厂模式的不同
+		<li>没有显示的创建对象</li>
+		<li>没有return一个对象</li>
+		<li>直接将属性或者方法赋予给<strong>this</strong></li>
+	</ul>
+
+	<b>构造函数本身也是函数，只不过是因为用<b>new</b>来调用从而用来创建对象，其本质还是不变的。<span style="color:red">也就是说，函数只要是用<b>new</b>调用了，就可以称为构造函数</span></b>
+
+	使用该方法实例化对象需要用 <em>new</em> 关键字，该过程会执行以下四个步骤
+	<ul>
+		<li>创建一个新对象</li>
+		<li>将构造函数的作用域付给新对象(<span style="color:red">也就是把this指针指向了这个新对象</span>)</li>
+		<li>执行构造函数内的代码(<span style="color:red">也就是进行赋值等初始化操作</span>)</li>
+		<li>返回这个对象</li>
+	</ul>
+
+	<div>由此 <em>person1 instanceof Person</em> 返回 <b>true</b>，从而可以判断该示例是哪个构造函数的实例</div>
+	<hr>
+	<div>
+		构造函数模式的<b>缺点</b>在于,每一次创建一个实例都会创建相同的方法，浪费内存。于是出现了<span style="color: red"><b>原型模式</b></span>
+	</div>
+	<script>
+		function Person(names,age){
+			this.names = names;
+			this.age = age;
+			this.sayName = function(){
+				alert(this.names);
+			}
+		}
+
+		var person1 = new Person('miim',12);
+		console.log(person1 instanceof Object);
+		console.log(person1.constructor === Object);//false
+		console.log(person1.constructor);//function Person()
+		console.log(person1 instanceof Person);//true
+	</script>	
+</body>
+</html>

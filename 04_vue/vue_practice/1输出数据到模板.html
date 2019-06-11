@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="a">
+		<p v-once>vueJs is pretty good - {{ name }} / {{ age }}</p>
+		<p>my age multiplied 3 is {{ age * 3 }} </p>
+		<p>this is a random number: {{ randonNumber }} width computed</p>
+		<p>this is a random number: {{ rand() }} width method</p>
+		<p>
+			<img v-bind:src="src" alt="">
+		</p>
+		<p>
+			<input type="text" :value="name" v-on:keyup="show">
+			<p>name:{{ name }}</p>
+		</p>
+	</div>	
+	<script>
+		new Vue({
+			el:'#a',
+			data:{
+				name:'mimee',
+				age:13,
+				src:"http://pic1.win4000.com/wallpaper/0/52c65eda8230e.jpg"
+			},
+			computed:{
+				randonNumber(){
+					return Math.random();
+				}
+			},
+			methods:{
+				rand(){
+					return Math.random();
+				},
+				show(e){
+					this.name = e.target.value;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		var arr = [1,5,0,6,9,9,522,3,5,2];
+
+		var index = 0;
+		var res = arr.some(function(val){
+			index ++ ;
+			return val > 100;
+		})
+		console.log( index ); //7 访问了 7 个元素就停止了
+		console.log( res ); // true
+
+		index = 0;
+		res = arr.every(function(val){
+			index ++;
+			return val > 100;
+		})
+		console.log( index ); //1 访问了 1 个元素就停止了
+		console.log( res ); // false
+
+		index = 0;
+		res = arr.filter(function(val){
+			index ++;
+			return val > 5;
+		})
+		console.log(index); //10 访问了所有元素
+		console.log(res); // Array(4) [ 6, 9, 9, 522 ]
+	</script>	
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box{
+			width: 300px;
+			height: 200px;
+			margin: 10px;
+			padding: 10px;
+			background: red;
+		}	
+
+		#child{
+			width: 300px;
+			margin: 20%;
+			padding: 20%;
+			background: yellow;
+		}
+		.result{
+			padding: 20px;
+			position: absolute;
+			right: 30%;
+			top: 0;
+			background: rgb(100,133,155);
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		box
+		<div id="child">
+			child
+			<pre>
+#box{
+	width: 300px;
+	height: 200px;
+	margin: 10px;
+	padding: 10px;
+	background: red;
+}	
+
+#child{
+	margin: 20%;
+	padding: 20%;
+	background: yellow;
+}
+			</pre>
+		</div>
+	</div>	
+	<div class="result">
+		
+	</div>
+	<script>
+		var oBox = document.querySelector("#box");
+		var oChild = document.querySelector("#child");
+		var r = document.querySelector(".result");
+		var aStyle = [];
+		aStyle.push("oBox,width: " + css(oBox,'width'));
+		aStyle.push("oBox,height: " + css(oBox,'height'));
+		aStyle.push("oBox,marginTop: " + css(oBox,'marginTop'));
+		aStyle.push("oBox,paddingTop: " + css(oBox,'paddingTop'));
+		aStyle.push("oChild,width: " + css(oChild,'width'));
+		aStyle.push("oChild,height: " + css(oChild,'height'));
+		aStyle.push("oChild,marginTop: " + css(oChild,'marginTop'));
+		aStyle.push("oChild,paddingTop: " + css(oChild,'paddingTop'));
+		r.innerHTML = aStyle.join("<br/>");
+		function css(obj,style){
+			if(window.getComputedStyle){
+				return window.getComputedStyle(obj,null)[style];
+			}
+			return obj.currentStyle[style];
+		}
+	</script>
+</body>
+</html>

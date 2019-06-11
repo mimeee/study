@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bind方法模拟</title>
+</head>
+<body>
+	<script>
+		// Function.prototype._bind = function(point,...args){
+		// 	let that = this;
+		// 	return function () {
+		// 		that.apply(point,args);
+		// 	}
+		// }
+
+		// var obj = {a:1}
+		// function b(){
+		// 	console.log(this.a)
+		// }
+		// var c = b._bind(obj);
+		// c();
+		
+		//首先bind函数是改变this指向，并且返回一个函数所以
+		//test1
+		var value = "window";
+		var obj = {
+			value: 'obj'
+		}	
+
+		function waitForBind(name,age){
+			console.log(this.value);
+			this.name = name;
+			this.age = age;
+			console.log(this.name);
+			console.log(this.age);
+
+		}
+
+		// var newFn = waitForBind.bind(obj);
+		// newFn();
+
+		// Function.prototype._bind = function(o){
+		// 	var that = this;
+		// 	return function(){
+		// 		that.call(o);
+		// 	}
+		// }
+
+		// var myBindNewFun = waitForBind._bind(obj);
+		// myBindNewFun();
+
+
+		// test 2 分段传入参数
+
+		// var newFn = waitForBind.bind(obj,"mimee");
+		// newFn(18);
+		//改进
+		// Function.prototype._bind = function(o){
+		// 	var that = this;
+		// 	return function(){
+		// 		var args = that.arguments.slice(1);
+		// 		that.call(o,[...args,...arguments]);
+		// 	}
+		// }
+		// var myBindNewFun = waitForBind.bind(obj,"mimi");
+		// myBindNewFun(18);
+
+		//bind函数返回的新函数如果当作是构造函数，绑定的值将会失去值，注意考察this的指向
+		var newFn = waitForBind.bind(obj);
+		newFn();
+
+		var obj1 = new newFn();
+		console.log(obj1)
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>

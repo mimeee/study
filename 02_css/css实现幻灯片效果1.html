@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrapper{
+			width: 400px;
+			height: 400px;
+			background-image: url("pic1.png");
+			background-size: 400px 400px;
+			background-repeat: no-repeat;
+			animation: move 4s linear infinite;
+		}
+		.wrapper:hover{
+			animation-play-state: paused;
+		}
+		@keyframes move{
+			0% { background-image: url("pic1.png"); }
+			33% { background-image: url("pic2.png"); }
+			66% { background-image: url("pic3.png"); }
+			100% { background-image: url("pic4.png"); }
+		}	
+	</style>
+</head>
+<body>
+	<div class="wrapper"></div>
+</body>
+</html>

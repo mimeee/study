@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hello Sea.js</title>
+<link rel="stylesheet" href="../static/hello/src/style.css">
+</head>
+<body>
+<div id="container">
+1
+</div>
+
+<script src="../sea-modules/seajs.js"></script>
+
+<script>
+
+
+	seajs.use('./a.js',function(a){
+		console.log(a);
+	})
+</script>
+
+</body>
+</html>

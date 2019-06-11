@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			border: 1px solid #ccc;
+			height: 35px;
+			margin-bottom: 5px;
+		}
+		div:hover{
+			background: #ddd;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+
+	<script>
+		let oDiv = [...document.querySelectorAll("div")];
+
+		class ChangeColor{
+			constructor(el,...color){
+				this.element = el;
+				this.color = color;
+			}
+			isEvent(num){
+				return !(num & 1);
+			}
+			change(){
+				for(let i = 0;i < this.element.length;i ++){
+					if(this.isEvent(i)){
+						this.element[i].style['backgroundColor'] = "#000";
+					}else{
+						this.element[i].style['backgroundColor'] = "#60af22";
+					}
+				}
+			}
+			changeTwo(){
+				let length = this.color.length;
+				let index = 0;
+				for(let i = 0;i < this.element.length;i++){				
+					this.element[i].style['backgroundColor'] = this.color[index];
+					index++;
+					if(index > length){
+						index = 0;
+					}
+				}
+			}
+		}
+
+		let c = new ChangeColor(oDiv,"#38290a","#45aff1","#aacc10","#00a6f3","orange");
+		c.change();
+		setTimeout(c.changeTwo.bind(c),1000);
+
+		
+	</script>
+</body>
+</html>

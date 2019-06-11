@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用两个栈实现队列</title>
+</head>
+<body>
+	思路：用两个栈，一个用于push，一个用于pop；
+	在pop的时候，将用于push的那个栈里面的所有元素，放入pop中再进行pop。
+	<script>
+		function Stack(){
+			this.el = [];
+		}
+		Stack.prototype.push = function(node){
+			this.el.push(node);
+			return true;
+		}
+		Stack.prototype.pop = function(){
+			if(this.isEmpty()) return false;
+			return this.el.pop();
+		}
+		Stack.prototype.isEmpty = function(){
+			return this.el.length === 0;
+		}
+
+		var stack1 = new Stack();
+		var stack2 = new Stack();
+
+
+
+		function push(node)
+		{
+			return stack1.push(node);
+		}
+
+		function pop()
+		{
+			if(stack1.isEmpty() && stack2.isEmpty()) return false;
+			if(stack2.isEmpty()){
+				while(!stack1.isEmpty()){
+					stack2.push(stack1.pop());
+				}
+			}
+			return stack2.pop();
+		}
+
+		push(1);
+		push(2);
+		push(3);
+		push(4);
+		pop();
+		push(4);
+		push(4);
+		push(4);
+		pop();
+		pop();
+		pop();
+		pop();
+		console.log(stack1);
+		console.log(stack2);
+	</script>	
+</body>
+</html>

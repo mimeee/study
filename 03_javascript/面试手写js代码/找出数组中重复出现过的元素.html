@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>找出数组中重复出现过的元素</title>
+</head>
+<body>
+	<script>
+		let arr = [1, 2, 4, 4, 3, 3, 1, 5, 3, 5];
+
+		let repeat = [];
+		for(let i = 0; i < arr.length; i++){
+			if( arr.indexOf(arr[i], i+1) !== -1 ){
+				repeat.push( arr[i] );
+			}
+		}
+		console.log([...new Set(repeat)]);
+
+
+		console.log(arr.filter((x, i, self) => {
+				let index = self.indexOf(x , i + 1);
+		        return  index !== -1 && self.indexOf(x , index + 1)=== -1
+		    }));
+
+
+		function aa(arr) {
+		    let result = arr.filter((x, i, self) => {
+		        return self.indexOf(x) === i && self.lastIndexOf(x) !== i
+		    }); // 
+		    return result;
+		}
+
+	</script>
+</body>
+</html>

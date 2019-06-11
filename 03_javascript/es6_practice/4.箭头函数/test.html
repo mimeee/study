@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>arrow_function</title>
+</head>
+<body>
+	<script>
+		var a = "arrow_function";
+		var obj = { age : 100 }
+		let show = function(a){
+
+			(function(){
+				console.log(this)
+			})()
+
+			console.log(this);
+
+			(a => {
+				console.log(a);
+				console.log(this);//形成闭包，普通函数这里会指向 window
+			})(a)
+		}	
+		show(a);
+		console.log("----------");
+		obj['fn'] = show;
+		obj['fn'](a);
+
+
+	</script>	
+</body>
+</html>

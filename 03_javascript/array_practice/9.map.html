@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var obj = { aa: 2};
+        var arr = [ "aa", 1, "vv", 2, 3];
+        var res = arr.map(function( v, i, arr ){
+            console.log(v);//aa,1,vv,2,3
+            console.log(this);//Object { aa: 2 },Object { aa: 2 },Object { aa: 2 }...
+            return 122;
+        },obj)
+        console.log(res);//Array(5) [ 122, 122, 122, 122, 122 ]
+	</script>	
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js&flash</title>
+	<script language="JavaScript">
+	     function pageInit() { 
+	        sendToActionScript("你好");
+	     }
+	     function sendToActionScript(value) { 
+	         window.ExternalInterfaceExample.abcd(value);
+	     }
+	</script>
+</head>
+<body onload="pageInit();">
+     <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+             id="ExternalInterfaceExample" width="500" height="500"
+             >
+         <param name="movie" value="ab.swf" /> 
+     </object>
+</body>
+</html>

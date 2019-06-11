@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.box{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+		.shrink{
+			width: 50px;
+			height: 200px;
+		}
+		.highlight{
+			background: #000;
+			border: 1px solid #fff;
+			color:#fff;
+		}
+		.one{
+			background: yellow;
+		}
+		.two{
+			color:blue;
+		}
+		.three{
+			font-weight: bold;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<button @click="change">go change</button>
+		<button @click="stop">stop</button>
+		<div :class="['box',obj]"></div>
+
+		<p>
+			<input type="text" @keyup.enter="value = $event.target.value" placeholder="please only enter one|two|three" :style="[w]">
+			<div :class="end">123</div>
+		</p>
+		
+		<div class="progress">
+			<div :class="bars" role="progressbar" :style="barStyle"></div>
+		</div>
+		<button @click="barChange['progress-bar-striped'] = !barChange['progress-bar-striped']">btn</button>
+		<button @click="barChange['progress-bar-animated'] = !barChange['progress-bar-animated']">btn</button>
+		<button @click="go">goProgress</button>
+	</div>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				obj:{
+					shrink:false,
+					highlight:false
+				},
+				timer:null,
+				value:"",
+				w:{
+					width:"100%"
+				},
+				bar:['progress-bar'],
+				barChange:{
+					'progress-bar-striped':false,
+					'progress-bar-animated':false,
+				},
+				barStyle:{
+					width:'0'
+				}
+			},
+			computed:{
+				end(){
+					return this.value.split(",").join(" ");
+				},
+				bars(){
+					 this.bar.push(this.barChange);
+					 return this.bar;
+				}
+			},
+			methods:{
+				change(){
+					var that = this;
+					this.obj.shrink = true;
+					this.timer = setInterval(()=>{
+						that.obj.shrink = !this.obj.shrink;
+						that.obj.highlight = !this.obj.highlight;
+					},1000)
+				},
+				stop(){
+					clearInterval(this.timer);
+				},
+				go(){
+					var that = this;
+					that.barStyle.width = 0;
+					var timer = setInterval(function(){
+						if(parseInt(that.barStyle.width)>100){
+							clearInterval(timer);
+						}
+						that.barStyle.width = parseInt(that.barStyle.width) + 1 + "%";
+					},50)
+				}
+			}
+
+		})
+	</script>	
+</body>
+</html>

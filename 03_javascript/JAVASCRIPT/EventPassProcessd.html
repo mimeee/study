@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EventPassProcessd/事件捕获与冒泡实验</title>
+	<style>
+		div{
+			background: #000;
+			width: 200px;
+			height: 200px;
+		}
+		p{
+			background: red;
+			width: 100px;
+			height: 100px;
+		}
+		span{
+			display: inline-block;
+			background: blue;
+			width: 50px;
+			height: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<p>
+			<span>1</span>
+		</p>
+	</div>
+	<script>
+		var oDiv = document.querySelector("div");
+		var oP = document.querySelector("p");
+		var oSpan = document.querySelector("span");
+
+		// oSpan.onclick = function(e){
+		// 	console.log('span');
+		// }
+		// oP.onclick = function(e){
+		// 	console.log('oP');
+		// }
+		// oDiv.onclick = function(e){
+		// 	console.log('oDiv');
+		// }
+		oSpan.addEventListener('click',function(){
+			console.log('span');
+		},true)
+		oP.addEventListener('click',function(){
+			console.log('oP');
+		},true)
+		oDiv.addEventListener('click',function(){
+			console.log('oDiv');
+		},true)
+	</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let arr = [ "where", undefined, "are", null, ,null,null,null,null,null,"you" ];
+		let str = "DO YOU RE,ME";
+
+		console.log( arr.join(" ") ); 
+		//where  are        you
+		console.log( str.split( /\s|,/ ) ) 
+		//Array(4) [ "DO", "YOU", "RE", "ME" ]
+
+		console.log(Array.prototype.join.call("hehehaha", ","))
+		//h,e,h,e,h,a,h,a
+		console.log(String.prototype.split.call(["410410", "33","ss"], /0|,/))
+		//Array(5) [ "41", "41", "", "33", "ss" ]
+	</script>	
+</body>
+</html>

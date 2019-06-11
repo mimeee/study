@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>封装函数截取成对标签之间的内容</title>
+</head>
+<body>
+	<script>
+		var str = "ksdjfka<span>sajdhfjkdsje<dafds</span>asdf";
+		console.log( search_string(str,'<span>',"</span>") );
+
+
+		function search_string(str,start,end){
+			var iTargetStartPos = str.indexOf( start );
+			var iTargetEndPos = str.indexOf( end );
+			return str.slice(iTargetStartPos + start.length, iTargetEndPos);
+		}
+	</script>
+</body>
+</html>
