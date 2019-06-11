@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function chunk(arr, size) {
+		  	var arrs = [];
+		  	var temp = [];
+		  	for( var i = 0;i < arr.length; i++ ){
+		  		if(i % size === 0){
+		  			if(temp.length > 0) arrs.push(temp);
+		        	temp = [];
+		    	}
+		    	temp.push(arr[i]);
+		  	}
+		  	arrs.push(temp);
+			return arrs;
+		}
+
+		chunk(["a", "b", "c", "d"], 2);
+
+	</script>	
+</body>
+</html>

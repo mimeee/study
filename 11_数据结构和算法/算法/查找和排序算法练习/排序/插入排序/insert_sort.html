@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>insert_sort</title>
+	<style>
+		ul{
+			list-style: none;
+		}
+		ul>li{
+			height: 60px;
+			line-height: 20px;
+		}
+		ul>li>span{
+			border: 1px solid #000;
+			padding: 5px;
+			display: inline-block;
+			height: 20px;
+		}
+		ul>li::after{
+			content: " ";
+			display: block;
+			height: 0;
+			width: auto;
+			clear:both;
+		}
+		ul>li>span.one{
+			vertical-align: 0%;
+		}
+		ul>li>span.two{
+			vertical-align: 25%;
+		}
+		ul>li>span.three{
+			vertical-align: 55%;
+		}
+		ul>li>span.four{
+			vertical-align: 75%;
+		}
+		ul>li>span.five{
+			vertical-align: 100%;
+		}
+		
+	</style>
+</head>
+<body>
+	<p>
+		将数组分成左右两边，左边是已经排好序的，右边是未排号的，将右边的依次与左边的比较，如果符合规则就插入。其实不稳定排序。
+	</p>	
+	<p>
+		二分插入就是二分查找与插入排序相结合。因为插入排序中，左边的是排好序的，所以在排好序的基础上使用二分查找，就可以找出一个可以符合条件可以插入的位置。在对其进行插入。
+	</p>
+	<p>
+		希尔排序也叫递减增量排序，将一个数组根据一定的步长 d(d = n / 2) 分成 k 个组，进行简单的插入排序，最后按顺序组合回去。然后缩小 d = d / 2，继续分组、插入、组合；直到 d = 1 的时候就进行简单排序
+		<ul>
+			<li>
+				<span>57</span>
+				<span>68</span>
+				<span>59</span>
+				<span>52</span>
+				<span>72</span>
+				<span>28</span>
+				<span>96</span>
+				<span>33</span>
+				<span>24</span>
+				<span>19</span>
+			</li>
+			<li>
+				<span class="one">57</span>
+				<span class="two">68</span>
+				<span class="three">59</span>
+				<span class="four">52</span>
+				<span class="five">72</span>
+				<span class="one">28</span>
+				<span class="two">96</span>
+				<span class="three">33</span>
+				<span class="four">24</span>
+				<span class="five">19</span>
+			</li>
+			<li>
+				<span class="one">28</span>
+				<span class="one">57</span>
+				<span class="two">68</span>
+				<span class="two">96</span>
+				<span class="three">33</span>
+				<span class="three">59</span>
+				<span class="four">24</span>
+				<span class="four">52</span>
+				<span class="five">19</span>
+				<span class="five">72</span>
+			</li>
+		</ul>
+	</p>
+	<script>
+		var arr = [ 55,2,54,3,2,211,23,124,11,53,222,1,1,0,93,12 ];
+		console.log( insert_sort( arr ) );
+		console.log( binary_insert_sort(arr) );
+		console.log( shell_sort( arr ) );
+
+		//普通插入排序
+		function insert_sort(arr){
+			for(var i = 0; i < arr.length; i++){
+				for( var j = i; j > 0; j--){
+					if( arr[i] <= arr[j - 1] && ( arr[ j - 2 ] === undefined || arr[i] >= arr[j - 2])){
+						arr.splice( j - 1 , 0 , arr[i]);
+						arr.splice( i + 1 , 1);
+					}
+
+				}
+			}
+			return arr;
+		}
+
+		//二分插入排序
+		function binary_insert_sort(arr){
+			for(var i  = 0; i < arr.length; i++){
+				var start = 0;
+				var end = i;
+				while( start <= end ){
+					var mid = parseInt( (end + start)/2 );
+					if( arr[i] > arr[mid] ){
+						start = mid + 1;
+					}else{
+						end = mid - 1;
+					}
+				}
+				if( arr[i] >= arr[start] ){
+					arr.splice( start , 0 , arr[i]);
+					arr.splice( i + 1 , 1 );
+				}else{
+					arr.splice( start - 1 , 0 , arr[i]);
+					arr.splice( i + 1 , 1 );
+				}
+			}
+			return arr;
+		}
+
+		//希尔排序-- 也可以在原数组上操作，不必另外声明变量
+		function shell_sort( arr ){
+			var len = arr.length;
+			var step = 2;
+			while(step < len){
+				var group_num = outOdd( len / step );			
+				var all_arr = [];
+				var group_index = 0;
+				var flag = true;
+				for(var i = 0; i < arr.length; i++){
+					if( group_index === group_num ){ 
+						group_index = 0;
+						flag = false;
+					}
+					if( flag ){
+						all_arr[ group_index ] = [];
+					} 
+					all_arr[ group_index ].push( arr[i] );
+					group_index ++;
+				}
+				
+
+				for(var j = 0; j < all_arr.length; j ++ ){
+					all_arr[j] = insert_sort( all_arr[j] );
+				};
+
+				var count = 0;
+				group_index = 0
+				index = 0;
+				while( index < len){				
+					arr[ index ] = all_arr[group_index][count];
+					index ++;
+					group_index ++;
+					if( group_index === group_num ){ 
+						group_index = 0;
+						count ++;
+					}
+				}
+				step *= 2;
+			}
+			return arr;
+		}
+
+
+		//输出奇数
+		function outOdd( float ){
+			if( parseInt( float ) % 2 === 0) return  parseInt( float );
+			return parseInt( float );
+		}
+	</script>
+</body>
+</html>

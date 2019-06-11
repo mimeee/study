@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function rot13(str) { // LBH QVQ VG!
+			// 大写的 A 是 65
+			// 大写的 Z 是 90
+			var newStr = "";
+			for(var i = 0; i < str.length; i++){
+				var charNum = str[i].charCodeAt(); 
+				if( charNum >= 65 && charNum <= 90){
+				   charNum = charNum - 13 < 65 
+				    ? str[i].charCodeAt() + 13 > 90 
+				        ? str[i].charCodeAt() 
+				        : str[i].charCodeAt() + 13 
+				    : str[i].charCodeAt() - 13 
+				}
+				
+				
+					newStr += String.fromCharCode( charNum );
+
+			}
+			return newStr;
+		}
+
+		// Change the inputs below to test
+		rot13("SERR PBQR PNZC");
+
+	</script>	
+</body>
+</html>

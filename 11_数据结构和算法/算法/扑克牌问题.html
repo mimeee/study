@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function pake (arr) {
+			let size = arr.length;
+			let border = size % 2 === 0 ? size/2 : Math.ceil(size/2);
+			let start = 0;
+			let orgin = [];
+			while ( size > 0 ) {
+				orgin.push(arr[start++]);
+				orgin.push(arr[border++]);
+				size -= 2;
+			}
+			return orgin;
+		}
+		console.log(pake([1,2,3,4,5,6,7,8,9,10,11,12,13]))
+
+
+
+		function getCardsOrder(input, cards) {
+		  //Swap
+		  if (cards.length) {
+		    let popCard = cards.pop();
+		    cards.unshift(popCard);
+		  }
+
+		  //Push
+		  let popItem = input.pop();
+		  cards.unshift(popItem);
+
+		  if (input.length == 0) {
+		    return cards;
+		  } else {
+		    return getCardsOrder(input, cards);
+		  }
+		}
+		let input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+		let callback = getCardsOrder(input, []);
+		console.log(callback);
+	</script>	
+</body>
+</html>

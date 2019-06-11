@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>斐波那契查找</title>
+</head>
+<body>
+	<p>
+		既然叫斐波那契查找，首先得弄明白什么是斐波那契数列。相信大家对这个著名的数列也并不陌生，无论是C语言的循环、递归，还是高数的数列，斐波那契数列都是一个重要的存在。而此处主要是用到了它的一条性质：前一个数除以相邻的后一个数，比值无限接近黄金分割。
+
+		假设有待查找数组array[n]和斐波那契数组F[k],并且n满足n>=F[k]-1&&n < F[k+1]-1，则它的第一个拆分点middle=F[k]-1。
+
+		这里得注意，如果n刚好等于F[k]-1,待查找数组刚好拆成F[k-1]和F[k-2]两部分，那万事大吉你好我好；然而大多数情况并不能尽人意，n会小于F[k]-1,这时候可以拆成完整F[k-1]和残疾的F[k-2]两部分，那怎么办呢？
+
+		聪明的前辈们早已想好了解决办法，对了，就是补齐，用最大的数来填充F[k-2]的残缺部分，如果查找的位置落到补齐的部分，那就可以确定要找的那个数就是最后一个最大的了。
+	</p>
+	<script>
+
+		console.log(fibonacci_search([1,3,4,9,12,20,25,40,44,500,521,566,56666,70000],501))
+		// console.log(fibo_array(20))
+		
+
+		//生成一个斐波那契数组
+		function fibo_array(n){
+			var arr = [];
+			for(var i = 0; i < n;i++){
+				arr.push( fibonacci(i) );
+			}
+			return arr;
+		}
+
+		//根据n返回一个斐波那契数值
+		function fibonacci(n){
+			if(n === 0) return 1;
+			if(n === 1) return 1;			
+			return fibonacci(n-1) + fibonacci(n-2);
+		}
+
+		//斐波那契查找
+		function fibonacci_search( arr, target ){
+			//数组的长度
+			var len = arr.length;
+			//得到斐波那契数列[1,1,2,3,5,8,13....]
+			var fibo = fibo_array(20);
+			//
+			var k = 0;
+			while( len > fibo[k] - 1 ) k++;
+			
+			for(var i = len; i< fibo[k] - 1;i++){
+				arr[i] = arr[len - 1];
+			}
+
+			var low = 0;
+			var high = len - 1 ;
+			while(low <= high){
+				var mid = low + (fibo[k-1]-1)			
+				if( arr[mid]  === target){
+					return mid > len ? len - 1 : mid;
+				}else if(arr[mid] > target){
+					high = mid - 1;
+					k -= 1;					
+				}else if(arr[mid] < target){
+					low = mid + 1;
+					k -= 2;
+				}
+				
+			}
+
+			return -1;
+		}
+
+	</script>
+</body>
+</html>

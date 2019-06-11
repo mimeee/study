@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+
+		//方法1
+		function confirmEnding(str, target) {
+		    var reg = new RegExp(target + '$');
+		    if(reg.test(str)){
+		        return true;
+		    }
+		return false;
+		}
+
+		//方法2
+		function confirmEnding2(str, target) {
+		    str = str.substr(- target.length);
+		    if(str === target){
+		        return true;
+		    }
+		return false;
+		}
+
+		//方法3
+		function confirmEnding3(str, target) {
+			target = target.split("").reverse().join("");
+			str = str.split("").reverse().join("");
+		    str = str.substring(0,target.length);
+		    if(str === target){
+		        return true;
+		    }
+		return false;
+		}
+		confirmEnding("Bastian", "n");
+		confirmEnding2("Bastian", "n");
+		confirmEnding3("Bastian", "an");
+	</script>	
+</body>
+</html>

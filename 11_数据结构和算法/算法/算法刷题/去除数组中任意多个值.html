@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function destroyer(arr) {
+		// Remove all the values
+		    for(var i = 1; i < arguments.length; i++){
+		        arr = arr.filter((value)=>value !== arguments[i]);		       
+		    }		    
+		    console.log(arr);
+		    return arr;
+		}
+
+		destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+	</script>
+</body>
+</html>

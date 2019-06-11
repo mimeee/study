@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>heap_sort</title>
+	<style>
+		ul{
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<p>
+		堆是一种近似于完全二叉树的结构，一般用数组表示。任何节点都可以根据自己的下标找到自己的孩子节点,假如父节点的索引为 i,则孩子节点的索引为 (2*i), (2*i + 1)。忽略索引为0的节点。堆具有以下性质
+		<ul>
+			<li>
+				每个节点的值都大于或者等于其左右孩子节点的值称为大顶堆
+				<br>
+				arr[i] >= arr[2*i + 1] && arr[i] >= arr[2*i + 2] 
+			</li>
+			<li><img src="max_heap.png" alt=""></li>
+			<li>
+				每个节点的值都小于或者等于其左右孩子节点的值称为小顶堆
+				<br>
+				arr[i] <= arr[2*i + 1] && arr[i] <= arr[2*i + 2] 
+			</li>	
+			<li><img src="min_heap.png" alt=""></li>
+			<li>将堆中的节点按照层进行编号，映射到数组中为</li>
+			<li><img src="heap_to_arr.png" alt=""></li>
+		</ul>
+	</p>
+	<p>
+		堆排序是利用堆这种数据结构来设计的一种排序算法，其时间复杂度为O(nlogn),是不稳定排序。
+	</p>
+	<p>
+		堆排序的基本思想: 将一个数组变换成大顶堆(小顶堆)，将大顶堆(小顶堆)的叶根下沉至最尾部。将剩下的 n - 1 个节点继续上述步骤知道节点为 1. 
+		步骤为
+		<ul>
+			<li>将无序列构建成一个大顶堆或者小顶堆</li>
+			<li>将堆顶的元素与末尾元素交换</li>
+			<li>重新调整堆，继续上述两步</li>
+		</ul>
+	</p>
+	<p>
+		这里并不是每一次都生成了大顶堆，而只是保证了根节点是最大值。
+	</p>
+	<script>
+		var arr = [ 1,5,6,20,10,9 ];	
+		heap_sort( arr );	
+		 console.log( arr );
+		function heap_sort(arr){
+			var n = arr.length - 1;
+			while( n > 0){
+				generate_heap(arr,n);
+				swap( arr,0,n );
+				n--;
+			}
+		}	
+
+		function generate_heap(arr,n){			
+			var parentNum = parseInt((n - 1)/2);
+			while( parentNum >= 0){
+				var i;
+				if( parentNum * 2 + 2 <= n && arr[parentNum * 2 + 1 ] < arr[parentNum * 2 + 2 ]){
+					i = parentNum * 2 + 2;
+				}else{
+					i = parentNum * 2 + 1;
+				}
+				if( arr[i] > arr[parentNum] ){
+					swap( arr,i,parentNum );
+				}
+				parentNum--
+			}
+		}
+
+		function sort_parent_child_node( arr,parentNum, n ){
+	
+			
+
+		}
+
+		function swap( arr1,num1,num2 ){
+			temp = arr[num1];
+			arr[num1] = arr[ num2 ];
+			arr[ num2 ] = temp;
+		}
+
+	</script>	
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert_Sort</title>
+</head>
+<body>
+	<script>
+		var arr = [1,2,6,4,2,1];
+		Insert_Sort( arr );
+		console.log( arr );
+		// function Insert_Sort( arr ){
+		// 	for(var i = 1; i < arr.length; i++){
+		// 		for(var j = i + 1; j >= 0 && arr[j] < arr[j-1]; j--){
+		// 			var temp = 0;
+		// 			temp = arr[j];
+		// 			arr[j] = arr[j - 1];
+		// 			arr[j - 1] = temp;
+		// 		}
+		// 	}
+		// }
+
+		function Insert_Sort( arr ){
+			for(var i = 1; i < arr.length; i++){
+				for(var j = i + 1; j>=0 && arr[j] < arr[j-1];j--){
+					var temp = 0;
+					temp = arr[j];
+					arr[j] = arr[j - 1];
+					arr[j - 1] = temp;					
+				}
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>quick_sort</title>
+</head>
+<style>
+	ul{
+		list-style: none;
+	}
+</style>
+<body>
+	<p>
+		快排使用的是分治的思想。
+		<ul>
+			<li>寻找一个数作为基准</li>
+			<li>遍历该组中所有的数，比基准小的放在其前面，比基准大的放在其后面，形成分组</li>
+			<li>重复上述两步</li>
+			<li>递归结束的条件是分组的大小是0或者1</li>
+		</ul>
+	</p>
+	<div class="show">
+		
+	</div>
+	<script>
+		var arr = [98,5,6,3,245,77,1,3,55,78,100000,124,215787,212,123,666,454];
+		arr = exchange(arr,0,arr.length)
+		console.log(arr);
+
+		function selectCenter(start,end){
+			return Math.floor( (start + end )/2 );
+		}
+
+
+		function exchange(arr,start,end){
+			if(end - start < 1){
+				return arr;
+			}
+
+			var len = end;
+			var iSpiltNumber = selectCenter( start, end );
+
+			var i = start;
+			while( i <= len && i !== (end + 1)){
+				if( i < iSpiltNumber && arr[i] > arr[iSpiltNumber] ){
+
+					arr.splice( end  , 0 , arr.splice(i,1)[0] );
+					iSpiltNumber--;
+					end--;
+					continue;
+				}else if( i > iSpiltNumber && arr[i] < arr[iSpiltNumber]){
+					arr.splice( start  , 0 , arr.splice(i,1)[0] );
+					iSpiltNumber++;
+					i++;
+					continue;
+				}
+
+				i++;
+			}
+			if( iSpiltNumber > 0){
+				arr = exchange(arr,start,iSpiltNumber - 1 )
+			}
+			if(iSpiltNumber < len){
+				arr = exchange(arr,iSpiltNumber + 1,len )
+			}
+			return arr;
+		}
+	</script>	
+</body>
+</html>

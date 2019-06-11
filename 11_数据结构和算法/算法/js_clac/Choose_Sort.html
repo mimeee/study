@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Choose_Sort</title>
+</head>
+<body>
+	<script>
+		var arr = [1,22,54,11,5];
+		Choose_Sort( arr );
+		console.log(arr);
+		function Choose_Sort( arr ){
+			for(var i = 0; i < arr.length; i++){
+				var index = i;
+				for(var j = i; j < arr.length; j++){
+					if( arr[index] > arr[j] ){
+						index = j;
+					}
+				}
+				var temp = arr[index];
+				arr[index] = arr[i];
+				arr[i] = temp;
+			}
+		}
+	</script>	
+</body>
+</html>

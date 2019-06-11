@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+
+
+		// console.log(!!"");
+		// console.log(!!false);
+		// console.log(!!0);
+		// console.log(!!null);
+		// console.log(!!undefined);
+		// console.log(!!NaN);
+		
+		//1
+		function bouncer(arr) {
+			// Don't show a false ID to this bouncer.
+			
+			for(var i = 0; i < arr.length; i++ ){
+				if(!arr[i]){
+					arr.splice(i,1);
+					i -= 1;
+				}
+			}
+			console.log(arr);
+			return arr;
+		}
+		bouncer([7, "ate", "", false, 9]);
+
+		//2 
+		function bouncer2(arr) {
+			// Don't show a false ID to this bouncer.
+			var r = arr.filter(function(v,i,arr){
+				return !!v;
+			})
+			console.log(r);
+			return r;
+		}
+		bouncer2([7, "ate", "", false, 9]);
+
+		//3 改变了变量类型
+		function bouncer3(arr) {
+			// Don't show a false ID to this bouncer.
+			arr.forEach(function(v,i,arr){
+				if(!v){
+					arr[i] = "";
+				}
+			})
+			return arr.join("0").replace(/0+/g,"0").split("0");
+		}
+		bouncer3([7, "ate", "", false, 9]);
+	</script>	
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function truncate(str, num) {
+		// Clear out that junk in your trunk
+
+		      if(str.length > num){
+		          if(num > 3)num -= 3;
+		          return str.substring(0,num) + "...";
+		      }
+		        return str;
+		}
+
+
+
+		document.write(truncate("A-tisket a-tasket A green and yellow basket", 11));		
+	</script>	
+</body>
+</html>

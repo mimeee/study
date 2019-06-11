@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>merge_sort</title>
+</head>
+<body>
+	<p>
+		并归是典型的分治思想，就是把一个大问题一点一点的剖析成小问题，从解决小问题来堆砌大问题的答案。
+	</p>
+	<p>
+		并归排序是将数组分成一个一个的小数组从而对数组进行再排列。
+	</p>
+	<script>
+		var arr = [5,6,6,99,11,2,11,53,48,12,23]
+		console.log( arr_splice( arr ) )
+
+		function merge_sort( arr_one, arr_two ){
+			var len = arr_one.length + arr_two.length;
+			var tempArr = [];
+			while( len > 0 ){
+				if(arr_one.length !== 0 && arr_two.length !== 0){
+					if( arr_one[0] > arr_two[0]){
+						tempArr.push( arr_two.shift() );
+					}else{
+						tempArr.push( arr_one.shift() );
+					}
+				}else if( arr_one.length === 0){
+					tempArr = tempArr.concat( arr_two );
+					break;
+				}else if( arr_two.length === 0){
+					tempArr = tempArr.concat( arr_one );
+					break;
+				}				
+			}
+			return tempArr;	
+		}
+
+		function arr_splice( arr ){
+			if( arr.length === 1){
+				return arr;
+			}else{
+				var slice_point = Math.floor( arr.length / 2 );
+				var arr_one = arr.slice( 0, slice_point );
+				var arr_two = arr.slice( slice_point );	
+				var a = arr_splice( arr_one );
+				var b = arr_splice( arr_two );
+				var tt = merge_sort( a, b );
+				return tt; 
+			}
+		}
+	</script>
+</body>
+</html>

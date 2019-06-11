@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function largestOfFour(arr) {
+	    if(typeof arr[0] === 'object'){
+	        var temp = [];
+	        for(var i = 0;i < arr.length;i++){
+	            var t = largestOfFour(arr[i]);
+	            t = typeof t === 'object' ? largestOfFour(t) : t ;
+	            temp.push(t);
+	        }
+	        return temp;
+	    }else{
+	        return Math.max.apply(Math,arr);
+	    }
+	return arr;
+	}
+
+	var o1 = largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26],[32, 35, 37, 39], [1000, 1001, 857, 1]]);
+	var o2 = largestOfFour([[[[[4, 5, 1, 3], [13, 27, 18, 26],[32, 35, 37, 39], [1000, 1001, 857, 1]]]]]);
+
+	console.log(o1);
+	console.log(o2);
+	
+	</script>	
+</body>
+</html>

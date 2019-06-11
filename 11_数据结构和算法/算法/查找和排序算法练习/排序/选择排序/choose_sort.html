@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p>
+		选择排序是依次遍历数组，在数组中选择目标函数去放至相应的位置上。是不稳定排序。	
+	</p>
+	<p>
+		与冒泡排序不同的是，冒泡排序是依次比较相邻的两个后，符合条件就移位。但是选择排序确实循环一次只移动一次。
+	</p>
+	<script>
+		var arr = [ 1,0,5,99,2,33,4,51 ];
+		choose_sort( arr );
+		console.log(arr);
+
+		function choose_sort(arr){
+			for(var i = 0;i < arr.length; i++){
+				tempIndex = i;
+				for(var j = i; j < arr.length; j++){
+					if( arr[j] > arr[tempIndex] ){
+						tempIndex = j;
+					}
+				}
+				if( i !== tempIndex ){
+					temp = arr[tempIndex];
+					arr[tempIndex] = arr[i];
+					arr[i] = temp;					
+				}
+				
+			}
+		}
+	</script>
+</body>
+</html>

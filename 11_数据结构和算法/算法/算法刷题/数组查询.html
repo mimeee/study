@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// function mutation(arr) {
+		//     var patternArr = arr[1].split("");
+		//     for(var i = 0;i < patternArr.length; i++){
+		//         var reg = new RegExp(patternArr[i],"i");
+		//         if(!reg.test(arr[0])){ return false }
+		//     }
+		// return true;
+		// }
+		// 
+		function mutation(arr) {
+			var a = arr[1].toUpperCase().split("");
+			var a1 = arr[0].toUpperCase();
+			for(var i = 0;i < a.length; i++){
+				if(a1.indexOf(a[i]) === -1){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		mutation(["hello", "Hello"]);
+	</script>	
+</body>
+</html>

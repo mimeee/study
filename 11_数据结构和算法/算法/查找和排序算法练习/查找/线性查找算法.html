@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BFPRT</title>
+</head>
+<body>
+	<p>
+		依次将要搜索的数组与要对比的数进行对比，如果相等则返回位置否则返回
+	</p>
+	<script>
+		var arr = [2,5,7,8,6,3,4,2,1,32];
+		console.log(linear_search(arr,3));
+		function linear_search(arr,target){
+			for(var i  = 0;i < arr.length;i++){
+				if(arr[i] === target){
+					return i;
+				}
+			}
+			return -1;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function where(arr, num) {
+		// Find my place in this sorted array.
+		    arr.push( num );
+		    arr.sort(( a, b ) => a - b);
+		    console.log(arr);
+		    return arr.indexOf( num );
+		}
+
+		console.log(where([3, 10, 5], 3));
+
+	</script>	
+</body>
+</html>

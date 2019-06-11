@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	
+    var str = "I'm a little tea pot"; 
+    str = str.split(" ");
+    str.map((value,index,arr)=>{
+
+    	//1
+    	value = value.replace(/(.)(.*)/,function(s1,s2,s3){
+    		return s2.toUpperCase() + s3.toLowerCase();
+    	})
+       arr[index] = value;
+
+       //2
+       arr[index] = value[0].toUpperCase() + value.substring(1,value.length).toLowerCase();
+    })
+    console.log(str);
+	</script>	
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒泡排序/鸡尾酒算法</title>
+</head>
+<body>
+	<p>冒泡排序是比较排序的一种，其时间复杂度是 n的平方，算法是稳定的</p>
+	<p>算法的稳定性指的是两个相等数在排序前后其相对位置保持不变</p>
+	<p>冒泡算法就是依次遍历每一个元素，将其与下一个对比，如果符合条件，则转移其位置</p>
+	<p>鸡尾酒排序是对冒泡排序的一种改进，也就是依次把最大最小的放在两边，缩小边界</p>
+	<script>
+
+		var arr = [5,1,3,88,1,32,55,3];
+		console.log( bubble_sort(arr) );
+		console.log( cocktail_ordering(arr) );
+		function bubble_sort(arr){
+			for(var i = 0;i < arr.length; i++){
+				for(var j = 1;j < (arr.length - i);j++){
+					if( arr[j - 1] > arr[j]){
+						temp = arr[j - 1];
+						arr[j - 1] = arr[j];
+						arr[j] = temp;
+					}
+				}
+			}
+			return arr;
+		}
+
+		function cocktail_ordering(arr){
+			var left = 0;
+			var right = arr.length;
+			while(left !== right){
+				for(var i = 1;i < right; i++){
+					if(arr[i - 1] > arr[i]){
+						var temp = arr[i - 1];
+						arr[i - 1] = arr[i];
+						arr[i] = temp;
+					}
+				}
+				right --;
+				for(var j = right;j > left + 1;j--){
+					if(arr[j] < arr[ j - 1]){
+						temp = arr[j - 1];
+						arr[j - 1] = arr[j];
+						arr[j] = temp;
+					}
+				}
+				left ++;
+			}
+			return arr;
+		}
+
+	</script>	
+</body>
+</html>
