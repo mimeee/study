@@ -114,19 +114,22 @@
                 el.style.height = h + 'px';
                 el.style.border = '2px dashed orange';
 
-                el.addEventListener('mousedown',(e)=>{
-                    el.addEventListener('mousemove',drag,false)
+                document.addEventListener('mousedown',(e)=>{el
+                    if(e.target.className == 'lay'){
+                        document.addEventListener('mousemove',drag,false)
+                    }
+                    
                 },false)
 
                 function drag(e){
                     el.style.width = e.pageX + 'px'; 
+                    el.style.height = e.pageY + "px";
                     img.style.width = e.pageX + 'px';
-                    img.style.height = h + "px";
+                    img.style.height = e.pageY + "px";
                 }
 
-                el.addEventListener('mouseup',(e)=>{
-                    console.log(e);
-                    el.removeEventListener('mousemove',drag,false)
+                document.addEventListener('mouseup',(e)=>{
+                    document.removeEventListener('mousemove',drag,false)
                 },false)
                 
                 document.body.append(el);
