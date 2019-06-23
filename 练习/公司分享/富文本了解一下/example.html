@@ -43,6 +43,7 @@
     <div id="content" contenteditable="true"></div>
     
     <div>失去焦点test</div>
+    <div style="border:1px solid aqua;border-radius: 5px" id="show"></div>
 
     <script>
         let bold = document.querySelector("#bold")        
@@ -52,14 +53,18 @@
         
         let inputFile = document.querySelector("#file");
 
+        let show = document.querySelector("#show");
 
         // 把命令封装成一个函数
         function command (command, argu = null){
             document.execCommand(command,false,argu);
+            console.log(document.querySelector("#content").innerHTML)
+            show.innerHTML = '<xmp>' + document.querySelector("#content").innerHTML + '</xmp>';
         }
 
         //加粗
         bold.addEventListener('click',()=>command('bold'),false);
+         
         //段落
         p.addEventListener('click',()=>{
             command('formatBlock','<p>')
@@ -68,10 +73,11 @@
             // let r = s.getRangeAt(0);
             // let span = document.createElement('p');
             // r.surroundContents(span)
+            //            show.innerHTML = '<xmp>' + document.querySelector("#content").innerHTML + '</xmp>';
 
         },false);
         //水平线
-        hori.addEventListener('click',()=>command('insertHTML','<hr/>'),false);
+        hori.addEventListener('click',()=>command('insertHorizontalRule'),false);
         //插入图片
         pic.addEventListener('click',()=>{
             inputFile.click();
@@ -84,6 +90,7 @@
                 let base64Img = reader.result;
                 command('insertImage', base64Img);
                 inputFile.value = '';
+                show.innerHTML = '<xmp>' + document.querySelector("#content").innerHTML + '</xmp>';
             }
             reader.readAsDataURL(files);
         },false)
