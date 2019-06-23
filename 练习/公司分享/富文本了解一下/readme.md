@@ -23,7 +23,7 @@
 
         - document.execCommand 允许运行命令来操纵可编辑内容区域的元素  
             `document.exeCommand(命令名称-fontSize, 是否展示用户界面-false, 命令需要额外参数-1)`;     
-            ** [execCommend MDN 参考文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand) **;  
+            **[execCommend MDN 参考文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand)**;  
             第二个参数是因为早先IE有一个这样的参数，现在这个参数基本没什么影响。
 
             ```HTML
