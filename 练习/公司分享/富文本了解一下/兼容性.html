@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FF支持多个range，chrome只支持一个</title>
+    <style>
+        div {
+            background: pink;
+            width: 200px;
+            height: 200px;
+        }
+
+        span {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <strong>strong</strong>
+    <span> normal </span>
+
+    <strong>strong</strong>
+    <span> normal </span>
+
+    <strong>strong</strong>
+    <span> normal </span>
+
+    <strong>strong</strong>
+    <span> normal </span>
+    <script>
+        /* 在一个HTML文档中选中所有加粗的文本。 */
+
+        var strongs = document.getElementsByTagName("strong");
+        var s = window.getSelection();
+
+        if (s.rangeCount > 0) s.removeAllRanges();
+
+        for (var i = 0; i < strongs.length; i++) {
+            var range = document.createRange();
+            range.selectNode(strongs[i]);
+            s.addRange(range);
+        }
+
+        console.log(s);
+
+
+    </script>
+</body>
+
+</html>

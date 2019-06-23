@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>range</title>
+</head>
+
+<body>
+    <div contenteditable="true" id="div"></div>
+    <button id="btn">bold</button>
+
+    <div id="another">
+        this is parent
+        <div>
+            this is parent' son
+            <div>
+                this is parent's grandson
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('click', function () {
+
+            //range 配合 Selection 使用
+            //rangeAndSelection();
+
+            rangeAndNode();
+
+        })
+
+        function rangeAndNode(){
+            let ano = document.querySelector("#another");
+            let ranges = document.createRange();
+
+            ranges.selectNodeContents(ano);
+
+            console.log(ranges);
+            alert(ranges);
+
+            //传入的ano有子节点， offset单位以节点为单位，
+            //传入的ano是contextNode, offset以string为单位
+            ranges.setStart(ano, 1);
+            console.log(ranges);
+            alert(ranges);
+
+
+        }
+
+
+        function rangeAndSelection (){
+            var firstLine = document.getElementById("div").childNodes[0];
+            var selection = window.getSelection();
+            var rangeObj = document.createRange();
+            if( firstLine ){
+                rangeObj.setStart(firstLine, 3);
+                rangeObj.setEnd(firstLine, 5);
+
+                var rangeObj1 = document.createRange();
+
+                rangeObj1.setStart(firstLine, 7);
+                rangeObj1.setEnd(firstLine, 8);
+                //rangeObj.selectNodeContents(firstLine);
+
+                // 所有内容变为非选取状态
+                selection.removeAllRanges();
+
+                // 然后自动选取某个区域
+                selection.addRange(rangeObj);
+
+                selection.addRange(rangeObj1);
+                
+                console.log(selection)
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            background: pink;
+            width: 200px;
+            height: 200px;
+        }
+        span{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div contenteditable="true" id="div"></div>
+    <button id="btn">bold</button>
+
+    <div id="div1">kfalds;fkla;sdkfl;sd</div>
+    <script>
+        document.addEventListener('click',function(){
+            let div = document.querySelector('#div');
+
+            let div1 = document.querySelector('#div1').childNodes[0];
+            let s = window.getSelection();
+            //toString方法
+            //s.toString()
+
+            //collaspe
+            s.collapse(div1, 20);
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       #btnGroup{
+           width: 500px;
+           padding: 10px;
+       }
+       #btnGroup > button {
+           width: 80px;
+          padding: 10px;
+          border: none;
+          text-indent: 0px;
+       }
+       #btnGroup > button:active {
+          text-indent: 3px;
+       }
+       #content{
+           width: 100%;
+           height: 400px;
+           background: #eee;
+       } 
+       #content > img {
+           width: 200px;
+       }
+       .lay:hover{
+         cursor: move;
+       }
+    </style>
+</head>
+<body>
+    <div id="btnGroup">
+        <button id="bold">加粗</button>
+        <button id="p">段落</button>
+        <button id="hori">水平线</button>
+        <button id="pic">插入图片</button>
+        <input type="file" name="file" id="file" style="display:none">
+    </div>
+    <div id="content" contenteditable="true"></div>
+    
+    <div>失去焦点test</div>
+
+    <script>
+        let bold = document.querySelector("#bold")        
+        let p = document.querySelector("#p")        
+        let hori = document.querySelector("#hori")        
+        let pic = document.querySelector("#pic")   
+        
+        let inputFile = document.querySelector("#file");
+
+
+        // 把命令封装成一个函数
+        function command (command, argu = null){
+            document.execCommand(command,false,argu);
+        }
+
+        //加粗
+        bold.addEventListener('click',()=>command('bold'),false);
+        //段落
+        p.addEventListener('click',()=>{
+            command('formatBlock','<p>')
+
+            // let s = window.getSelection();
+            // let r = s.getRangeAt(0);
+            // let span = document.createElement('p');
+            // r.surroundContents(span)
+
+        },false);
+        //水平线
+        hori.addEventListener('click',()=>command('insertHTML','<hr/>'),false);
+        //插入图片
+        pic.addEventListener('click',()=>{
+            inputFile.click();
+        },false);
+
+        inputFile.addEventListener('change',(file)=>{
+            let reader = new FileReader();
+            let files = file.target.files[0]; 
+            reader.onload = () => {
+                let base64Img = reader.result;
+                command('insertImage', base64Img);
+                inputFile.value = '';
+            }
+            reader.readAsDataURL(files);
+        },false)
+
+
+        // ----- 进阶
+
+        let contentEdit = document.querySelector('#content');
+        let el = null;
+        contentEdit.addEventListener('click',(e)=>{
+
+            let els = document.querySelectorAll('.lay');
+            els.forEach((el)=>{
+                el.style.display = 'none'
+            })
+            if(e.target && e.target.tagName && e.target.tagName === 'IMG'){
+                let img = e.target;
+                let w = e.target.width;
+                let h = e.target.height;
+                let pos = e.target.getBoundingClientRect();
+                
+                el = document.createElement('div');
+                el.className = 'lay'
+                el.style.position = 'absolute';
+                el.style.top = pos.y + 'px';
+                el.style.left =  pos.x + 'px';
+                el.style.width = w + 'px';
+                el.style.height = h + 'px';
+                el.style.border = '2px dashed orange';
+
+                el.addEventListener('mousedown',(e)=>{
+                    el.addEventListener('mousemove',drag,false)
+                },false)
+
+                function drag(e){
+                    el.style.width = e.pageX + 'px'; 
+                    img.style.width = e.pageX + 'px';
+                    img.style.height = h + "px";
+                }
+
+                el.addEventListener('mouseup',(e)=>{
+                    console.log(e);
+                    el.removeEventListener('mousemove',drag,false)
+                },false)
+                
+                document.body.append(el);
+            }
+
+            
+
+            
+            
+
+        },false)
+
+    </script>
+</body>
+</html>
