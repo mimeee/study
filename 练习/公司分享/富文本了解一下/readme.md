@@ -20,7 +20,6 @@
             ```
 
             ![](gif/20190622_1.gif)
-            <iframe height=500 width=500 src="gif/20190622_1.gif">
 
         - document.execCommand 允许运行命令来操纵可编辑内容区域的元素  
             `document.exeCommand(命令名称-fontSize, 是否展示用户界面-false, 命令需要额外参数-1)`;     
@@ -42,7 +41,7 @@
             }
             ```
 
-            <iframe height=500 width=500 src="gif/20190622_2.gif">
+            ![](gif/20190622_2.gif)
 
 
         - Selection, Range 对象
@@ -59,7 +58,7 @@
                         console.log(window.getSelection().toString())
                     ```
 
-                    <iframe height=500 width=500 src="gif/20190623_1.gif">
+                    ![](gif/20190623_1.gif)
 
                     - `addRange(rangeObj)` (FF支持多个range，chrome只支持一个)  
 
