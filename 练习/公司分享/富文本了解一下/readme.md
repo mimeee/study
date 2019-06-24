@@ -86,6 +86,11 @@
         - [FileReader](https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader) --> 读取文件对象
         - [getBoundingClientRect](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect) --> 返回元素的大小及其相对于视口的位置
 
+    - 参考
+        - [理解Selection对象](https://www.cnblogs.com/tugenhua0707/p/7398196.html)
+        - [DOM操作-range](https://blog.csdn.net/jzlingmo/article/details/51065153)
+        - [JavaScript标准Selection操作](https://www.cnblogs.com/ggzjj/p/3614704.html)
+
 
          
     
