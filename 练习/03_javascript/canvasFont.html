@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+<canvas id="myCanvas" width="60" height="60" style="border:1px solid #d3d3d3;">
+   <script>
+       var oCa = document.querySelector('canvas');
+       var ctx = oCa.getContext('2d');
+       ctx.beginPath();
+    //   ctx.fillStyle = "#000";
+    //   ctx.fillRect(0,0,80,80);
+    //   ctx.closePath();
+   
+      ctx.font = "40px Verdana";
+
+      var gradient = ctx.createLinearGradient(0, 0, oCa.width, 0);
+      ctx.textBaseline="top"; 
+      ctx.beginPath();
+      gradient.addColorStop("0", "magenta");
+      gradient.addColorStop("0.5", "blue");
+      gradient.addColorStop("1.0", "red");
+      ctx.fillStyle = gradient;
+      ctx.fillText("Top",2,10); 
+      ctx.beginPath();
+   </script>
+</body>
+</html>

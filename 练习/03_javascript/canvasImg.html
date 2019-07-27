@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+</head>
+
+<body>
+   <img src="" alt="" id="img">
+   <canvas id="myCanvas" style="border:1px solid #d3d3d3;">
+      <script>
+         var oCa = document.querySelector('canvas');
+         var ctx = oCa.getContext('2d');
+         oCa.width = 1080;
+         oCa.height = 1920;
+
+         var oImg = document.createElement('img');
+         oImg.onload = function (e) {
+            ctx.drawImage(oImg, 0, 0);
+            ctx.beginPath();
+            var gradient = ctx.createLinearGradient(0, 0, oCa.width, 0);
+            gradient.addColorStop("0", "magenta");
+            gradient.addColorStop("0.5", "blue");
+            gradient.addColorStop("1.0", "red");
+            ctx.font = "80px Verdana";
+            ctx.textBaseline = "top";
+            ctx.fillStyle = gradient;
+            ctx.fillText("Top", 300, 806);
+            ctx.stroke();
+            //450*450
+            document.querySelector('#img').src = oCa.toDataURL('image/png')
+         }
+         oImg.src = "waituan_invite_qrcode_bg.png";
+         console.log(getComputedStyle(oImg)['width']);
+         //  ctx.beginPath();
+         //   ctx.fillStyle = "#000";
+         //   ctx.fillRect(0,0,80,80);
+         //   ctx.closePath();
+      </script>
+</body>
+
+</html>
