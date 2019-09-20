@@ -1,4 +1,4 @@
-const filePath = '../猫项目主包隐私政策修订-20190718';
+const filePath = '../猫项目主包隐私政策修订-20190916';
 
 const admZip = require('adm-zip');
 const fs = require('fs');
