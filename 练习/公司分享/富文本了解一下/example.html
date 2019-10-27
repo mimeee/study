@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>example</title>
     <style>
        #btnGroup{
            width: 500px;
@@ -67,13 +67,13 @@
          
         //段落
         p.addEventListener('click',()=>{
-            command('formatBlock','<p>')
+            // command('formatBlock','<p>')
 
-            // let s = window.getSelection();
-            // let r = s.getRangeAt(0);
-            // let span = document.createElement('p');
-            // r.surroundContents(span)
-            //            show.innerHTML = '<xmp>' + document.querySelector("#content").innerHTML + '</xmp>';
+            let s = window.getSelection();
+            let r = s.getRangeAt(0);
+            let span = document.createElement('p');
+            r.surroundContents(span)
+                       show.innerHTML = '<xmp>' + document.querySelector("#content").innerHTML + '</xmp>';
 
         },false);
         //水平线

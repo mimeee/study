@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div contenteditable="true" id="div"></div>
+    <div contenteditable="true" id="div">aaaaaaaa</div>
     <button id="btn">bold</button>
 
     <div id="another">
@@ -26,9 +26,9 @@
         document.addEventListener('click', function () {
 
             //range 配合 Selection 使用
-            //rangeAndSelection();
+            rangeAndSelection();
 
-            rangeAndNode();
+            //rangeAndNode();
 
         })
 
@@ -53,6 +53,10 @@
 
         function rangeAndSelection (){
             var firstLine = document.getElementById("div").childNodes[0];
+            var span = document.createElement('span');
+            span.append('hhhhhhhhhhhhhhhhhhhhhhhhh');
+            console.log(span);
+            console.log(firstLine);
             var selection = window.getSelection();
             var rangeObj = document.createRange();
             if( firstLine ){
@@ -61,19 +65,19 @@
 
                 var rangeObj1 = document.createRange();
 
-                rangeObj1.setStart(firstLine, 7);
-                rangeObj1.setEnd(firstLine, 8);
+                // rangeObj1.setStart(span, 7);
+                // rangeObj1.setEnd(span, 8);
                 //rangeObj.selectNodeContents(firstLine);
 
                 // 所有内容变为非选取状态
                 selection.removeAllRanges();
 
                 // 然后自动选取某个区域
-                selection.addRange(rangeObj);
+                //selection.addRange(rangeObj);
 
                 selection.addRange(rangeObj1);
                 
-                console.log(selection)
+                console.log(selection.toString())
             }
         }
 
