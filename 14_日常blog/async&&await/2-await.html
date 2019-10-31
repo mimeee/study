@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>await</title>
+</head>
+
+<body>
+    <script>
+        //在async外使用await，抛出 SyntaxError 错误，用catch也会抛出错误, 阻止代码继续运行
+        // try {
+        //     let await_one = await 3 + 2;
+        // } catch (e) { 
+        //     console.log('%c' + e, 'background:red;')
+        // }
+
+        //常规用法， await 操作符后的表达式的值不是一个 Promise，那么该值将被转换为一个已正常处理的 Promise。
+        const a = async () => await 'a' + 2 + 3;
+        a().then(res => {
+            console.log(res)
+            console.log('%c--------------------------------------------------------------分割线',
+                'background:yellow;color:#ccc');
+        });
+
+
+        //await后面接异步函数
+        const b = async () => {
+            let b_1 = await new Promise( reslove => {
+                setTimeout( () => {
+                    reslove('this is b_1');
+                }, 2000)
+            })  
+            return b_1 + ', b_1之后';
+        }
+        b().then(res => {
+            console.log(res);
+            console.log('%c--------------------------------------------------------------分割线',
+                'background:yellow;color:#ccc');
+        })
+
+        //一个async有多个await
+        function doubleNumber(num) {
+            return new Promise ( resolve => {
+                setTimeout( () => {
+                    resolve(num * 2);
+                }, 2000)
+            })
+        }
+        const c = async () => {
+            let six = await doubleNumber(3);
+            let eight = await doubleNumber(4);
+            let ten = await doubleNumber(5);
+            return six + eight + ten;
+        }
+        c().then(res => {
+            console.log(res);
+            console.log('%c--------------------------------------------------------------分割线',
+                'background:yellow;color:#ccc');
+        })
+    </script>
+</body>
+
+</html>

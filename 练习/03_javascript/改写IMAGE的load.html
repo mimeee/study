@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>改写 IMAGE 的 load</title>
+
+	<script>
+		let _Image = window.Image;
+		document._documentElement = document.createElement;
+		window.Image = function (){
+			console.log('调用image')
+			let obj = new _Image();
+			obj.addEventListener('load', e => {
+				console.log(e.target.width);
+				console.log(e.target.height);
+			})
+			return obj;
+		}
+
+		document.createElement = function (str) {
+			if (str === 'img') {
+				return new Image();
+			}
+			console.log(str)
+			return document._documentElement(str);
+		}
+
+
+</script>
+	<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572252463686&di=976fbeaa1c35468aa8e07a856f974a34&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201312%2F04%2F20131204184148_hhXUT.jpeg" alt="">
+	<div>12312313</div>
+	<script>
+
+		// $('<em>2adsf123f23as13</em>').appendTo('body')
+	</script>
+</body>
+</html>

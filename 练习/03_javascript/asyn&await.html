@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>async && await</title>
+</head>
+<body>
+	<script>
+		// const a = () => 'a';
+		// const b = async () => 'b';
+		// const c = async () => d;
+
+		// console.log(a());
+		// console.log(b());
+		// console.log(c());
+
+
+		const e = async () => 'e';
+		const f = async () => await 'f';
+		const g = async () => await (1 + 2 + 'g');
+		// const h = async () => {
+		// 	// return await 'h'
+		// 	try {
+		// 		//加不加await效果不一样
+		// 		return await k
+		// 	} catch (err) {
+		// 		return await err
+		// 	}
+		// };
+
+		console.log(e());
+		console.log(f());
+		console.log(g());
+		// console.log(h());
+
+		// f().then(res => {
+		// 	console.log(res);
+		// })
+		// g().then(res => {
+		// 	console.log(res);
+		// })
+		// h().then(res => {
+		// 	console.log(res);
+		// })
+
+
+		// // //这是一个异步函数
+		// function i() {
+		// 	return new Promise( (resolve) => {
+		// 		setTimeout(() => {
+		// 			resolve('hehe')
+		// 		}, 2000);
+		// 	})
+		// }
+
+		// (async () => {
+		// 	let a = await i();
+		// 	console.log(a);
+		// 	console.log('123')
+		// })()
+		// console.log(223)
+
+	</script>
+</body>
+</html>

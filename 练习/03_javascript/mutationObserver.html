@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MutationObserver</title>
+    <style>
+    .bb {
+        background: #000;
+    }
+    </style>
+</head>
+
+<body>
+    <script>
+    function deleteBigShade(node) {
+                console.log('deleteBigShade0:', node);
+
+                if (node && node.style) {
+                    console.log('deleteBigShade1:', node);
+                    let height = node.style.height === '100%' ? '100%' : parseInt(node.style.height);
+                    let position = node.style.position;
+                    let width = node.style.width;
+                    let zIndex = parseInt(node.style['z-index']);
+
+                    if (width === '100%' && (height === '100%' || height > 500) && position === 'fixed' && zIndex > 999) {
+                        console.log('deleteBigShade2:', node);
+                        node.style.width = '0';
+                        node.style.height = '0';
+                        node.style['z-index'] = -1;
+                    }
+                }
+            }
+
+            function findHasHideChild(node) {
+                if (node.nodeType === 1) {
+                    let res = node.outerHTML.match(/style\s?=('|")(.*?)\1/g);
+                    if (res) {
+                        let flag = false;
+                        for (var i = 0; i < res.length; i++) {
+                            if (/z-index/.test(res[i]) && /position/.test(res[i]) && /fixed/.test(res[i]) && /width/.test(res[i]) && /height/.test(res[i])) {
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if (flag) {
+                            findAllChild(node).forEach(n => deleteBigShade(n));
+                        }
+                    }
+                }
+            }
+
+            function findAllChild(node) {
+                let list = [];
+                list.push(node);
+                for (var i = 0; i < node.children.length; i++) {
+                    if (node.children[i].children.length) {
+                        list = list.concat(findAllChild(node.children[i]));
+                    } else {
+                        list.push(node.children[i]);
+                    }
+                }
+                return list;
+            }
+
+    var observerAttribute = new MutationObserver(function(mutationList) {
+        if (!mutationList) return false;
+        mutationList.forEach((mutation) => {
+            findHasHideChild(mutation.addedNodes[0]);
+        });
+    });
+    observerAttribute.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'onclick', 'class']
+    });
+
+    const oBox = document.createElement('div');
+    oBox.id = 'box';
+    oBox.innerHTML = `<div id="ox" style="height: 100px;width: 100px;border: 1px solid #000"><div id="pox" style="z-index: 100; height: 100px;width: 100px;border: 1px solid #000"><span style="height: 700px;width: 100%;position:fixed;z-index:5656">123</span></div><span>123</span></div>`;
+
+    document.body.append(oBox);
+    </script>
+</body>
+
+</html>

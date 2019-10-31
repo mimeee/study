@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒泡和捕获</title>
+</head>
+<body>
+	<div id="box" style="height: 0; overflow: hidden">
+		<div id="pox" onclick="alert(2)">
+			<a href="http://www.360.com">
+				<img style="position:fixed;width: 100%;height:100px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571719267018&di=47f79f199ab5d9fd43e714f3c8df631a&imgtype=0&src=http%3A%2F%2Fpic26.nipic.com%2F20121230%2F9034633_172138299000_2.jpg" alt="">
+			</a>
+		</div>		
+		<div id="pox" onclick="alert(1)">
+			<a href="http://www.baidu.com" onclick="alert('a')">
+				<img style="position:fixed;width: 100%;height:100px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571719267018&di=47f79f199ab5d9fd43e714f3c8df631a&imgtype=0&src=http%3A%2F%2Fpic26.nipic.com%2F20121230%2F9034633_172138299000_2.jpg" alt="">
+			</a>
+		</div>
+	</div>
+	<script>
+		const oBox = document.querySelector('#box');
+		const oPox = document.querySelector('#pox');
+
+		oBox.addEventListener('click', (e)=>{
+			console.log('stopPropagation');
+			e.preventDefault();
+			e.stopImmediatePropagation();
+		}, true);
+	</script>
+</body>
+</html>

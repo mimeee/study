@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>自定义事件</title>
+</head>
+
+<body>
+  <script>
+  (async () => {
+
+
+    var myEvent = new CustomEvent('myselfEvent', {
+      haha: 123
+    })
+
+    window.addEventListener('myselfEvent', (e) => {
+      console.log(e)
+    })
+
+
+    let p = await (() => new Promise(resovle => {
+      setTimeout(() => {
+
+
+        var nt = new CustomEvent('inEvent', {
+          haha: 3
+        })
+
+        window.addEventListener('inEvent', (e) => {
+          	console.log(e)
+		    if (window.dispatchEvent) {
+		      window.dispatchEvent(myEvent);
+		    } else {
+		      window.fireEvent(myEvent);
+		    }
+        })
+
+        if (window.dispatchEvent) {
+          window.dispatchEvent(nt);
+        } else {
+          window.fireEvent(nt);
+        }
+
+
+
+        console.log('setTimeout');
+        resovle(5);
+      }, 5000);
+    }))()
+
+    console.log(p);
+
+  })()
+
+  console.log('main route');
+  </script>
+</body>
+
+</html>

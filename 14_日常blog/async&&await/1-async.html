@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>async 使用说明</title>
+</head>
+
+<body>
+   <script>
+      //关于调用----它的调用和普通函数的调用没有什么区别，直接加括号调用就可以了-----
+      const async_one = async (e) => {
+         console.log('%c调用了async_one','background:#000;color:#fff');
+      }
+      //async函数的调用，会返回promise 对象，并且Promise 还有status和value
+      console.log(async_one());
+
+      console.log('%c--------------------------------------------------------------分割线','background:yellow;color:#ccc');
+
+      //关于返回值----
+      // 创建一个async函数,并且返回一个值，运行正常
+      const async_two = async () => {
+         console.log('%c调用了async_two','background:#000;color:#fff');
+         return 'async_two';
+      }
+      //如果async 函数中有返回值 ,当调用该函数时，内部会调用Promise.resolve()
+      console.log(async_two());
+
+      
+      console.log('%c--------------------------------------------------------------分割线','background:yellow;color:#ccc');
+
+      // 创建一个async函数,并且返回一个值，运行时发生错误
+      const async_three = async () => {
+         console.log('%c调用了async_three,并准备发生一个错误','background:#000;color:#fff');
+         try {console.log(aaa);} catch(e) {return e};
+         // console.log(aaa);
+         // return 'async_three';
+      }
+      //调用Promise.reject() 返回一个promise 对象
+      // console.log(async_three().catch(e => { console.log(e)} ));
+      console.log(async_three());
+
+
+      console.log('%c--------------------------------------------------------------分割线','background:yellow;color:#ccc');
+
+      //创建一个async函数, 返回一个Promise, 并模拟一个异步回调函数
+      const async_four = async (time) => {
+         console.log('%c调用了async_four','background:#000;color:#fff');
+         return new Promise( resolve => {
+            console.log('async函数里面 new Promise 的函数体');
+            setTimeout( () => {
+               console.log('%casync_four setTimeout','background:#000;color:#fff');
+               resolve('setTimeout end');
+            }, time) 
+         }) 
+      }
+      console.log(async_four(2000));
+      console.log('main');
+
+
+
+
+
+      
+
+   </script>
+</body>
+
+</html>

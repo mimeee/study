@@ -1,0 +1,38 @@
+{
+  "name": "inject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "inject.js",
+  "scripts": {
+    "build": "gulp build",
+    "lint": "eslint --fix src/*.js",
+    "dist": "node dist_server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-iife-wrap": "^1.1.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.2",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "hy-gulp-require-idify": "^1.0.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "@huayue/gulp-build": "^1.2.3",
+    "@huayue/js-bridge": "^1.0.31",
+    "@huayue/weblint": "^1.0.8",
+    "bodymovin": "^4.13.0",
+    "express": "^4.16.4",
+    "hy-dom": "^0.1.23",
+    "hy-libs": "^0.7.21"
+  },
+  "private": true
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>class</title>
+</head>
+
+<body>
+    <script>
+    // var events = require('events');
+    // var emitter = new events.EventEmitter();
+
+
+    class M3U8 {
+        constructor(url) {
+            this.url = url;
+            this.ret = {};
+
+            // this.browser = await Util.getPuppeteerInstance();
+            // this.page = await tshi.browser.newPage();
+        }
+
+        checkUrl() {
+            if (this.url) return this.response(8, '参数不合法');
+            if (!/((ht|f)tps?:)\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g.test(this.url)) return this.response(8, '链接不合法');
+            return false;
+        }
+
+        openPage() {
+            const startTime = Util.getTimeNow(true);
+            const page = await browser.newPage();
+
+            try {
+                await page.setViewport({
+                    width: 1000,
+                    height: 812
+                });
+
+                await page.setUserAgent(fakeUA.mobile());
+
+                page.on('request', request => {
+                    if (/index\.m3u8/g.test(request.url()) && (request.resourceType() === 'xhr' || request.resourceType() === 'media')) {
+                        this.ret.m3u8 = request.url();
+                        this.ret.referer = request.headers().referer;
+                        page.evaluate(() => {
+                            console.log('stop');
+                            window.stop();
+                            console.log(document.readyState)
+                        })
+                        //发射一个事件
+                    }
+
+                });
+
+                await page.goto(url, {
+                    timeout: 0,
+                    waitUntil: 'networkidle0'
+                });
+            }
+
+        }
+
+        response(status, str = '') {
+            let ret = {};
+            switch (status) {
+                case 0:
+                    ret = {
+                        "data": this.ret,
+                        "errno": status,
+                        "message": "SUCCESS"
+                    }
+                    break;
+                case 1:
+                    ret = {
+                        "data": {},
+                        "errno": status,
+                        "message": "TIMEOUT",
+                        "annotation": str
+                    }
+                    break;
+                case 8:
+                    ret = {
+                        "data": {},
+                        "errno": status,
+                        "message": "EXTRACTOR_RULE_ERROR",
+                        "annotation": str
+                    }
+                    break;
+            }
+            return ret;
+        }
+    }
+
+    let test = new M3U8();
+    console.log(test.checkUrl())
+    </script>
+</body>
+
+</html>

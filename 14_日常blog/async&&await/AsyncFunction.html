@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>AsyncFunction</title>
+</head>
+
+<body>
+   <script>
+      // AsyncFunction 构造函数，不可以直接获得
+      console.log('AsyncFunction: Object.getPrototypeOf(async function(){}).constructor');
+      let AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+      console.log(AsyncFunction);
+      function resolveAfter2Seconds(x) {
+         return new Promise(resolve => {
+            setTimeout(() => {
+               resolve(x);
+            }, 2000);
+         });
+      }
+      var a = new AsyncFunction('a',
+         'b',
+         'return await resolveAfter2Seconds(a) + await resolveAfter2Seconds(b);');
+      console.log(a);
+      a(10, 20).then(v => {
+         console.log(v); // 4 秒后打印 30
+      });
+   </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+	<script src="target.js"></script>
+	<script>
+		let htmlDom = $(htmlText);
+		console.log(htmlDom);
+
+		  xresult = document.evaluate('//*[contains(@id,"chapter-list-")]/ul/li[*]/a', htmlDom);
+		  xresult;
+		  xres = xresult.iterateNext();
+		  console.log(xres);
+
+		/*
+			//div[contains(@class, 'playlist')]/ul[contains(@class,'num-list')]
+			//div[contains(@class, 'playlist')]/ul[contains(@class,'num-list')]/li/a
+		*/
+	</script>
+</body>
+</html>

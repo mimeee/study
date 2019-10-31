@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>async/await 对比 Promise</title>
+</head>
+<body>
+    <script>
+        /** 
+        * 传入参数 n，表示这个函数执行的时间（毫秒）
+        * 执行的结果是 n + 200，这个值将用于下一步骤
+        */
+        function takeLongTime(n) {
+            return new Promise(resolve => {
+                setTimeout(() => resolve(n + 200), n);
+            });
+        }
+
+        function step1(n) {
+            console.log(`step1 with ${n}`);
+            return takeLongTime(n);
+        }
+
+        function step2(n) {
+            console.log(`step2 with ${n}`);
+            return takeLongTime(n);
+        }
+
+        function step3(n) {
+            console.log(`step3 with ${n}`);
+            return takeLongTime(n);
+        }
+
+
+        // //promise
+        // (function () {
+        //     console.time("doIt1");
+        //     const time1 = 300;
+        //     step1(time1)
+        //         .then(time2 => step2(time2))
+        //         .then(time3 => step3(time3))
+        //         .then(result => {
+        //             console.log(`result is ${result}`);
+        //             console.timeEnd("doIt1");
+        //         });
+        // })()
+
+
+        //async 写法
+        //对比 promise写法，
+        // (async function () {
+        //     console.time("doIt2");
+        //     const time1 = 300;
+        //     const time2 = await step1(time1);
+        //     const time3 = await step2(time2);
+        //     const result = await step3(time3);
+        //     console.log(`result is ${result}`);
+        //     console.timeEnd("doIt2");
+        // })()
+
+    </script>
+</body>
+</html>

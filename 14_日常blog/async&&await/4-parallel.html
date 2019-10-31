@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>async/await的并行</title>
+</head>
+<body>
+    <script>
+        //是否达到并行, 同步会影响性能问题
+        function delayRun(num) {
+            console.log('delayRun');
+            return new Promise( (resolve) => {
+               setTimeout(() => {
+                   console.log(num);
+                   resolve(num);
+               }, num * 2) 
+            })
+        }
+        // (async () => {
+        //     let a = await delayRun(500);
+        //     let b = await delayRun(1000);
+        //     console.log(a);
+        //     console.log(b);
+        // })()
+
+        //使用promise存储达到并行的关键
+        // (async () => {
+        //     let a = delayRun(500);
+        //     let b = delayRun(1000);
+        //     console.log(a);
+        //     console.log(b);
+
+        //     console.log(await a);
+        //     console.log(await b);
+        // })()
+
+        //使用promise.all
+        // (async () => {
+        //     Promise.all([delayRun(500), delayRun(1000)]).then( ([res1, res2]) => {
+        //         console.log([res1, res2])
+        //     })
+        // })()
+    </script>
+</body>
+</html>
