@@ -1,17 +1,27 @@
-const filePath = '../服务协议（修改版）';
+const filePath = '../影视天堂搜索软件隐私政策';
 //html的title
-const title = '服务协议';
+const title = '影视天堂搜索软件隐私政策';
 //replavceStr优先级高的在前面
 const replaceStr = [
   ['影视天堂搜索软件', "{%$data['productFullName']%}"],
   ['影视天堂', "{%$data['productName']%}"]
 ];
+// const filePath = '../坏坏猫搜索软件隐私政策';
+// //html的title
+// const title = '坏坏猫搜索软件隐私政策';
+// //replavceStr优先级高的在前面
+// const replaceStr = [
+//   ['坏坏猫搜索软件', "{%$data['productFullName']%}"],
+//   ['坏坏猫', "{%$data['productName']%}"]
+// ];
 //加粗的样式类名
 const bold = 'bold';
 //条目的样式类名
 const titleClass = 'title';
 //默认color，docs出现该颜色不会添加style
 const defaultColor = '2B2B2B';
+//序号层级
+const layerDef = ['[id])', '&emsp;&emsp;● ', '&emsp;&emsp;&emsp;&emsp;nice']
 
 
 
@@ -56,7 +66,10 @@ let footer = "</div>\n</body>\n </html>";
 
 let str = header + arr.join("") + footer;
 
-fs.writeFile(filePath + ".html", str, (err) => {console.log(err||'success')})
+fs.writeFile(filePath + ".html", str, (err) => {
+  console.log(err||'success');
+  delectDir(filePath);
+})
 
 function parse(content) {
   var patternP = /<w:p.*?>.*?<\/w:p>/gi;
@@ -64,8 +77,16 @@ function parse(content) {
   var matchedWP = content.match(/<w:p.*?>.*?<\/w:p>/gi);
   //继续匹配每个<w:p></w:p>里面的<w:t>,这里必须判断matchedWP存在否则报错
   if (matchedWP) {
+    //十个层级
+    var dotLayer = [0,0,0,0,0,0,0,0,0,0];
     matchedWP.forEach(function(wpItem) {
       var matchedWR = wpItem.match(/(<w:r.[^>]*?>.*?<\/w:r>)/gi);
+      var hasDot = wpItem.match(/(<w:numPr[^>]*?><w:ilvl w:val=\"(.*?)\"\/><w:numId w:val="(.*?)"\/><\/w:numPr>)/i);
+      var pPre = '';
+      if (hasDot) {
+        var symbol = layerDef[hasDot[2]].replace(/\[id\]/, ++dotLayer[hasDot[2]]);
+        pPre = `<span class="layer-${hasDot[2]}">${symbol}</span>`;
+      }
       //注意这里<w:t>的匹配，有可能是<w:t xml:space="preserve">这种格式，需要特殊处理
       var textBarrel = [];
       var textContent = "";
@@ -107,12 +128,13 @@ function parse(content) {
         if (reallyBold) textBarrel.push(`</span>`);
         textContent = textBarrel.join("");
         replaceStr.forEach(pattern => {
-          textContent = textContent.replace(pattern[0], pattern[1]);
+          textContent = textContent.replace(new RegExp(pattern[0],'g'), pattern[1]);
         })
         if (/[一|二|三|四|五|六|七|八|九|十]、/.test(textContent)) {
           textContent = `<p class="${titleClass}">${textContent}</p>`
+          dotLayer = [0,0,0,0,0,0,0,0,0,0];
         } else {
-          textContent = `<p>${textContent}</p>`
+          textContent = `<p>${pPre}${textContent}</p>`
         }
         resultList.push(textContent)
       }
@@ -120,4 +142,20 @@ function parse(content) {
   }
   // console.log(resultList);
   return resultList;
+}
+
+function delectDir (path) {
+    var files = [];
+  if(fs.existsSync(path)) {
+    files = fs.readdirSync(path);
+    files.forEach(function(file, index) {
+      var curPath = path + "/" + file;
+      if(fs.statSync(curPath).isDirectory()) { // recurse
+        delectDir(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
 }

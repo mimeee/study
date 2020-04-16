@@ -50,15 +50,15 @@
 
         //async 写法
         //对比 promise写法，
-        // (async function () {
-        //     console.time("doIt2");
-        //     const time1 = 300;
-        //     const time2 = await step1(time1);
-        //     const time3 = await step2(time2);
-        //     const result = await step3(time3);
-        //     console.log(`result is ${result}`);
-        //     console.timeEnd("doIt2");
-        // })()
+        (async function () {
+            console.time("doIt2");
+            const time1 = 300;
+            const time2 = await step1(time1);
+            const time3 = await step2(time2);
+            const result = await step3(time3);
+            console.log(`result is ${result}`);
+            console.timeEnd("doIt2");
+        })()
 
     </script>
 </body>

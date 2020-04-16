@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hammerjs</title>
+</head>
+<body>
+	<div>123123</div>
+	<iframe src="https://youku.cdn4-okzy.com/share/b1b0432ceafb0ce714426e9114852ac7" frameborder="0"></iframe>
+	<div id="888">akfjkaljdfklsj</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+	<script>
+		var manager = new Hammer.Manager(document);
+
+        // Create a recognizer
+        var Press = new Hammer.Press({
+		  time: 500
+        });
+
+        // Add the recognizer to the manager
+        manager.add(Press);
+
+        // Subscribe to desired event
+        manager.on('press', function (e) {
+            console.log(e);
+        });
+	</script>
+</body>
+</html>

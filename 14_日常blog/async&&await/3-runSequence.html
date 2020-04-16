@@ -9,7 +9,7 @@
 <body>
     <script>
 //  情景1
-        //asyn 函数体内没有 await，事件执行顺序和 new promise 类似
+        // asyn 函数体内没有 await，事件执行顺序和 new promise 类似
         // const h = async () => {
         //     console.log('执行h函数');
         //     let g = 'g';
@@ -29,7 +29,9 @@
 //  情景3
         // const h = async () => {
         //     console.log('这就是h函数');
+
         //     let k = await 'f' + 2 + 3;
+
         //     new Promise((resolve) => {
         //         console.log('一个微任务即将诞生');
         //         resolve('诞生了');
@@ -47,26 +49,26 @@
         // i().then(res => console.log(res));
 
 //  情景4
-        // new Promise((resolve) => {
-        //     console.log('promise里面');
-        //     resolve('promise');
-        // }).then( () => {
-        //     console.log('主任务注册的微任务')
-        // })
+        new Promise((resolve) => {
+            console.log('promise里面');
+            resolve('promise');
+        }).then( () => {
+            console.log('主任务注册的微任务')
+        })
 
-        // //asyn 函数体内有 await，事件执行顺序和 new promise 类似，但是遇到 await 后面就不执行了，先把主任务执行完
-        // const h = async () => {
-        //     console.log('执行h函数,await前');
-        //     let g = await 'g';
-        //     console.log('执行h函数,await后');
-        //     return g;
-        // };
-        // h().then( res => console.log(`res: ${res}`))
-        // console.log('main');
+        //asyn 函数体内有 await，事件执行顺序和 new promise 类似，但是遇到 await 后面就不执行了，先把主任务执行完
+        const h = async () => {
+            console.log('执行h函数,await前');
+            let g = await 'g';
+            console.log('执行h函数,await后');
+            return g;
+        };
+        h().then( res => console.log(`res: ${res}`))
+        console.log('main');
 
-        // setTimeout(()=>{
-        //     console.log('主任务注册的宏任务')
-        // },0)
+        setTimeout(()=>{
+            console.log('主任务注册的宏任务')
+        },0)
     </script>
 </body>
 </html>

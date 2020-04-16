@@ -10,7 +10,9 @@
     <script>
         //是否达到并行, 同步会影响性能问题
         function delayRun(num) {
+            //立即执行
             console.log('delayRun');
+
             return new Promise( (resolve) => {
                setTimeout(() => {
                    console.log(num);
@@ -37,11 +39,11 @@
         // })()
 
         //使用promise.all
-        // (async () => {
-        //     Promise.all([delayRun(500), delayRun(1000)]).then( ([res1, res2]) => {
-        //         console.log([res1, res2])
-        //     })
-        // })()
+        (async () => {
+            Promise.all([delayRun(500), delayRun(1000)]).then( ([res1, res2]) => {
+                console.log([res1, res2])
+            })
+        })()
     </script>
 </body>
 </html>
